@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
@@ -39,7 +40,7 @@
  * @author Monte Ohrt <monte@ispi.net>
  * @author Andrei Zmievski <andrei@php.net>
  * @package Smarty
- * @version 2.5.0-cvs
+ * @version 2.6.0-RC1-cvs
  */
 
 /* $Id$ */
@@ -489,7 +490,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version              = '2.5.0-cvs';
+    var $_version              = '2.6.0-RC1-cvs';
 
     /**
      * current template inclusion depth
@@ -577,6 +578,14 @@ class Smarty
      * @var string
      */
     var $_cache_include = null;
+
+    /**
+     * indicate if the current code is used in a compiled
+     * include
+     *
+     * @var string
+     */
+    var $_cache_including = false;
 
     /**
      * cached file paths
@@ -737,10 +746,11 @@ class Smarty
      * @param string $function the name of the template function
      * @param string $function_impl the name of the PHP function to register
      */    
-    function register_function($function, $function_impl, $cacheable=true)
+    function register_function($function, $function_impl, $cacheable=true, $cache_attrs=null)
     {
         $this->_plugins['function'][$function] =
-            array($function_impl, null, null, false, $cacheable);
+            array($function_impl, null, null, false, $cacheable, $cache_attrs);
+        
     }
 
     /**
@@ -787,10 +797,10 @@ class Smarty
      * @param string $block name of template block
      * @param string $block_impl PHP function to register
      */    
-    function register_block($block, $block_impl, $cacheable=true)
+    function register_block($block, $block_impl, $cacheable=true, $cache_attrs=null)
     {
         $this->_plugins['block'][$block] =
-            array($block_impl, null, null, false, $cacheable);
+            array($block_impl, null, null, false, $cacheable, $cache_attrs);
     }
 
     /**
@@ -1098,7 +1108,7 @@ class Smarty
      */    
     function template_exists($tpl_file)
     {
-		$_params = array('resource_name' => $tpl_file);
+		$_params = array('resource_name' => $tpl_file, 'quiet'=>true, 'get_source'=>false);
         return $this->_fetch_resource_info($_params);
     }
 
@@ -1261,7 +1271,11 @@ class Smarty
                         if (@count($this->_cache_info['insert_tags']) == 0
                             && !$this->_cache_serials
                             && $_gmt_mtime == $_last_modified_date) {
-                            header("HTTP/1.1 304 Not Modified");
+                            if (php_sapi_name()=='cgi')
+                                header("Status: 304 Not Modified");
+                            else
+                                header("HTTP/1.1 304 Not Modified");
+
                         } else {
                             header("Last-Modified: ".$_gmt_mtime);
                             echo $_smarty_results;
@@ -1300,6 +1314,8 @@ class Smarty
 
         // if we just need to display the results, don't perform output
         // buffering - for speed
+        $_cache_including = $this->_cache_including;
+        $this->_cache_including = false;
         if ($display && !$this->caching && count($this->_plugins['outputfilter']) == 0) {
             if ($this->_is_compiled($resource_name, $_smarty_compile_path)
 					|| $this->_compile_resource($resource_name, $_smarty_compile_path))
@@ -1340,6 +1356,7 @@ class Smarty
             // restore initial cache_info
             $this->_cache_info = array_pop($_cache_info);
         }
+        $this->_cache_including = $_cache_including;
 
         if ($display) {
             if (isset($_smarty_results)) { echo $_smarty_results; }
@@ -1613,6 +1630,9 @@ class Smarty
 
         $_return = false;
         $_params = array('resource_name' => $params['resource_name']) ;
+        if (isset($params['resource_base_path']))
+            $_params['resource_base_path'] = $params['resource_base_path'];
+
         if ($this->_parse_resource_name($_params)) {
             $_resource_type = $_params['resource_type'];
             $_resource_name = $_params['resource_name'];
@@ -1710,8 +1730,12 @@ class Smarty
             if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $params['resource_name'])) {
                 // relative pathname to $params['resource_base_path']
                 // use the first directory where the file is found
-                $_resource_base_path = isset($params['resource_base_path']) ? $params['resource_base_path'] : array($this->template_dir, '.');
-                settype($_resource_base_path, 'array');
+                if (isset($params['resource_base_path'])) {
+                    $_resource_base_path = (array)$params['resource_base_path'];        
+                } else {
+                    $_resource_base_path = (array)$this->template_dir;
+                    $_resource_base_path[] = '.';
+                }
                 foreach ($_resource_base_path as $_curr_path) {
                     $_fullpath = $_curr_path . DIRECTORY_SEPARATOR . $params['resource_name'];
                     if (file_exists($_fullpath) && is_file($_fullpath)) {
@@ -1721,7 +1745,7 @@ class Smarty
                     // didn't find the file, try include_path
                     $_params = array('file_path' => $_fullpath);
                     require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
-                    if(smarty_core_get_include_path($_params, $smarty)) {
+                    if(smarty_core_get_include_path($_params, $this)) {
                         $params['resource_name'] = $_params['new_file_path'];
                         return true;
                     }
@@ -1752,6 +1776,7 @@ class Smarty
         list($_func_name, $_tpl_file, $_tpl_line) =
             $this->_plugins['modifier'][$_modifier_name];
 
+        $_var = $_args[0];
         foreach ($_var as $_key => $_val) {
             $_args[0] = $_val;
             $_var[$_key] = call_user_func_array($_func_name, $_args);
@@ -1943,48 +1968,72 @@ class Smarty
     
     // $_smarty_include_tpl_file, $_smarty_include_vars
     
-    function _smarty_include($params, &$smarty)
+    function _smarty_include($params)
     {
-        if ($smarty->debugging) {
+        if ($this->debugging) {
             $_params = array();
             require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
-            $debug_start_time = smarty_core_get_microtime($_params, $smarty);
-            $smarty->_smarty_debug_info[] = array('type'      => 'template',
+            $debug_start_time = smarty_core_get_microtime($_params, $this);
+            $this->_smarty_debug_info[] = array('type'      => 'template',
                                                   'filename'  => $params['smarty_include_tpl_file'],
-                                                  'depth'     => ++$smarty->_inclusion_depth);
-            $included_tpls_idx = count($smarty->_smarty_debug_info) - 1;
+                                                  'depth'     => ++$this->_inclusion_depth);
+            $included_tpls_idx = count($this->_smarty_debug_info) - 1;
         }
 
-        $smarty->_tpl_vars = array_merge($smarty->_tpl_vars, $params['smarty_include_vars']);
+        $this->_tpl_vars = array_merge($this->_tpl_vars, $params['smarty_include_vars']);
 
         // config vars are treated as local, so push a copy of the
         // current ones onto the front of the stack
-        array_unshift($smarty->_config, $smarty->_config[0]);
+        array_unshift($this->_config, $this->_config[0]);
 
-        $_smarty_compile_path = $smarty->_get_compile_path($params['smarty_include_tpl_file']);
+        $_smarty_compile_path = $this->_get_compile_path($params['smarty_include_tpl_file']);
 
 
-        if ($smarty->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
-            || $smarty->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path))
+        if ($this->_is_compiled($params['smarty_include_tpl_file'], $_smarty_compile_path)
+            || $this->_compile_resource($params['smarty_include_tpl_file'], $_smarty_compile_path))
         {
             include($_smarty_compile_path);
         }
 
         // pop the local vars off the front of the stack
-        array_shift($smarty->_config);
+        array_shift($this->_config);
 
-        $smarty->_inclusion_depth--;
+        $this->_inclusion_depth--;
 
-        if ($smarty->debugging) {
+        if ($this->debugging) {
             // capture time for debugging info
             $_params = array();
             require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_microtime.php');
-            $smarty->_smarty_debug_info[$included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $smarty) - $debug_start_time;
+            $this->_smarty_debug_info[$included_tpls_idx]['exec_time'] = smarty_core_get_microtime($_params, $this) - $debug_start_time;
         }
 
-        if ($smarty->caching) {
-            $smarty->_cache_info['template'][$params['smarty_include_tpl_file']] = true;
+        if ($this->caching) {
+            $this->_cache_info['template'][$params['smarty_include_tpl_file']] = true;
         }
+    }
+
+
+    /**
+     * get or set an array of cached attributes for function that is
+     * not cacheable
+     * @return array
+     */
+    function &_smarty_cache_attrs($cache_serial, $count) {
+        $_cache_attrs =& $this->_cache_info['cache_attrs'][$cache_serial][$count];
+
+        if ($this->_cache_including) {
+            /* return next set of cache_attrs */
+            $_return =& current($_cache_attrs);
+            next($_cache_attrs);
+            return $_return;
+
+        } else {
+            /* add a reference to a new set of cache_attrs */
+            $_cache_attrs[] = array();
+            return $_cache_attrs[count($_cache_attrs)-1];
+
+        }
+
     }
 
 
@@ -1992,8 +2041,11 @@ class Smarty
      * wrapper for include() retaining $this
      * @return mixed
      */
-    function _include($filename, $once=false)
+    function _include($filename, $once=false, $vars=null)
     {
+        if (is_array($vars))
+            extract($vars, EXTR_PREFIX_SAME, 'include_php_');
+
         if ($once) {
             return include_once($filename);
         } else {
@@ -2006,8 +2058,11 @@ class Smarty
      * wrapper for eval() retaining $this
      * @return mixed
      */
-    function _eval($code)
+    function _eval($code, $vars=null)
     {
+        if (is_array($vars))
+            extract($vars, EXTR_PREFIX_SAME, 'include_php_');
+
         return eval($code);
     }
     /**#@-*/

@@ -1,3 +1,241 @@
+2003-08-29  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.assign_smarty_interface.php
+      libs/core/core.display_debug_console.php
+      libs/plugins/function.assign.php
+      libs/plugins/function.html_options.php
+      libs/plugins/function.html_table.php:
+      fixed PHPDocumentor-comments (thanks Konstantin)
+
+    * libs/core/core.rmdir.php:
+      made rmdir a bit more optimistic. especially it now removes
+      directories correctly that where created accidently by "safe_mode=On
+      && $use_sub_dirs=true"
+
+2003-08-27  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php:
+      fixed removal of leading/trailing newlines in {strip}-blocks
+
+2003-08-25  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * INSTALL:
+      added note emphasizing the introduction of "libs/" with 2.5.0
+
+    * NEWS
+      libs/plugins/modifier.escape.php:
+      fixed proper escaping of " and ' with escape:javascript
+
+2003-08-22  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/core/core.assemble_plugin_filepath.php:
+      fixed bug in traversal of $smarty->plugins_dir-array in
+      smarty_core_assemble_plugin_filepath(). the first matching plugin in
+      the path should be used, not the last one.
+
+    * libs/core/core.read_cache_file.php:
+      discard $_cache_info when the cache should be regenerated
+
+2003-08-20  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty_Compiler.class.php
+      libs/plugins/block.strip.php:
+      reverted {strip} from a block-plugin back into the compiler
+
+    * docs/programmers.sgml:
+      fixed examples for register_function() and register_block()
+
+    * libs/Smarty.class.php:
+      made template_exists() quiet when the template does not exist (thanks
+      to konstatin for pointing this out)
+
+2003-08-18  Monte Ohrt  <monte@ispi.net>
+
+    * docs/getting-started.sgml:
+      fix example title
+
+    * docs/README
+      docs/getting-started.sgml:
+      change installation wording confusion
+
+2003-08-18  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.read_cache_file.php:
+      fixed unnecessary load of source in template_exists() and the
+      compile-check of smarty_core_read_cache_file()
+
+    * libs/Smarty_Compiler.class.php:
+      allow section-, array- and object-dereference in $smarty-references
+
+2003-08-15  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml:
+      added parameter-descriptions for count_characters (thanks Konstantin
+      A. Pelepelin)
+      
+      fixed docs for {html_checkboxes}
+
+2003-08-14  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.read_cache_file.php:
+      fixed timestamp-check of config-files in smarty_core_read_cache_file()
+
+    * libs/Smarty.class.php:
+      fixed typecasting for arrays in _parse_resource_name()
+
+    * NEWS
+      libs/plugins/function.config_load.php:
+      fixes in config_load:
+      - handling of section-attribute
+      - reusing the same config-file multiple times
+      - serialization of config-data for php<4.2.0 (no var_export)
+      
+      many thanks to atu for pointing this out and for testing
+
+2003-08-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php
+      libs/core/core.smarty_include_php.php:
+      fixed problem with vars as attributes in {include_php}
+
+2003-08-13  Monte Ohrt  <monte@ispi.net>
+
+    * docs/README:
+      commit README file for documentation compiling
+
+2003-08-13  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/debug.tpl
+      libs/plugins/modifier.debug_print_var.php:
+      removed '\r' from debug_print_vars' output
+      properly escape vars in javascript-version of debug.tpl
+
+2003-08-11  Monte Ohrt  <monte@ispi.net>
+
+    * (Smarty_2_6_0_RC1)
+      NEWS
+      docs/designers.sgml
+      docs/html.dsl
+      docs/php.dsl
+      libs/Config_File.class.php
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      get ready for 2.6.0-RC1 release
+
+2003-08-10  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php:
+      fixed status-header for cache_modified_check under cgi-sapi
+
+2003-08-09  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/core/core.is_secure.php
+      libs/core/core.is_trusted.php:
+      synced secure_dir-checking with trusted_dir-checking
+
+    * libs/core/core.is_secure.php:
+      tightenend path checking in smarty_core_is_secure()
+
+2003-08-08  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * libs/Smarty.class.php:
+      fix: proper nesting of $smarty->_cache_including flag in cascaded
+      cached/not-cached/fetched/inserted/foo-templates
+
+    * libs/debug.tpl:
+      better escaping for $_debug_tpls[templates].filenames
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      removed redundant $smarty from Smarty::_smarty_include()
+
+    * libs/debug.tpl:
+      proper escaping of filenames in debug-console (thanks to prossel).
+
+2003-08-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/programmers.sgml:
+      added docs for block-methods of registered objects
+
+    * docs/programmers.sgml:
+      fixed typo in example for registered objects
+
+    * docs/designers.sgml:
+      fixed exampls of html_image and html_checkboxes
+
+    * libs/plugins/function.debug.php:
+      fixed {debug} and removed tabs in function.debug.php
+
+    * docs/programmers.sgml:
+      fixed example for register_object
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      updated docs for capture, html_table, html_image and register_object
+
+2003-08-07  Monte Ohrt  <monte@ispi.net>
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      add math and default_resource_type to docs
+
+    * docs/getting-started.sgml:
+      add core to example, add tech note
+
+2003-08-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/manual.sgml
+      docs/fr/manual.sgml:
+      upd copyright in the docs
+
+2003-08-07  Monte Ohrt  <monte@ispi.net>
+
+    * docs/getting-started.sgml:
+      added core directory to install instructions
+
+2003-08-07  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * docs/designers.sgml
+      docs/programmers.sgml:
+      added docs for php-functions as modifiers
+
+    * libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php:
+      better caching of attributes for $cacheable=false-plugins
+
+    * docs/programmers.sgml:
+      added section "caching.cacheable" to the docs, explaining the usage of
+      the $cacheable-flag of the register_(block|compiler|function)-functions
+
+    * libs/Smarty_Compiler.class.php:
+      fixed output of custom-functions with cached attributes
+
+    * docs/programmers.sgml:
+      docs update on callbacks to the register_*-functions
+
+2003-08-06  Messju Mohr  <messju@lammfellpuschen.de>
+
+    * NEWS
+      libs/Smarty.class.php
+      libs/Smarty_Compiler.class.php
+      libs/core/core.process_compiled_include.php:
+      added optional parameter $cache_attrs to register_function() and
+      register_block(). $cache_attrs is an array containing attribute- names
+      that should be cached on calls to functions that have $cacheable set
+      to false.
+
+    * libs/Smarty.class.php:
+      fixed bug in _run_mod_handler
+
+    * libs/Smarty_Compiler.class.php:
+      fixed bug with autoload-handling of modifiers. thanks ándre.
+
 2003-08-05  Messju Mohr  <messju@lammfellpuschen.de>
 
     * libs/Config_File.class.php

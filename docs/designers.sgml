@@ -109,7 +109,7 @@
 {html_options values=$vals selected=$selected output=$output}
 &lt;/SELECT&gt;</programlisting>
 </example>
-		</sect1>
+	</sect1>
    <sect1 id="language.syntax.quotes">
     <title>Embedding Vars in Double Quotes</title>
     <para>
@@ -134,6 +134,29 @@ PRACTICAL EXAMPLES:
 {cycle values="one,two,`$smarty.config.myval`"} &lt;-- must have backticks</programlisting>
 </example>
 		</sect1>
+   <sect1 id="language.math">
+    <title>Math</title>
+    <para>
+	Math can be applied directly to variable values.
+    </para>
+    <example>
+     <title>math examples</title>
+     <programlisting>	 
+{$foo+1}
+
+{$foo*$bar}
+	 
+{* some more complicated examples *}
+	 
+{$foo-&gt;bar-$bar[1]*$baz-&gt;foo-&gt;bar()-3*7}
+
+{if ($foo+$bar.test%$baz*134232+10+$b+10)}
+
+{$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}
+
+{assign var="foo" value="`$foo+$bar`"}</programlisting>
+</example>
+	</sect1>
 
   </chapter>
 
@@ -490,6 +513,27 @@ Topic: {$topic|truncate:40:"..."}
       <literal>{$articleTitle|@count}</literal> (this will print out the number of
       elements in the $articleTitle array.)
      </para>
+     <para>
+      Modifiers can be autoloaded from your <link
+      linkend="variable.plugins.dir">$plugins_dir</link> (also see:
+      <link linkend="plugins.naming.conventions">Naming
+      Conventions</link>) or can be registered explicitely (see: <link
+      linkend="api.register.modifier">register_modifier</link>). Additionally
+      all php-functions can be used as modifiers implicitely. (The
+      <literal>@count</literal>-example above actually uses php's
+      count-function and not a smarty-modifier). Using php-functions
+      as modifiers has two little pitfalls: First: Sometimes the order
+      of the function-parameters is not the desirable one
+      (<literal>{"%2.f"|sprintf:$float}</literal> actually works, but
+      asks for the more intuitive <literal>{For example:
+      $float|string_format:"%2.f"}</literal> that is provided by the
+      Smarty distribution). Second: with <link
+      linkend="variable.security">$security</link> turned on all
+      php-functions that are to be used as modifiers have to be
+      declared trusted in the <link
+      linkend="variable.security.settings">
+      $security_settings['MODIFIER_FUNCS']</link>-array.
+     </para>
 
       <sect1 id="language.modifier.capitalize">
        <title>capitalize</title>
@@ -518,6 +562,34 @@ Police Begin Campaign To Rundown Jaywalkers.</programlisting>
 		</sect1>
 		<sect1 id="language.modifier.count.characters">
 			<title>count_characters</title>
+            <informaltable frame=all>
+                <tgroup cols=6>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Parameter Position</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>1</entry>
+                        <entry>boolean</entry>
+                        <entry>No</entry>
+                        <entry>false</entry>
+                        <entry>This determines whether or not to include
+                        whitespace characters in the count.</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
 			<para>
 			This is used to count the number of characters in a variable.
 			</para>
@@ -534,10 +606,11 @@ index.tpl:
 
 {$articleTitle}
 {$articleTitle|count_characters}
-
+{$articleTitle|count_characters:true}
 OUTPUT:
 
 Cold Wave Linked to Temperatures.
+29
 32</programlisting>
 </example>
 		</sect1>
@@ -554,7 +627,7 @@ Cold Wave Linked to Temperatures.
                     <row>
                         <entry>Parameter Position</entry>
                         <entry>Type</entry>
-                        <entry>Required</entry>       
+                        <entry>Required</entry>
                         <entry>cat</entry>
                         <entry>Description</entry>
                     </row>
@@ -1633,6 +1706,40 @@ s m o k e r s   a r e   p. . .</programlisting>
      </para>
      <sect1 id="language.function.capture">
       <title>capture</title>
+            <informaltable frame=all>
+                <tgroup cols=5>
+                <colspec colname=param align=center>
+                <colspec colname=type align=center>
+                <colspec colname=required align=center>
+                <colspec colname=default align=center>
+                <colspec colname=desc>
+                <thead>
+                    <row>
+                        <entry>Attribute Name</entry>
+                        <entry>Type</entry>
+                        <entry>Required</entry>       
+                        <entry>Default</entry>
+                        <entry>Description</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>name</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>default</emphasis></entry>
+                        <entry>The name of the captured block</entry>
+                    </row>
+                    <row>
+                        <entry>assign</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>n/a</emphasis></entry>
+                        <entry>The variable name where to assign the captured output to</entry>
+                    </row>
+                </tbody>
+                </tgroup>
+            </informaltable>
       <para>
        capture is used to collect the output of the template into a
        variable instead of displaying it. Any content between {capture
@@ -3574,11 +3681,11 @@ You must supply a &lt;b&gt;state&lt;/b&gt;.
                         <entry>an array of output for checkbox buttons</entry>
                     </row>
                     <row>
-                        <entry>checked</entry>
-                        <entry>string</entry>
+                        <entry>selected</entry>
+                        <entry>string/array</entry>
                         <entry>No</entry>
                         <entry><emphasis>empty</emphasis></entry>
-                        <entry>the checked checkbox element</entry>
+                        <entry>the checked checkbox element(s)</entry>
                     </row>
                     <row>
                         <entry>options</entry>
@@ -3623,8 +3730,7 @@ index.php:
 require('Smarty.php.class');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_ids', array(1000,1001,1002,1003));
-$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane
-Johnson','Charlie Brown'));
+$smarty-&gt;assign('cust_names', array('Joe Schmoe','Jack Smith','Jane Johnson','Charlie Brown'));
 $smarty-&gt;assign('customer_id', 1001);
 $smarty-&gt;display('index.tpl');
 
@@ -3639,9 +3745,10 @@ index.php:
 require('Smarty.php.class');
 $smarty = new Smarty;
 $smarty-&gt;assign('cust_checkboxes', array(
-			1001 =&gt; 'Joe Schmoe',
-			1002 =&gt; 'Jack Smith',
-			1003 =&gt; 'Jane Johnson','Charlie Brown'));
+			1000 =&gt; 'Joe Schmoe',
+			1001 =&gt; 'Jack Smith',
+			1002 =&gt; 'Jane Johnson',
+			1003 =&gt; 'Charlie Brown'));
 $smarty-&gt;assign('customer_id', 1001);
 $smarty-&gt;display('index.tpl');
 
@@ -3652,10 +3759,10 @@ index.tpl:
 
 OUTPUT: (both examples)
 
-&lt;input type="checkbox" name="id[]" value="1000"&gt;Joe Schmoe&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1001" checked="checked"&gt;&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1002"&gt;Jane Johnson&lt;br /&gt;
-&lt;input type="checkbox" name="id[]" value="1003"&gt;Charlie Brown&lt;br /&gt;</programlisting>
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1000" /&gt;Joe Schmoe&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1001" checked="checked" /&gt;Jack Smith&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1002" /&gt;Jane Johnson&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;&lt;input type="checkbox" name="checkbox[]" value="1003" /&gt;Charlie Brown&lt;/label&gt;&lt;br /&gt;</programlisting>
 </example>
 		</sect1>
 		<sect1 id="language.function.html.image">
@@ -3713,7 +3820,14 @@ OUTPUT: (both examples)
                         <entry>directory to base relative paths from</entry>
                     </row>
                     <row>
-                        <entry>link</entry>
+                        <entry>alt</entry>
+                        <entry>string</entry>
+                        <entry>no</entry>
+                        <entry><emphasis>""</emphasis></entry>
+                        <entry>alternative description of the image</entry>
+                    </row>
+                    <row>
+                        <entry>href</entry>
                         <entry>string</entry>
                         <entry>no</entry>
                         <entry><emphasis>n/a</emphasis></entry>
@@ -3734,7 +3848,7 @@ OUTPUT: (both examples)
 			path to the image must be within a secure directory.
 			</para>
 			<para>
-			link is the href value to link the image to. If link is supplied, an
+			<parameter>href</parameter> is the href value to link the image to. If link is supplied, an
 			&lt;a href="LINKVALUE"&gt;&lt;a&gt; tag is put around the image tag.
 			</para>
 			<note>
@@ -3763,9 +3877,13 @@ index.tpl:
 
 OUTPUT: (possible)
 
-&lt;img src="pumpkin.jpg" border="0" width="44" height="68"&gt;
-&lt;img src="/path/under/docroot/pumpkin.jpg" border="0" width="44" height="68"&gt;
-&lt;img src="../path/relative/to/currdir/pumpkin.jpg" border="0" width="44" height="68"&gt;</programlisting>
+&lt;img src="pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;
+&lt;img src="/path/from/docroot/pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;
+&lt;img src="../path/relative/to/currdir/pumpkin.jpg" alt="" border="0" width="44" height="68" /&gt;</programlisting>
+
+
+
+
 </example>
 		</sect1>
 		<sect1 id="language.function.html.options">
@@ -4671,6 +4789,21 @@ OUTPUT:
                         <entry><emphasis>&amp;nbsp;</emphasis></entry>
                         <entry>value to pad the trailing cells on last row with
 						(if any)</entry>
+                    </row>
+
+                    <row>
+                        <entry>hdir</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>right</emphasis></entry>
+                        <entry>direction of one row to be rendered. possible values: <emphasis>left</emphasis>/<emphasis>right</emphasis></entry>
+                    </row>
+                    <row>
+                        <entry>vdir</entry>
+                        <entry>string</entry>
+                        <entry>No</entry>
+                        <entry><emphasis>down</emphasis></entry>
+                        <entry>direction of the columns to be rendered. possible values: <emphasis>up</emphasis>/<emphasis>down</emphasis></entry>
                     </row>
                 </tbody>
                 </tgroup>
