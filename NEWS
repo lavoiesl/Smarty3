@@ -1,3 +1,17 @@
+  - add $smarty.ldelim and $smarty.rdelim to smarty special var (Monte)
+  - fall back to old uniqid()-behaviour when tempnam() fails in
+    core.write_file.php (messju)
+  - fix capitalize modifier, don't rely on buggy ucwords (Monte)
+  - make html_select_date work with negative timestamps, also
+    force year range to include given date unless explicitly
+    set (Garo, Monte)
+  - fix bug with fetch, passing user/pass in url did not work
+    (Monte)
+  - fix occasional wrong error messages on mismatched tags when
+    {else}, {elseif}, {foreachelse} or {sectionelse} is involved (messju)
+  - fix handling of methods arguments (messju, Manfred Wischin)
+  - remove touch() call that made the compiled-template's timestamp the
+    same as the source-template's one. (messju)
   - add assign attribute to html_checkboxes and html_radios
     (pcg, Monte)
   - remove non-xhtml conformant tag from mailto function

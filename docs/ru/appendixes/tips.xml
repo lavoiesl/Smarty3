@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
+<!-- EN-Revision: 1.4 Maintainer: tony2001 Status: in-progress -->
 <chapter id="tips">
  <title>Советы</title>
   <sect1 id="tips.blank.var.handling">
@@ -32,7 +33,7 @@
 </example>
 </sect1>
 <sect1 id="tips.default.var.handling">
- <title>Обработка переменных по умлочанию</title>
+ <title>Обработка переменных по умолчанию</title>
  <para>
   Если переменная встречается часто, то использование модификатора 
   default каждый раз можно избежать, используя функцию

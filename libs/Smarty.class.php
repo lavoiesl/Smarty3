@@ -263,7 +263,7 @@ class Smarty
      *
      * @var string
      */
-    var $request_vars_order    = "EGPCS";
+    var $request_vars_order    = 'EGPCS';
 
     /**
      * Indicates wether $HTTP_*_VARS[] (request_use_auto_globals=false)
@@ -1196,12 +1196,12 @@ class Smarty
                             && !$this->_cache_serials
                             && $_gmt_mtime == $_last_modified_date) {
                             if (php_sapi_name()=='cgi')
-                                header("Status: 304 Not Modified");
+                                header('Status: 304 Not Modified');
                             else
-                                header("HTTP/1.1 304 Not Modified");
+                                header('HTTP/1.1 304 Not Modified');
 
                         } else {
-                            header("Last-Modified: ".$_gmt_mtime);
+                            header('Last-Modified: '.$_gmt_mtime);
                             echo $_smarty_results;
                         }
                     } else {
@@ -1220,7 +1220,7 @@ class Smarty
             } else {
                 $this->_cache_info['template'][$resource_name] = true;
                 if ($this->cache_modified_check && $display) {
-                    header("Last-Modified: ".gmdate('D, d M Y H:i:s', time()).' GMT');
+                    header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT');
                 }
             }
         }
@@ -1408,7 +1408,6 @@ class Smarty
         }
 
         $_source_content = $_params['source_content'];
-        $_resource_timestamp = $_params['resource_timestamp'];
         $_cache_include    = substr($compile_path, 0, -4).'.inc';
 
         if ($this->_compile_source($resource_name, $_source_content, $_compiled_content, $_cache_include)) {
@@ -1418,7 +1417,7 @@ class Smarty
                 smarty_core_write_compiled_include(array_merge($this->_cache_include_info, array('compiled_content'=>$_compiled_content)),  $this);
             }
 
-            $_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content, 'resource_timestamp' => $_resource_timestamp);
+            $_params = array('compile_path'=>$compile_path, 'compiled_content' => $_compiled_content);
             require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.write_compiled_resource.php');
             smarty_core_write_compiled_resource($_params, $this);
 
@@ -1624,7 +1623,7 @@ class Smarty
         }
 
         if ($params['resource_type'] == 'file') {
-            if (!preg_match("/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/", $params['resource_name'])) {
+            if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $params['resource_name'])) {
                 // relative pathname to $params['resource_base_path']
                 // use the first directory where the file is found
                 foreach ((array)$params['resource_base_path'] as $_curr_path) {
@@ -1739,7 +1738,7 @@ class Smarty
         if(isset($auto_source)) {
             // make source name safe for filename
             $_filename = urlencode(basename($auto_source));
-            $_crc32 = sprintf("%08X", crc32($auto_source));
+            $_crc32 = sprintf('%08X', crc32($auto_source));
             // prepend %% to avoid name conflicts with
             // with $params['auto_id'] names
             $_crc32 = substr($_crc32, 0, 2) . $_compile_dir_sep .

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 1.7 -->
+<!-- EN-Revision: 1.5 Maintainer: tony2001 Status: ready -->
 <chapter id="plugins">
  <title>Плагины - расширение функционала Smarty</title>
 
@@ -48,7 +48,7 @@
    в эту директорию и Smarty будет использовать его в автоматическом режиме.
   </para>
  </sect1>
-  
+ &programmers.plugins.plugins-howto;  
  &programmers.plugins.plugins-naming-conventions;
  &programmers.plugins.plugins-writing;
  &programmers.plugins.plugins-functions;

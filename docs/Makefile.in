@@ -25,6 +25,8 @@ PHP=@PHP@
 LANG=@LANG@
 NSGMLS=@NSGMLS@
 JADE=@JADE@  -D . -wno-idref
+XMLLINT=@XMLLINT@
+FOP=@FOP@
 XMLDCL=./dtds/dbxml-4.1.2/phpdocxml.dcl
 CATALOG=@CATALOG@
 HTML_STYLESHEET=dsssl/html.dsl
@@ -48,9 +50,14 @@ web: FORCE
 	$(PHP) scripts/generate_web.php
 	$(PHP) scripts/html_syntax.php php phpweb/
 
+pdf: FORCE
+	${FOP} -xml manual.xml -xsl xsl/fo.xsl -pdf manual.pdf
+
 test:
 	$(NSGMLS) -i lang-$(LANG) -s $(XMLDCL) manual.xml 
 
+test_xml:
+	$(XMLLINT) --noent --noout --valid manual.xml
 
 revcheck: FORCE
 	$(PHP) -f scripts/revcheck.php $(LANG) > revcheck.html
@@ -58,8 +65,8 @@ revcheck: FORCE
 # {{{ cleanup 
 
 clean:
-	rm -f Makefile config.* manual.xml configure entities/version.ent *.fot dsssl/html-common.dsl
-	rm -f revcheck.html file-entities.php entities/file-entities.ent scripts/file-entities.php
+	rm -f Makefile config.* manual.xml configure entities/version.ent *.fot dsssl/html-common.dsl manual.pdf
+	rm -f revcheck.html file-entities.php entities/file-entities.ent scripts/file-entities.php manual.fo
 	rm -fr autom4te.cache html phpweb
 
 # }}}
