@@ -1,0 +1,229 @@
+PHPUnit 3.3.15 by Sebastian Bergmann.
+
+Test Suite
+ CoreTests
+ ....
+
+ ClearCompiledTests
+ ..........
+
+ ClearCacheTests
+ .....
+
+ StringResourceTests
+ ..................
+
+ FileResourceTests
+ ..................................
+
+ DoubleQuotedStringTests
+ ..................
+
+ CompileAssignTests
+ ......................
+
+ AttributeTests
+ ....
+
+ AppendByRefTests
+ .....
+
+ AppendTests
+ ......
+
+ ArrayTests
+ ...............
+
+ AssignByRefTests
+ ..
+
+ AssignGlobalTests
+ ....
+
+ AssignTests
+ ..
+
+ CacheResourceFileTests
+ ....................
+
+ ClearAllAssignTests
+ .....
+
+ ClearAssignTests
+ .....
+
+ CommentsTests
+ .........
+
+ CompileAppendTests
+ ..
+
+ CompileBlockExtendsTests
+ .............................
+
+ CompileBlockPluginTests
+  .......
+
+ CompileCaptureTests
+ ..........
+
+ CompileCompilerPluginTests
+ ..
+
+ CompileDebugTests
+ ..
+
+ CompileDelimiterTests
+ ..
+
+ CompileErrorTests
+ .....
+
+ CompileEvalTests
+ ...
+
+ CompileForeachTests
+ ...........................
+
+ CompileForTests
+ ....................
+
+ CompileFunctionPluginTests
+ ...
+
+ CompileFunctionTests
+ ...........
+
+ CompileIfTests
+ ........................................................... 59 / 67
+ ........
+
+ CompileIncludePHPTests
+ ...
+
+ CompileIncludeTests
+ ........
+
+ CompileInsertTests
+ .............
+
+ CompileNocacheTests
+ ...
+
+ CompilePhpTests
+ ..................
+
+ CompileRegisteredObjectFunctionTests
+ ...
+
+ CompilerPluginTests
+ .
+
+ CompileSectionTests
+ ......
+
+ CompileStripTests
+ .
+
+ CompileWhileTests
+ ..
+
+ ConfigVarTests
+ ....................................
+
+ ConstantsTests
+ .
+
+ DefaultTemplateHandlerTests
+ ....
+
+ DelimiterTests
+ ....
+
+ EvalResourceTests
+ ...................
+
+ ExtendsResourceTests
+ .........
+
+ FilterTests
+ .........
+
+ FunctionTests
+ .
+
+ GetTemplateVarsTests
+ ......
+
+ LoadFilterTests
+ .
+
+ ModifierTests
+ ................
+
+ ObjectVariableTests
+ ...
+
+ PhpResourceTests
+ .........................
+
+ PrintNocacheTests
+ ....
+
+ RegisterBlockTests
+ .................
+
+ RegisterCompilerFunctionTests
+ ......
+
+ RegisteredResourceTests
+ ..
+
+ RegisterFilterTests
+ .............
+
+ RegisterFunctionTests
+ ...........
+
+ RegisterModifierTests
+ ......
+
+ ResourcePluginTests
+ ..
+
+ SecurityTests
+ ......................
+
+ SingleQuotedStringTests
+ ......
+
+ SpacingTests
+ ............
+
+ StaticClassAccessTests
+ ..........
+
+ StreamResourceTests
+ ......................
+
+ StreamVariableTests
+ .
+
+ TemplateExistsTests
+ ..
+
+ TernaryTests
+ .....................
+
+ VariableScopeTests
+ ................
+
+ VariableVariableTests
+ ....
+
+ XmlTests
+ ......
+
+Time: 57 seconds
+
+OK (753 tests, 1053 assertions)

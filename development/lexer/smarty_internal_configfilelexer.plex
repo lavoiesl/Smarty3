@@ -1,0 +1,187 @@
+<?php
+/**
+* Smarty Internal Plugin Configfilelexer
+*
+* This is the lexer to break the config file source into tokens 
+* @package Smarty
+* @subpackage Config
+* @author Uwe Tews 
+*/
+/**
+* Smarty Internal Plugin Configfilelexer
+*/
+class Smarty_Internal_Configfilelexer
+{
+
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    private $state = 1;
+    public $smarty_token_names = array (		// Text for parser error messages
+   				);
+    				
+    				
+    function __construct($data, $smarty)
+    {
+        // set instance object
+        self::instance($this); 
+        $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->counter = 0;
+        $this->line = 1;
+        $this->smarty = $smarty; 
+     }
+    public static function &instance($new_instance = null)
+    {
+        static $instance = null;
+        if (isset($new_instance) && is_object($new_instance))
+            $instance = $new_instance;
+        return $instance;
+    } 
+
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+commentstart = /#/
+openB = /\[/
+closeB = /\]/
+section = /.*?(?=[\.=\[\]\r\n])/
+equal = /=/
+whitespace = /[ \t\r]+/
+dot = /\./
+id = /[0-9]*[a-zA-Z_]\w*/
+newline = /\n/
+single_quoted_string = /'[^'\\]*(?:\\.[^'\\]*)*'(?=[ \t\r]*[\n#])/
+double_quoted_string = /"[^"\\]*(?:\\.[^"\\]*)*"(?=[ \t\r]*[\n#])/
+tripple_double_quoted_string = /"""[^"\\]*(?:\\.[^"\\]*)*"""(?=[ \t\r]*[\n#])/
+float = /\d+\.\d+(?=[ \t\r]*[\n#])/
+int = /\d+(?=[ \t\r]*[\n#])/
+maybe_bool = /[a-zA-Z]+(?=[ \t\r]*[\n#])/
+naked_string = /[^\n]+?(?=[ \t\r]*\n)/
+*/
+
+/*!lex2php
+%statename START
+
+commentstart {
+    $this->token = Smarty_Internal_Configfileparser::TPC_COMMENTSTART;
+    $this->yypushstate(self::COMMENT);
+}
+openB {
+    $this->token = Smarty_Internal_Configfileparser::TPC_OPENB;
+    $this->yypushstate(self::SECTION);
+}
+closeB {
+    $this->token = Smarty_Internal_Configfileparser::TPC_CLOSEB;
+}
+equal {
+    $this->token = Smarty_Internal_Configfileparser::TPC_EQUAL;
+    $this->yypushstate(self::VALUE);
+}
+whitespace {
+    return false;
+}
+newline {
+    $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
+}
+id {
+    $this->token = Smarty_Internal_Configfileparser::TPC_ID;
+}
+
+*/
+
+/*!lex2php
+%statename VALUE
+
+whitespace {
+    return false;
+}
+float {
+    $this->token = Smarty_Internal_Configfileparser::TPC_FLOAT;
+    $this->yypopstate();
+}
+int {
+    $this->token = Smarty_Internal_Configfileparser::TPC_INT;
+    $this->yypopstate();
+}
+single_quoted_string {
+    $this->token = Smarty_Internal_Configfileparser::TPC_SINGLE_QUOTED_STRING;
+    $this->yypopstate();
+}
+double_quoted_string {
+    $this->token = Smarty_Internal_Configfileparser::TPC_DOUBLE_QUOTED_STRING;
+    $this->yypopstate();
+}
+tripple_double_quoted_string {
+    $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_DOUBLE_QUOTED_STRING;
+    $this->yypopstate();
+}
+maybe_bool {
+    if (!$this->smarty->config_booleanize || !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no")) ) {
+        $this->yypopstate();
+        $this->yypushstate(self::NAKED_STRING_VALUE);
+        return true; //reprocess in new state
+    } else {
+        $this->token = Smarty_Internal_Configfileparser::TPC_BOOL;
+        $this->yypopstate();
+    }
+}
+naked_string {
+    $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
+    $this->yypopstate();
+}
+newline {
+    $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
+    $this->value = "";
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename NAKED_STRING_VALUE
+
+naked_string {
+    $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename COMMENT
+
+whitespace {
+    return false;
+}
+naked_string {
+    $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
+}
+newline {
+    $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
+    $this->yypopstate();
+}
+
+*/
+
+/*!lex2php
+%statename SECTION
+
+dot {
+    $this->token = Smarty_Internal_Configfileparser::TPC_DOT;
+}
+section {
+    $this->token = Smarty_Internal_Configfileparser::TPC_SECTION;
+    $this->yypopstate();
+}
+
+*/
+
+}
+?>
