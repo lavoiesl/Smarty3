@@ -13,7 +13,6 @@
       <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$tag_arg</parameter></paramdef>
       <paramdef>object <parameter>$smarty</parameter></paramdef>
-      <paramdef>object <parameter>$template</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -38,7 +37,7 @@
  *           the time it was compiled.
  * -------------------------------------------------------------
  */
-function smarty_compiler_tplheader($tag_arg, $smarty, $template)
+function smarty_compiler_tplheader($tag_arg, $smarty)
 {
     return "\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';";
 }
