@@ -160,8 +160,10 @@ $smarty->assign('to',5);
  </example>
  
   <para>
-   See also <link linkend="language.function.foreach"><varname>{foreach}</varname></link> and
+   See also <link linkend="language.function.foreach"><varname>{foreach}</varname></link>,
    <link linkend="language.function.section"><varname>{section}</varname></link>
+   and
+   <link linkend="language.function.while"><varname>{while}</varname></link>
   </para>
 </sect1>
 
