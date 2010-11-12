@@ -5,7 +5,8 @@
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$template</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -82,7 +83,7 @@ Answer: {eightball}.
  * Purpose:  assign a value to a template variable
  * -------------------------------------------------------------
  */
-function smarty_function_assign($params, $smarty)
+function smarty_function_assign($params, $smarty, $template)
 {
     if (empty($params['var'])) {
         $smarty->triggerError("assign: missing 'var' parameter");
@@ -94,7 +95,13 @@ function smarty_function_assign($params, $smarty)
         return;
     }
 
-    $smarty->assign($params['var'], $params['value']);
+    $template->assign($params['var'], $params['value']); // assign in local template scope
+    
+    // or
+
+    $smarty->assignGlobal($params['var'], $params['value']); // assign global for all templates
+    
+    
 }
 ?>
 ]]>

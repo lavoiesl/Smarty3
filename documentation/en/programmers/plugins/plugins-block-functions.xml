@@ -6,8 +6,9 @@
       <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
       <paramdef>boolean <parameter>&amp;$repeat</parameter></paramdef>
+      <paramdef>object <parameter>$template</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -83,7 +84,7 @@
  * Purpose:  translate a block of text
  * -------------------------------------------------------------
  */
-function smarty_block_translate($params, $content, $smarty, &$repeat)
+function smarty_block_translate($params, $content, $smarty, &$repeat, $template)
 {
     // only output on the closing tag
     if(!$repeat){
