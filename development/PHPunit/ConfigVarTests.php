@@ -109,6 +109,15 @@ class ConfigVarTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Welcome to Smarty!", $this->smarty->getConfigVars('title'));
     } 
     /**
+    * test config varibales loading parent
+    */
+    public function testConfigVariableGlobal()
+    {
+        $this->assertEquals("Welcome to Smarty!", $this->smarty->fetch('eval:{config_load file=\'test.conf\' scope=\'global\'}{#title#}')); 
+        // global is parent must not be empty
+        $this->assertEquals("Welcome to Smarty!", $this->smarty->getConfigVars('title'));
+    } 
+    /**
     * test config variables of hidden sections
     * shall display variables from hidden section
     */
