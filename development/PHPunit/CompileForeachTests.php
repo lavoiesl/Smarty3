@@ -29,6 +29,16 @@ class CompileForeachTests extends PHPUnit_Framework_TestCase {
         $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{$x}{/foreach}');
         $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
     } 
+    public function testForeachBreak()
+    {
+        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{if $x == 2}{break}{/if}{$x}{/foreach}');
+        $this->assertEquals("01", $this->smarty->fetch($tpl));
+    } 
+    public function testForeachContinue()
+    {
+        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{if $x == 2}{continue}{/if}{$x}{/foreach}');
+        $this->assertEquals("013456789", $this->smarty->fetch($tpl));
+    } 
     public function testForeachNotElse()
     {
         $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{$x}{foreachelse}else{/foreach}');

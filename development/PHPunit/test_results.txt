@@ -83,7 +83,7 @@ Test Suite
  ...
 
  CompileForeachTests
- ...........................
+ .............................
 
  CompileForTests
  ....................
@@ -129,7 +129,7 @@ Test Suite
  ..
 
  ConfigVarTests
- ....................................
+ .....................................
 
  ConstantsTests
  .
@@ -224,6 +224,6 @@ Test Suite
  XmlTests
  ......
 
-Time: 57 seconds
+Time: 52 seconds
 
-OK (753 tests, 1053 assertions)
+OK (756 tests, 1057 assertions)

@@ -109,7 +109,7 @@ class ConfigVarTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals("Welcome to Smarty!", $this->smarty->getConfigVars('title'));
     } 
     /**
-    * test config varibales loading parent
+    * test config varibales loading global
     */
     public function testConfigVariableGlobal()
     {
