@@ -28,28 +28,28 @@ class CoreTests extends PHPUnit_Framework_TestCase {
     */
     public function testLoadPluginErrorReturn()
     {
-        $this->assertFalse(Smarty_Internal_Plugin_Loader::loadPlugin('Smarty_Not_Known', $this->smarty->plugins_dir));
+        $this->assertFalse($this->smarty->loadPlugin('Smarty_Not_Known'));
     } 
     /**
     * loadPlugin test Smarty_Internal_Debug exists
     */
     public function testLoadPluginSmartyInternalDebug()
     {
-        $this->assertTrue(Smarty_Internal_Plugin_Loader::loadPlugin('Smarty_Internal_Debug', $this->smarty->plugins_dir) == true);
+        $this->assertTrue($this->smarty->loadPlugin('Smarty_Internal_Debug') == true);
     } 
     /**
     * loadPlugin test $template_class exists
     */
     public function testLoadPluginSmartyTemplateClass()
     {
-        $this->assertTrue(Smarty_Internal_Plugin_Loader::loadPlugin($this->smarty->template_class, $this->smarty->plugins_dir) == true);
+        $this->assertTrue($this->smarty->loadPlugin($this->smarty->template_class) == true);
     } 
     /**
     * loadPlugin test loaging from plugins_dir
     */
     public function testLoadPluginSmartyPluginCounter()
     {
-        $this->assertTrue(Smarty_Internal_Plugin_Loader::loadPlugin('Smarty_Function_Counter', $this->smarty->plugins_dir) == true);
+        $this->assertTrue($this->smarty->loadPlugin('Smarty_Function_Counter') == true);
     } 
 } 
 
