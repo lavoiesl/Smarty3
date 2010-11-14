@@ -545,12 +545,22 @@ objectelement(res)::= PTR method(f).	{ res = '->'.f;}
 function(res)     ::= ID(f) OPENP params(p) CLOSEP.	{if (!$this->security || $this->smarty->security_policy->isTrustedPhpFunction(f, $this->compiler)) {
 																					            if (strcasecmp(f,'isset') === 0 || strcasecmp(f,'empty') === 0 || strcasecmp(f,'array') === 0 || is_callable(f)) {
 																					                if (strcasecmp(f,'isset') === 0) {
-																					                  res = '('. p .' !== null)';
+																					                  if (count(p) == 0) {
+																					                   $this->compiler->trigger_template_error ('Illegal number of paramer in "isset()"');
+																					                  }
+																					                  $exp = array();
+																					                  foreach (p as $par) {
+																					                    $exp[] = '('. $par .' !== null)';
+																					                  }
+																					                  res = '('. implode('&&',$exp) .')';
 																					                } elseif (strcasecmp(f,'empty') === 0){
-																					                   $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'='.p.';?>';
+																					                  if (count(p) != 1) {
+																					                   $this->compiler->trigger_template_error ('Illegal number of paramer in "empty()"');
+																					                  }
+																					                  $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'='.p[0].';?>';
 																					                  res = 'empty($_tmp'.$this->prefix_number.')';
 																					                } else {
-																					                  res = f . "(". p .")";
+																					                  res = f . "(". implode(',',p) .")";
 																					                }
 																					            } else {
                                                        $this->compiler->trigger_template_error ("unknown function \"" . f . "\"");
@@ -563,21 +573,21 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP.	{if (!$this->security || $th
 method(res)     ::= ID(f) OPENP params(p) CLOSEP.	{if ($this->security && substr(f,0,1) == '_') {
                                                       $this->compiler->trigger_template_error (self::Err1);
 																									 }
-                                                   res = f . "(". p .")";
+                                                   res = f . "(". implode(',',p) .")";
                                                   }
 method(res)     ::= DOLLAR ID(f) OPENP params(p) CLOSEP.	{if ($this->security) {
                                                               $this->compiler->trigger_template_error (self::Err2);
 																													 }
-                                                           $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'=$_smarty_tpl->getVariable(\''. f .'\')->value;?>'; res = '$_tmp'.$this->prefix_number.'('. p .')';
+                                                           $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'=$_smarty_tpl->getVariable(\''. f .'\')->value;?>'; res = '$_tmp'.$this->prefix_number.'('. implode(',',p) .')';
                                                           }
 
 // function/method parameter
 										// multiple parameters
-params(res)       ::= expr(e) COMMA params(p). { res = e.",".p;}
+params(res)       ::= params(p) COMMA expr(e). { res = array_merge(p,array(e));}
 										// single parameter
-params(res)       ::= expr(e). { res = e;}
+params(res)       ::= expr(e). { res = array(e);}
 										// kein parameter
-params            ::= . { return;}
+params(res)       ::= . { res = array();}
 
 //
 // modifier
