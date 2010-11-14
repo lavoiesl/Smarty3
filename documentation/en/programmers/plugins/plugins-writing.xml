@@ -20,7 +20,7 @@
     <programlisting role="php">
 <![CDATA[
 <?php
-require_once $smarty->_get_plugin_filepath('function', 'html_options');
+$_smarty_tpl->loadPlugin('smarty_shared_make_timestamp'); 
 ?>
 ]]>
     </programlisting>
