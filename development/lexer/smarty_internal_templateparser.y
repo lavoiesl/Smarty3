@@ -442,7 +442,13 @@ value(res)	     ::= smartytag(st). { $this->prefix_number++; $this->compiler->pr
 									// simplest Smarty variable
 //variable(res)    ::= DOLLAR varvar(v).  { res = '$_smarty_tpl->getVariable(\''. v .'\')->value'; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable('v', null, true, false)->nocache;}
 									// Smarty variable (optional array)
-variable(res)    ::= varindexed(vi). {if (vi['var'] == '\'smarty\'') { res =  $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']);
+variable(res)    ::= varindexed(vi). {if (vi['var'] == '\'smarty\'') {
+																				$smarty_var = $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']);
+																				if (substr($smarty_var,0,1) == "'" || substr($smarty_var,0,1) == '@') {
+																				  res = $smarty_var;
+																				} else {
+                   											  res = '(isset('.$smarty_var.')?'.$smarty_var.':null)';
+																			  }
                                       } else {
                                       if (isset($this->compiler->local_var[vi['var']])) {
                                           res = '(isset($_smarty_tpl->tpl_vars['. vi['var'] .']->value'.vi['smarty_internal_index'].') ? $_smarty_tpl->tpl_vars['. vi['var'] .']->value'.vi['smarty_internal_index'].' : null)';
