@@ -35,7 +35,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
         $smarty->force_compile = false;
         $smarty->auto_literal = true;
         $smarty->caching = false;
-        $smarty->_smarty_vars = array();
+        Smarty::$_smarty_vars = array();
         $smarty->registered_plugins = array();
         $smarty->default_plugin_handler_func = null;
         $smarty->registered_objects = array();
