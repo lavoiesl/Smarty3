@@ -20,7 +20,7 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 $my_cache_id = $_GET['article_id'];
 
@@ -57,22 +57,22 @@ $smarty->display('index.tpl', $my_cache_id);
     <para>
      Be sure to pass the same <parameter>$cache_id</parameter> as the
      second parameter to
-     <link linkend="api.is.cached"><varname>is_cached()</varname></link> and
+     <link linkend="api.is.cached"><varname>isCached()</varname></link> and
      <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>.
     </para>
     <example>
-     <title>Passing a cache_id to is_cached()</title>
+     <title>Passing a cache_id to isCached()</title>
      <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 $my_cache_id = $_GET['article_id'];
 
-if(!$smarty->is_cached('index.tpl',$my_cache_id)) {
+if(!$smarty->isCached('index.tpl',$my_cache_id)) {
     // No cache available, do variable assignments here.
     $contents = get_database_contents();
     $smarty->assign($contents);
@@ -97,10 +97,10 @@ $smarty->display('index.tpl',$my_cache_id);
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 // clear all caches with "sports" as the $cache_id
-$smarty->clear_cache(null,'sports');
+$smarty->clearCache(null,'sports');
 
 $smarty->display('index.tpl','sports');
 ?>

@@ -27,7 +27,7 @@ foreach (new RecursiveIteratorIterator($dhandle) as $fpath) {
         $body = str_replace(array('{','}','@@LDELIM@@','@@RDELIM@@'),array('@@LDELIM@@','@@RDELIM@@','{ldelim}','{rdelim}'),$body);
         $title = str_replace(array('{','}','@@LDELIM@@','@@RDELIM@@'),array('@@LDELIM@@','@@RDELIM@@','{ldelim}','{rdelim}'),$title);
         // fix link filenames, remove .tpl
-	$body = preg_replace('!href="(.*)\.tpl(#.*)?"!','href="$1$2"',$body);
+	//$body = preg_replace('!href="(.*)\.tpl(#.*)?"!','href="$1$2"',$body);
         $template = "{extends file='layout.tpl'}\n{block name=title}@TITLE@{/block}{block name=main_content}@BODY@{/block}";
         $template = str_replace(array('@TITLE@','@BODY@'),array($title,$body),$template);
 	if(!is_dir($webdir))

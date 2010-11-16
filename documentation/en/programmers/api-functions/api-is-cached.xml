@@ -69,9 +69,9 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
-if(!$smarty->is_cached('index.tpl')) {
+if(!$smarty->isCached('index.tpl')) {
 // do database calls, assign vars here
 }
 
@@ -86,9 +86,9 @@ $smarty->display('index.tpl');
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
-if(!$smarty->is_cached('index.tpl', 'FrontPage')) {
+if(!$smarty->isCached('index.tpl', 'FrontPage')) {
   // do database calls, assign vars here
 }
 

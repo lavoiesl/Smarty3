@@ -30,7 +30,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 function remaining_seconds($params, $smarty) {
     $remain = $params['endtime'] - time();
@@ -76,7 +76,7 @@ Time Remaining: {remaining endtime=$obj->endtime}
 index.php:
 
 <?php
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 function smarty_block_dynamic($param, $content, $smarty) {
     return $content;

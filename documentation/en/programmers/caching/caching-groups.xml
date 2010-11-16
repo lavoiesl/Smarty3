@@ -66,17 +66,17 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 // clear all caches with 'sports|basketball' as the first two cache_id groups
-$smarty->clear_cache(null,'sports|basketball');
+$smarty->clearCache(null,'sports|basketball');
 
 // clear all caches with "sports" as the first cache_id group. This would
 // include "sports|basketball", or "sports|(anything)|(anything)|(anything)|..."
-$smarty->clear_cache(null,'sports');
+$smarty->clearCache(null,'sports');
 
 // clear the foo.tpl cache file with "sports|basketball" as the cache_id
-$smarty->clear_cache('foo.tpl','sports|basketball');
+$smarty->clearCache('foo.tpl','sports|basketball');
 
 
 $smarty->display('index.tpl','sports|basketball');

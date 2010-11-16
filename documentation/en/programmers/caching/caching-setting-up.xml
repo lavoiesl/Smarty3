@@ -15,7 +15,7 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 $smarty->display('index.tpl');
 ?>
@@ -60,21 +60,21 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_SAVED; // lifetime is per cache
+$smarty->setCaching(Smarty::CACHING_LIFETIME_SAVED); // lifetime is per cache
 
 // set the cache_lifetime for index.tpl to 5 minutes
-$smarty->cache_lifetime = 300;
+$smarty->setCacheLifetime(300);
 $smarty->display('index.tpl');
 
 // set the cache_lifetime for home.tpl to 1 hour
-$smarty->cache_lifetime = 3600;
+$smarty->setCacheLifetime(3600);
 $smarty->display('home.tpl');
 
 // NOTE: the following $cache_lifetime setting will not work when $caching = 2.
 // The cache lifetime for home.tpl has already been set
 // to 1 hour, and will no longer respect the value of $cache_lifetime.
 // The home.tpl cache will still expire after 1 hour.
-$smarty->cache_lifetime = 30; // 30 seconds
+$smarty->setCacheLifetime(30); // 30 seconds
 $smarty->display('home.tpl');
 ?>
 ]]>
@@ -98,8 +98,8 @@ $smarty->display('home.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
-$smarty->compile_check = true;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+$smarty->setCompileCheck(true);
 
 $smarty->display('index.tpl');
 ?>
@@ -119,23 +119,23 @@ $smarty->display('index.tpl');
     </link><literal> = 0</literal>.
    </para>
    <para>
-    The <link linkend="api.is.cached"><varname>is_cached()</varname></link>
+    The <link linkend="api.is.cached"><varname>isCached()</varname></link>
     function
     can be used to test if a template has a valid cache or not. If you have a
     cached template that requires something like a database fetch, you can use
     this to skip that process.
    </para>
    <example>
-    <title>Using is_cached()</title>
+    <title>Using isCached()</title>
     <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
-if(!$smarty->is_cached('index.tpl')) {
+if(!$smarty->isCached('index.tpl')) {
     // No cache available, do variable assignments here.
     $contents = get_database_contents();
     $smarty->assign($contents);
@@ -176,13 +176,13 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 // clear only cache for index.tpl
-$smarty->clear_cache('index.tpl');
+$smarty->clearCache('index.tpl');
 
 // clear out all cache files
-$smarty->clear_all_cache();
+$smarty->clearAllCache();
 
 $smarty->display('index.tpl');
 ?>
