@@ -22,10 +22,10 @@
 <![CDATA[
 <?php
 // clear the entire cache
-$smarty->cache->clearAll();
+$smarty->clearAllCache();
 
 // clears all files over one hour old
-$smarty->cache->clearAll(3600);
+$smarty->clearAllCache(3600);
 ?>
 ]]>
    </programlisting>
