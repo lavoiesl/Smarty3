@@ -444,19 +444,26 @@ value(res)	     ::= smartytag(st). { $this->prefix_number++; $this->compiler->pr
 									// Smarty variable (optional array)
 variable(res)    ::= varindexed(vi). {if (vi['var'] == '\'smarty\'') {
 																				$smarty_var = $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']);
-																				if (substr($smarty_var,0,1) == "'" || substr($smarty_var,0,1) == '@') {
-																				  res = $smarty_var;
+																				if (substr($smarty_var,0,1) == "'" || substr($smarty_var,0,1) == '@' || substr($smarty_var,0,1) == '#') {
+																				  if (substr($smarty_var,0,1) == '#')  {
+																				  	res = substr($smarty_var,1);
+																				  } else {
+																				  	res = $smarty_var;
+																				  }
 																				} else {
                    											  res = '(isset('.$smarty_var.')?'.$smarty_var.':null)';
 																			  }
                                       } else {
+                                      // used for array reset,next,prev,end,current 
+                                      $this->last_variable = vi['var'];
+                                      $this->last_index = vi['smarty_internal_index'];
                                       if (isset($this->compiler->local_var[vi['var']])) {
                                           res = '(isset($_smarty_tpl->tpl_vars['. vi['var'] .']->value'.vi['smarty_internal_index'].') ? $_smarty_tpl->tpl_vars['. vi['var'] .']->value'.vi['smarty_internal_index'].' : null)';
                                        } else {
                                          if (isset(vi['smarty_internal_index'])) {
                                             res = '(isset($_smarty_tpl->getVariable('. vi['var'] .')->value'.vi['smarty_internal_index'].') ? $_smarty_tpl->getVariable('. vi['var'] .')->value'.vi['smarty_internal_index'].' : null)';
                                          } else {
-                                            res = '$_smarty_tpl->getVariable('. vi['var'] .')->value'.vi['smarty_internal_index'];
+                                            res = '$_smarty_tpl->getVariable('. vi['var'] .')->value';
                                          }
                                        }
                                        $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim(vi['var'],"'"), null, true, false)->nocache;}}
@@ -550,7 +557,8 @@ objectelement(res)::= PTR method(f).	{ res = '->'.f;}
 //
 function(res)     ::= ID(f) OPENP params(p) CLOSEP.	{if (!$this->security || $this->smarty->security_policy->isTrustedPhpFunction(f, $this->compiler)) {
 																					            if (strcasecmp(f,'isset') === 0 || strcasecmp(f,'empty') === 0 || strcasecmp(f,'array') === 0 || is_callable(f)) {
-																					                if (strcasecmp(f,'isset') === 0) {
+																					                $func_name = strtolower(f);
+																					                if ($func_name == 'isset') {
 																					                  if (count(p) == 0) {
 																					                   $this->compiler->trigger_template_error ('Illegal number of paramer in "isset()"');
 																					                  }
@@ -559,19 +567,26 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP.	{if (!$this->security || $th
 																					                    $exp[] = '('. $par .' !== null)';
 																					                  }
 																					                  res = '('. implode('&&',$exp) .')';
-																					                } elseif (strcasecmp(f,'empty') === 0){
+																					                } elseif ($func_name == 'empty'){
 																					                  if (count(p) != 1) {
 																					                   $this->compiler->trigger_template_error ('Illegal number of paramer in "empty()"');
 																					                  }
 																					                  $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'='.p[0].';?>';
 																					                  res = 'empty($_tmp'.$this->prefix_number.')';
+																						              } elseif (in_array($func_name,array('reset','current','end','prev','next'))){
+																					                  if (count(p) != 1) {
+																					                   $this->compiler->trigger_template_error ("Illegal number of paramer in '{$func_name}()'");
+																					                  }
+																					                  $this->prefix_number++; $this->compiler->prefix_code[] = '<?php $_tmp'.$this->prefix_number.'= '.p[0].'? $_smarty_tpl->getVariable('.$this->last_variable .'):null;?>';
+																					                  res = '(isset($_tmp'.$this->prefix_number.')?'.$func_name.'($_tmp'.$this->prefix_number.'->value'.$this->last_index.'):null)';
 																					                } else {
 																					                  res = f . "(". implode(',',p) .")";
 																					                }
 																					            } else {
                                                        $this->compiler->trigger_template_error ("unknown function \"" . f . "\"");
                                                       }
-                                                    }}
+                                                     }
+                                                    }
 
 //
 // method
