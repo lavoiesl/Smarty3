@@ -54,6 +54,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
         $smarty->allow_php_templates = false;
         $smarty->block_data = null;
         $smarty->enableSecurity();
+        $smarty->error_reporting = null;
     } 
     /**
      * look for test units and run them

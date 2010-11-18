@@ -62,7 +62,7 @@ Test Suite
  .............................
 
  CompileBlockPluginTests
-  .......
+ .......
 
  CompileCaptureTests
  ..........
@@ -147,7 +147,7 @@ Test Suite
  .........
 
  FilterTests
- .........
+ ..........
 
  FunctionTests
  .
@@ -224,6 +224,6 @@ Test Suite
  XmlTests
  ......
 
-Time: 51 seconds
+Time: 53 seconds
 
-OK (756 tests, 1057 assertions)
+OK (757 tests, 1058 assertions)

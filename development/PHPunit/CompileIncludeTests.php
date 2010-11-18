@@ -87,6 +87,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
     */
     public function testIncludeRootScope()
     {
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
         $this->smarty->assign('foo',1);
         $tpl = $this->smarty->createTemplate('eval: befor include {$foo} {include file=\'eval:{$foo=2} in include {$foo}\' scope = root} after include {$foo}');
         $content = $this->smarty->fetch($tpl);

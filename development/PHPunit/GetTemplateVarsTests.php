@@ -92,6 +92,7 @@ class GetTemplateVarsTests extends PHPUnit_Framework_TestCase {
     */
     public function testGetSingleTemplateVarsScopeAllNoParents()
     {
+ 		error_reporting(error_reporting() & ~(E_NOTICE|E_USER_NOTICE));
         $data1 = new Smarty_Data($this->smarty);
         $data2 = new Smarty_Data($data1);
         $this->smarty->assign('foo', 'bar');

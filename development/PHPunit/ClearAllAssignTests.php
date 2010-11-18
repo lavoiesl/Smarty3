@@ -41,7 +41,8 @@ class ClearAllAssignTests extends PHPUnit_Framework_TestCase {
     */
     public function testClearAllAssignInTemplate()
     {
-            $this->smarty->tpl->clearAllAssign();
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->tpl->clearAllAssign();
 		$this->assertEquals('foobar', $this->smarty->fetch($this->smarty->tpl));
     } 
     /**
@@ -49,7 +50,8 @@ class ClearAllAssignTests extends PHPUnit_Framework_TestCase {
     */
     public function testClearAllAssignInData()
     {
-            $this->smarty->data->clearAllAssign();
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->data->clearAllAssign();
 		$this->assertEquals('fooblar', $this->smarty->fetch($this->smarty->tpl));
     } 
     /**
@@ -57,12 +59,14 @@ class ClearAllAssignTests extends PHPUnit_Framework_TestCase {
     */
     public function testClearAllAssignInSmarty()
     {
-            $this->smarty->clearAllAssign();
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->clearAllAssign();
 		$this->assertEquals('barblar', $this->smarty->fetch($this->smarty->tpl));
     } 
     public function testSmarty2ClearAllAssignInSmarty()
     {
-            $this->smarty->clear_all_assign();
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->clear_all_assign();
 		$this->assertEquals('barblar', $this->smarty->fetch($this->smarty->tpl));
     } 
 } 

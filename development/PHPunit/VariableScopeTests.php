@@ -104,6 +104,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
     */
     public function testVariableScope4()
     {
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
         $tpl = $this->smarty->createTemplate("eval:{\$foo2='localvar'}{\$foo2}", null, null, $this->smarty);
         // must see local value
         $this->assertEquals("localvar", $this->smarty->fetch($tpl));
@@ -113,6 +114,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
     } 
     public function testVariableScope42()
     {
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
         $tpl = $this->smarty->createTemplate("eval:{\$foo2='localvar'}{\$foo2}", null, null, $this->smarty);
         // must see local value
         $this->assertEquals("localvar", $this->smarty->fetch($tpl));

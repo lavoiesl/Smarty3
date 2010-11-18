@@ -41,6 +41,12 @@ class FilterTests extends PHPUnit_Framework_TestCase {
         $tpl = $this->smarty->createTemplate('eval:{"    <br>hello world"}');
         $this->assertEquals("<br>hello world", $this->smarty->fetch($tpl));
     } 
+    public function testLoadedOutputFilterWrapper()
+    {
+        $this->smarty->load_filter(Smarty::FILTER_OUTPUT, 'trimwhitespace');
+        $tpl = $this->smarty->createTemplate('eval:{"    <br>hello world"}');
+        $this->assertEquals("<br>hello world", $this->smarty->fetch($tpl));
+    } 
     /**
      * test registered output filter
      */

@@ -26,7 +26,7 @@ class CompileWhileTests extends PHPUnit_Framework_TestCase {
     */
     public function testWhileCondition()
     {
-        $tpl = $this->smarty->createTemplate('eval:{$X=0}{while $x<10}{$x}{$x=$x+1}{/while}');
+        $tpl = $this->smarty->createTemplate('eval:{$x=0}{while $x<10}{$x}{$x=$x+1}{/while}');
         $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
     } 
 

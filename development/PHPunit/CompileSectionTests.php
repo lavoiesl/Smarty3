@@ -37,6 +37,7 @@ class CompileSectionTests extends PHPUnit_Framework_TestCase {
     } 
     public function testSection3()
     {
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
         $tpl = $this->smarty->createTemplate('eval:{section name=bar loop=$foo}{$foo[bar]}{sectionelse}else{/section}');
         $this->assertEquals("else", $this->smarty->fetch($tpl));
     } 

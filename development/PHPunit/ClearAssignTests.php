@@ -39,12 +39,14 @@ class ClearAssignTests extends PHPUnit_Framework_TestCase {
     */
     public function testClearAssign()
     {
-            $this->smarty->clearAssign('blar');
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->clearAssign('blar');
 		$this->assertEquals('foobar', $this->smarty->fetch('eval:{$foo}{$bar}{$blar}'));
     } 
     public function testSmarty2ClearAssign()
     {
-            $this->smarty->clear_assign('blar');
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->clear_assign('blar');
 		$this->assertEquals('foobar', $this->smarty->fetch('eval:{$foo}{$bar}{$blar}'));
     } 
     /**
@@ -52,12 +54,14 @@ class ClearAssignTests extends PHPUnit_Framework_TestCase {
     */
     public function testArrayClearAssign()
     {
-            $this->smarty->clearAssign(array('blar','foo'));
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->clearAssign(array('blar','foo'));
 		$this->assertEquals('bar', $this->smarty->fetch('eval:{$foo}{$bar}{$blar}'));
     } 
     public function testSmarty2ArrayClearAssign()
     {
-            $this->smarty->clear_assign(array('blar','foo'));
+ 		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
+        $this->smarty->clear_assign(array('blar','foo'));
 		$this->assertEquals('bar', $this->smarty->fetch('eval:{$foo}{$bar}{$blar}'));
     } 
 } 

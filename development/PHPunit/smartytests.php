@@ -24,7 +24,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
 
     public static function init()
     {
-        error_reporting(E_ALL + E_STRICT);
+        error_reporting(E_ALL | E_STRICT);
         $smarty = SmartyTests::$smarty;
         $smarty->template_objects = null;
         $smarty->cache_resource_objects = array();
@@ -56,6 +56,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
         $smarty->block_data = null;
         $smarty->deprecation_notices = true;
         $smarty->enableSecurity();
+        $smarty->error_reporting = null;
     } 
     /**
      * look for test units and run them
