@@ -50,6 +50,16 @@ class CompileRegisteredObjectFunctionTests extends PHPUnit_Framework_TestCase {
         $tpl = $this->smarty->createTemplate('eval:{objecttest->myblock}hello world{/objecttest->myblock}');
         $this->assertEquals('block test', $this->smarty->fetch($tpl));
     } 
+    public function testRegisteredObjectBlockFunctionModifier1()
+    {
+        $tpl = $this->smarty->createTemplate('eval:{objecttest->myblock}hello world{/objecttest->myblock|strtoupper}');
+        $this->assertEquals(strtoupper('block test'), $this->smarty->fetch($tpl));
+    } 
+    public function testRegisteredObjectBlockFunctionModifier2()
+    {
+        $tpl = $this->smarty->createTemplate('eval:{objecttest->myblock}hello world{/objecttest->myblock|default:""|strtoupper}');
+        $this->assertEquals(strtoupper('block test'), $this->smarty->fetch($tpl));
+    } 
 } 
 
 Class RegObject {

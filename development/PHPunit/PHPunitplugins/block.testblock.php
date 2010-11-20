@@ -27,7 +27,9 @@ function smarty_block_testblock($params, $content, $template, &$repeat)
         } 
 
         return $loop;
-    } 
+    } else {
+    	$loop = 0;
+    }
 } 
 
 ?>

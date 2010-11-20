@@ -15,6 +15,7 @@ class RegisterBlockTests extends PHPUnit_Framework_TestCase {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
         $this->smarty->deprecation_notices = false;
+        $this->smarty->disableSecurity();
     } 
 
     public static function isRunnable()
@@ -30,6 +31,18 @@ class RegisterBlockTests extends PHPUnit_Framework_TestCase {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK,'testblock', 'myblock');
         $this->smarty->assign('value', 1);
         $this->assertEquals('function hello world 1 1 function hello world 1 2 function hello world 1 3 ', $this->smarty->fetch('eval:{testblock}hello world {$value}{/testblock}'));
+    } 
+    public function testRegisterBlockFunctionModifier1()
+    {
+        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK,'testblock', 'myblock');
+        $this->smarty->assign('value', 1);
+        $this->assertEquals(strtoupper('function hello world 1 1 function hello world 1 2 function hello world 1 3 '), $this->smarty->fetch('eval:{testblock}hello world {$value}{/testblock|strtoupper}'));
+    } 
+    public function testRegisterBlockFunctionModifier2()
+    {
+        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK,'testblock', 'myblock');
+        $this->smarty->assign('value', 1);
+        $this->assertEquals(strtoupper('function hello world 1 1 function hello world 1 2 function hello world 1 3 '), $this->smarty->fetch('eval:{testblock}hello world {$value}{/testblock|default:""|strtoupper}'));
     } 
     public function testRegisterBlockFunctionWrapper()
     {

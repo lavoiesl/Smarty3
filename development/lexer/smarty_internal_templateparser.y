@@ -298,12 +298,12 @@ smartytag(res)   ::= SMARTYBLOCKCHILD. { res = SMARTY_INTERNAL_COMPILE_BLOCK::co
 									
 									// end of block tag  {/....}									
 smartytag(res)   ::= LDELSLASH ID(i) RDEL. { res = $this->compiler->compileTag(i.'close',array());}
-smartytag(res)   ::= LDELSLASH ID(i) attributes(a) RDEL. { res = $this->compiler->compileTag(i.'close',a);}
-smartytag(res)   ::= LDELSLASH ID(i) modifierlist(l) attributes(a) RDEL. {  res = '<?php ob_start();?>'.$this->compiler->compileTag(i.'close',a).'<?php echo ';
-                                                                                         res .= $this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).'?>';
+//smartytag(res)   ::= LDELSLASH ID(i) attributes(a) RDEL. { res = $this->compiler->compileTag(i.'close',a);}
+smartytag(res)   ::= LDELSLASH ID(i) modifierlist(l) RDEL. {  res = $this->compiler->compileTag(i.'close',array(),array('modifier_list'=>l));
                                                                                       }
 									// end of block object tag  {/....}									
 smartytag(res)   ::= LDELSLASH ID(i) PTR ID(m) RDEL. {  res = $this->compiler->compileTag(i.'close',array(),array('object_methode'=>m));}
+smartytag(res)   ::= LDELSLASH ID(i) PTR ID(m) modifierlist(l) RDEL. {  res = $this->compiler->compileTag(i.'close',array(),array('object_methode'=>m, 'modifier_list'=>l));}
 
 //
 //Attributes of Smarty tags 
