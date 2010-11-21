@@ -56,7 +56,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->register->resource('db', array(
+$smarty->registerResource('db', array(
                                 'db_get_template',
                                 'db_get_timestamp',
                                 'db_get_secure',
