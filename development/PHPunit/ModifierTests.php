@@ -97,7 +97,7 @@ class ModifierTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty->security_policy->php_modifiers = array('round');
         $tpl = $this->smarty->createTemplate('eval:{1.1*7.1|round}');
-        $this->assertEquals("8", $this->smarty->fetch($tpl));
+        $this->assertEquals("7.7", $this->smarty->fetch($tpl));
     } 
     /**
     * test modifier at plugin result

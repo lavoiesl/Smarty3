@@ -339,6 +339,8 @@ statements(res)		::= statement(s). { res = array(s);}
 statements(res)		::= statements(s1) COMMA statement(s). { s1[]=s; res = s1;}
 
 statement(res)		::= DOLLAR varvar(v) EQUAL expr(e). { res = array('var' => v, 'value'=>e);}
+statement(res)		::= varindexed(vi) EQUAL expr(e). { res = array('var' => vi, 'value'=>e);}
+statement(res)		::= OPENP statement(st) CLOSEP. { res = st;}
 
 //
 // expressions
@@ -434,6 +436,7 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). { if (vi['v
                                                          res = '$_smarty_tpl->getVariable('. vi['var'] .')->value'.vi['smarty_internal_index'].'::'.r; $this->compiler->tag_nocache=$this->compiler->tag_nocache|$this->template->getVariable(trim(vi['var'],"'"), null, true, false)->nocache;}}
 								  // Smarty tag
 value(res)	     ::= smartytag(st). { $this->prefix_number++; $this->compiler->prefix_code[] = '<?php ob_start();?>'.st.'<?php $_tmp'.$this->prefix_number.'=ob_get_clean();?>'; res = '$_tmp'.$this->prefix_number; }
+value(res)       ::= value(v) modifierlist(l). {  res = $this->compiler->compileTag('private_modifier',array(),array('value'=>v,'modifierlist'=>l)); }
 
 
 //
