@@ -11,7 +11,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$source</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -25,7 +25,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$compiled</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>

@@ -9,7 +9,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_outputfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$template_output</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>

@@ -69,7 +69,7 @@
  They get the four parameters
 	 <parameter>$params</parameter>,
 	 <parameter>$content</parameter>,
-	 <parameter>&amp;$smarty</parameter> and
+	 <parameter>$smarty</parameter> and
 	 <parameter>&amp;$repeat</parameter> and they also behave like
 	 block-function-plugins.
 	</para>

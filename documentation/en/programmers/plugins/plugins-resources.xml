@@ -19,23 +19,23 @@
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
       <paramdef>string <parameter>&amp;$source</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
       <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
 

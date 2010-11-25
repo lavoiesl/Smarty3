@@ -10,7 +10,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_insert_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
