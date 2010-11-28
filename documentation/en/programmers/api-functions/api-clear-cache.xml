@@ -45,10 +45,10 @@
 <![CDATA[
 <?php
 // clear the cache for a template
-$smarty->cache->clear('index.tpl');
+$smarty->clearCache('index.tpl');
 
 // clear the cache for a particular cache id in an multiple-cache template
-$smarty->cache->clear('index.tpl', 'MY_CACHE_ID');
+$smarty->clearCache('index.tpl', 'MY_CACHE_ID');
 ?>
 ]]>
    </programlisting>
