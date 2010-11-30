@@ -235,7 +235,7 @@ function db_get_trusted($tpl_name, $smarty_obj)
 }
 
 // register the resource name "db"
-$smarty->register_resource("db", array("db_get_template",
+$smarty->registerResource("db", array("db_get_template",
                                        "db_get_timestamp",
                                        "db_get_secure",
                                        "db_get_trusted"));
@@ -264,36 +264,7 @@ $smarty->display("db:index.tpl");
      resource. One use of this is to create templates that do not exist
      on-the-fly.
     </para>
-    <example>
-     <title>Using the default template handler function</title>
-     <programlisting role="php">
-<![CDATA[
-<?php
-// put this function somewhere in your application
 
-function make_template ($resource_type, $resource_name, &$template_source, &$template_timestamp,
-$smarty_obj)
-{
-	if( $resource_type == 'file' ) {
-		if ( ! is_readable ( $resource_name )) {
-			// create the template file, return contents.
-			$template_source = "This is a new template.";
-            require_once SMARTY_CORE_DIR . 'core.write_file.php';
-            smarty_core_write_file( array( 'filename'=>$smarty_obj->template_dir . DIRECTORY_SEPARATOR . $resource_name, 'contents'=>$template_source ), $smarty_obj ); 
-			return true;
-		}
-    } else {
-		// not a file
-		return false;
-    }
-}
-
-// set the default handler
-$smarty->default_template_handler_func = 'make_template';
-?>
-]]>
-     </programlisting>
-    </example>
     <para>
      See also
      <link linkend="advanced.features.streams"><varname>Streams</varname></link>

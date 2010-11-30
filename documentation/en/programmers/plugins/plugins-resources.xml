@@ -127,8 +127,8 @@ function smarty_resource_db_trusted($tpl_name, $smarty)
 
  <para>
  See also
- <link linkend="api.register.resource"><varname>register_resource()</varname></link>,
- <link linkend="api.unregister.resource"><varname>unregister_resource()</varname></link>.
+ <link linkend="api.register.resource"><varname>registerResource()</varname></link>,
+ <link linkend="api.unregister.resource"><varname>unregisterResource()</varname></link>.
 </para>
 
    </sect1>

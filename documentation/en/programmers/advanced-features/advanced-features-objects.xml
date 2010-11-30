@@ -89,13 +89,13 @@ class My_Object {
 $myobj = new My_Object;
 
 // registering the object (will be by reference)
-$smarty->register_object('foobar',$myobj);
+$smarty->registerObject('foobar',$myobj);
 
 // if we want to restrict access to certain methods or properties, list them
-$smarty->register_object('foobar',$myobj,array('meth1','meth2','prop1'));
+$smarty->registerObject('foobar',$myobj,array('meth1','meth2','prop1'));
 
 // if you want to use the traditional object parameter format, pass a boolean of false
-$smarty->register_object('foobar',$myobj,null,false);
+$smarty->registerObject('foobar',$myobj,null,false);
 
 // We can also assign objects. assign_by_ref when possible.
 $smarty->assign_by_ref('myobj', $myobj);
@@ -123,7 +123,7 @@ the output was {$output}
  </example>
  <para>
   See also <link
-  linkend="api.register.object"><varname>register_object()</varname></link>
+  linkend="api.register.object"><varname>registerObject()</varname></link>
   and
   <link linkend="api.assign"><varname>assign()</varname></link>.
  </para>

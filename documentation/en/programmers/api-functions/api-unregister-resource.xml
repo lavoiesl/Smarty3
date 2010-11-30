@@ -20,7 +20,7 @@
 <![CDATA[
 <?php
 
-$smarty->unregister_resource('db');
+$smarty->unregisterResource('db');
 
 ?>
 ]]>
