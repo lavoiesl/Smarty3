@@ -61,11 +61,7 @@
 </programlisting>
   </note>
   <note><para>
-    Although Smarty provides direct access to PHP super globals for convenience,
-    it should be used with caution. Specifically, GET and POST and REQUEST are commonly used
-    for presentation purposes, but directly accessing SERVER, ENV, COOKIE and SESSION vars is
-    typically avoided, as this is mixing underlying application code structure into the templates.
-    A good practice is to assign specific needed values to template vars.
+    Although Smarty provides direct access to PHP super globals for convenience, it should be used with caution. Directly accessing super globals mixes underlying application code structure with templates. A good practice is to assign specific needed values to template vars.
   </para></note>
  </sect2>
 
