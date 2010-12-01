@@ -385,7 +385,7 @@ $smarty->assign('myPeople', $people);
 <![CDATA[
 {* Add horizontal rule at end of list *}
 {foreach $items as $item}
-  <a href="#{$item.id}">{$item.name}</a>{if $prod@last}<hr>{else},{/if}
+  <a href="#{$item.id}">{$item.name}</a>{if $item@last}<hr>{else},{/if}
 {foreachelse}
   ... no items to loop ...
 {/foreach}
@@ -430,8 +430,8 @@ $smarty->assign('myPeople', $people);
 {* show number of rows at end *}
 {foreach $items as $item}
   {$item.name}<hr/>
-  {if $prod@last}
-    <div id="total">{$prod@total} items</div>
+  {if $item@last}
+    <div id="total">{$item@total} items</div>
   {/if}
 {foreachelse}
  ... no items to loop ...
