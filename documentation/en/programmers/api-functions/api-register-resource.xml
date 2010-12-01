@@ -10,7 +10,7 @@
   <methodsynopsis>
    <type>void</type><methodname>registerResource</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
-   <methodparam><type>array</type><parameter>resource_funcs</parameter></methodparam>
+   <methodparam><type>array</type><parameter>resource_callbacks</parameter></methodparam>
   </methodsynopsis>
   <para>
    Use this to dynamically register a
@@ -33,23 +33,31 @@
 
   <itemizedlist>
   <listitem><para>
-   The php-function-array <parameter>resource_funcs</parameter>
-   must have 4 or 5 elements.
-   </para></listitem>
-   <listitem><para>
-   With 4 elements the elements are
-   the functions-callbacks for the respective <literal>source</literal>,
+   The array <parameter>resource_callabcks</parameter>
+   must have 4 elements for the respective <literal>source</literal>,
    <literal>timestamp</literal>, <literal>secure</literal> and
-   <literal>trusted</literal> functions of the resource.
+   <literal>trusted</literal> callback of the resource.
    </para></listitem>
    <listitem><para>
-   With 5 elements the first element has to be an
-   object reference or a class name of the object or class
-   implementing the resource and the 4 following elements have
-   to be the method names implementing <literal>source</literal>,
-   <literal>timestamp</literal>, <literal>secure</literal>
-   and <literal>trusted</literal>.
-  </para></listitem>
+    Each element defines the PHP callback. it can be either:
+    <itemizedlist>
+     <listitem><para>
+      A string containing the function <parameter>name</parameter>
+     </para></listitem>
+     <listitem><para>
+      An array of the form <literal>array($object, $method)</literal> with
+      <literal>&amp;$object</literal> being a reference to an
+      object and <literal>$method</literal> being a string
+      containing the method-name
+     </para></listitem>
+     <listitem><para>
+      An array of the form
+      <literal>array($class, $method)</literal> with
+      <literal>$class</literal> being the class name and
+      <literal>$method</literal> being a method of the class.
+     </para></listitem>
+    </itemizedlist>
+   </para></listitem>
   </itemizedlist>
   <example>
    <title>registerResource()</title>
@@ -66,7 +74,23 @@ $smarty->registerResource('db', array(
 ]]>
    </programlisting>
   </example>
-
+  <example>
+   <title>registerResource() using object methods</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+$smarty->registerResource('db', array(
+                                array($obj,'db_get_template'),
+                                array($obj,'db_get_timestamp'),
+                                array($obj,'db_get_secure'),
+                                array($obj,'db_get_trusted')
+                                )
+                          );
+?>
+]]>
+   </programlisting>
+  </example>
+  
 <para>
   See also
   <link linkend="api.unregister.resource"><varname>unregisterResource()</varname></link>
