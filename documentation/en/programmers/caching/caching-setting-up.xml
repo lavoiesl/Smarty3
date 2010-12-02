@@ -5,7 +5,7 @@
    <para>
     The first thing to do is enable caching by setting <link
     linkend="variable.caching">
-    <parameter>$caching</parameter></link><literal> = 1 (or 2)</literal>.
+    <parameter>$caching</parameter></link> to one of <literal>Smarty::CACHING_LIFETIME_CURRENT</literal> or <literal>Smarty::CACHING_LIFETIME_SAVED</literal>.
    </para>
    <example>
     <title>Enabling caching</title>
@@ -15,6 +15,8 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
+// uses the value of $smarty->cacheLifetime() to determine
+// the number of seconds a cache is good for
 $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 $smarty->display('index.tpl');
@@ -44,10 +46,10 @@ $smarty->display('index.tpl');
    <para>
     Each cached page has a limited lifetime determined by <link
     linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>.
-    The default value is 3600 seconds ie an hour. After that time expires, the
+    The default value is 3600 seconds, or one hour. After that time expires, the
     cache is regenerated. It is possible to give individual caches their own
     expiration time by setting
-    <link linkend="variable.caching"><parameter>$caching</parameter></link><literal>=2</literal>.
+    <link linkend="variable.caching"><parameter>$caching</parameter></link> to <literal>Smarty::CACHING_LIFETIME_SAVED</literal>.
     See <link
     linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>
     for more details.
@@ -60,7 +62,8 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->setCaching(Smarty::CACHING_LIFETIME_SAVED); // lifetime is per cache
+// retain current cache lifetime for each specific display call
+$smarty->setCaching(Smarty::CACHING_LIFETIME_SAVED);
 
 // set the cache_lifetime for index.tpl to 5 minutes
 $smarty->setCacheLifetime(300);
@@ -70,7 +73,8 @@ $smarty->display('index.tpl');
 $smarty->setCacheLifetime(3600);
 $smarty->display('home.tpl');
 
-// NOTE: the following $cache_lifetime setting will not work when $caching = 2.
+// NOTE: the following $cache_lifetime setting will not work when $caching
+// is set to Smarty::CACHING_LIFETIME_SAVED.
 // The cache lifetime for home.tpl has already been set
 // to 1 hour, and will no longer respect the value of $cache_lifetime.
 // The home.tpl cache will still expire after 1 hour.
@@ -85,8 +89,8 @@ $smarty->display('home.tpl');
     <parameter>$compile_check</parameter></link> is enabled,
     every template file and config file that is involved with the cache file is
     checked for modification. If any of the files have been modified since the
-    cache was generated, the cache is immediately regenerated. This is a slight
-    overhead so for optimum performance, set
+    cache was generated, the cache is immediately regenerated. This is a computational
+    overhead, so for optimum performance set
     <link linkend="variable.compile.check"><parameter>$compile_check</parameter>
     </link> to &false;.
    </para>
@@ -109,14 +113,14 @@ $smarty->display('index.tpl');
    <para>
     If <link linkend="variable.force.compile">
     <parameter>$force_compile</parameter></link> is enabled,
-    the cache files will always be regenerated. This effectively turns off
-    caching.
+    the cache files will always be regenerated. This effectively disables caching,
+    however this also seriously degrades performance.
     <link linkend="variable.force.compile"><parameter>$force_compile</parameter>
-    </link> is usually for
+    </link> is meant to be used for
     <link linkend="chapter.debugging.console">debugging</link>
-    purposes only, a more  efficient way of disabling caching is to set <link
+    purposes. The appropriate way to disable caching is to set <link
     linkend="variable.caching"><parameter>$caching</parameter>
-    </link><literal> = 0</literal>.
+    </link> to &false;.
    </para>
    <para>
     The <link linkend="api.is.cached"><varname>isCached()</varname></link>
@@ -147,9 +151,13 @@ $smarty->display('index.tpl');
     </programlisting>
    </example>
    <para>
-    You can keep parts of a page dynamic with the <link
-    linkend="language.function.insert"><varname>{insert}</varname></link>
-    template function. Let's
+    You can keep parts of a page dynamic (disable caching) with the <link
+    linkend="language.function.nocache"><varname>{nocache}{/nocache}</varname></link>
+    block function, the <link linkend="language.function.insert"><varname>{insert}</varname></link>
+    function, or by using the <literal>nocache</literal> parameter for most template functions.
+   </para>
+   <para>  
+    Let's
     say the whole page can be cached except for a banner that is displayed down
     the side of the page. By using the
     <link linkend="language.function.insert"><varname>{insert}</varname></link>
@@ -161,12 +169,12 @@ $smarty->display('index.tpl');
    </para>
    <para>
     You can clear all the cache files with the <link
-    linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>
+    linkend="api.clear.all.cache"><varname>clearAllCache()</varname></link>
     function, or
     individual cache files
     <link linkend="caching.groups">and groups</link>
     with the <link
-    linkend="api.clear.cache"><varname>clear_cache()</varname></link> function.
+    linkend="api.clear.cache"><varname>clearCache()</varname></link> function.
    </para>
    <example>
     <title>Clearing the cache</title>

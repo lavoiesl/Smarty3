@@ -58,7 +58,7 @@ $smarty->display('index.tpl', $my_cache_id);
      Be sure to pass the same <parameter>$cache_id</parameter> as the
      second parameter to
      <link linkend="api.is.cached"><varname>isCached()</varname></link> and
-     <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>.
+     <link linkend="api.clear.cache"><varname>clearCache()</varname></link>.
     </para>
     <example>
      <title>Passing a cache_id to isCached()</title>
@@ -87,7 +87,7 @@ $smarty->display('index.tpl',$my_cache_id);
      You can clear all caches for a particular <parameter>$cache_id</parameter>
      by passing &null; as the
      first parameter to
-     <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>.
+     <link linkend="api.clear.cache"><varname>clearCache()</varname></link>.
     </para>
     <example>
      <title>Clearing all caches for a particular $cache_id</title>

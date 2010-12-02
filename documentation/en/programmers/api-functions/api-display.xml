@@ -15,12 +15,12 @@
    </methodparam>
   </methodsynopsis>
   <para>
-   This displays the template unlike
-   <link linkend="api.fetch"><varname>fetch()</varname></link>.
+   This displays the contents of a template. To return the contents of a template into
+   a variable, use <link linkend="api.fetch"><varname>fetch()</varname></link>.
    Supply a valid <link
    linkend="template.resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
-   <parameter>$cache id</parameter>, see the
+   <parameter>$cache_id</parameter>, see the
    <link linkend="caching">caching section</link> for more information.
   </para>
   &parameter.compileid;

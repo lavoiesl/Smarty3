@@ -18,22 +18,22 @@
       </para></listitem>
 
       <listitem><para>
-      <literal>clear_cache(null,'a|b|c')</literal>
+      <literal>clearCache(null,'a|b|c')</literal>
       would be like removing the files
-      <literal>'/a/b/c/*'</literal>. <literal>clear_cache(null,'a|b')</literal>
+      <literal>'/a/b/c/*'</literal>. <literal>clearCache(null,'a|b')</literal>
       would be like removing the files <literal>'/a/b/*'</literal>.
       </para></listitem>
 
       <listitem><para>
       If you specify a
       <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
-      such as <literal>clear_cache(null,'a|b','foo')</literal> it is treated as
+      such as <literal>clearCache(null,'a|b','foo')</literal> it is treated as
       an appended cache group <literal>'/a/b/c/foo/'</literal>.
       </para></listitem>
 
       <listitem><para>
       If you specify a template name such as
-      <literal>clear_cache('foo.tpl','a|b|c')</literal> then Smarty will attempt
+      <literal>clearCache('foo.tpl','a|b|c')</literal> then Smarty will attempt
       to remove <literal>'/a/b/c/foo.tpl'</literal>.
       </para></listitem>
 
@@ -56,7 +56,7 @@
       structure that mimics your template file structure, such as
       <literal>display('themes/blue/index.tpl','themes|blue')</literal>, then
       clear them with
-      <literal>clear_cache(null,'themes|blue')</literal>.
+      <literal>clearCache(null,'themes|blue')</literal>.
      </para>
      <example>
       <title>$cache_id groups</title>
