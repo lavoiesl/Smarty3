@@ -86,7 +86,7 @@ $smarty->display('home.tpl');
    </example>
    <para>
     If <link linkend="variable.compile.check">
-    <parameter>$compile_check</parameter></link> is enabled,
+    <parameter>$compile_check</parameter></link> is enabled (default),
     every template file and config file that is involved with the cache file is
     checked for modification. If any of the files have been modified since the
     cache was generated, the cache is immediately regenerated. This is a computational
@@ -95,7 +95,7 @@ $smarty->display('home.tpl');
     </link> to &false;.
    </para>
    <example>
-    <title>Enabling $compile_check</title>
+    <title>Disabling $compile_check</title>
     <programlisting role="php">
 <![CDATA[
 <?php
@@ -103,7 +103,7 @@ require('Smarty.class.php');
 $smarty = new Smarty;
 
 $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-$smarty->setCompileCheck(true);
+$smarty->setCompileCheck(false);
 
 $smarty->display('index.tpl');
 ?>
@@ -120,7 +120,7 @@ $smarty->display('index.tpl');
     <link linkend="chapter.debugging.console">debugging</link>
     purposes. The appropriate way to disable caching is to set <link
     linkend="variable.caching"><parameter>$caching</parameter>
-    </link> to &false;.
+    </link> to Smarty::CACHING_OFF.
    </para>
    <para>
     The <link linkend="api.is.cached"><varname>isCached()</varname></link>
