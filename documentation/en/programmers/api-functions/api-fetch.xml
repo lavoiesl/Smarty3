@@ -36,25 +36,11 @@ $smarty = new Smarty;
 
 $smarty->setCaching(true);
 
-// only do db calls if cache doesn't exist
-if(!$smarty->isCached('index.tpl')) {
-
-  // dummy up some data
-  $address = '245 N 50th';
-  $db_data = array(
-               'City' => 'Lincoln',
-               'State' => 'Nebraska',
-               'Zip' => '68502'
-             );
-
-  $smarty->assign('Name','Fred');
-  $smarty->assign('Address',$address);
-  $smarty->assign($db_data);
-
-}
+// set a separate cache_id for each unique URL
+$cache_id = md5($_SERVER['REQUEST_URI']);
 
 // capture the output
-$output = $smarty->fetch('index.tpl');
+$output = $smarty->fetch('index.tpl', $cache_id);
 
 // do something with $output here
 echo $output;
@@ -72,33 +58,21 @@ echo $output;
     </para>
     <programlisting>
 <![CDATA[
-Dear {$contact.name},
+Dear {$contact_info.name},
 
-Welcome and thankyou for signing up as a member of our user group,
+Welcome and thank you for signing up as a member of our user group.
 
-Click on the link below to login with your user name of '{$contact.login_id}'
-so you can post in our forums.
+Click on the link below to login with your user name
+of '{$contact_info.username}' so you can post in our forums.
 
-http://{$smarty.server.SERVER_NAME}/login/
+{$login_url}
 
 List master
-Some user group
 
-{include file='email_disclaimer.tpl'}
-]]>
-    </programlisting>
-    <para>
-     The <filename>email_disclaimer.tpl</filename> template which uses the
-     <link linkend="language.function.textformat">
-     <varname>{textformat}</varname></link> modifier.
-    </para>
-    <programlisting>
-<![CDATA[
 {textformat wrap=40}
-Unless you are named "{$contact.name}", you may read only the "odd numbered
-words" (every other word beginning with the first) of the message above. If you have
-violated that, then you hereby owe the sender 10 GBP for each even
-numbered word you have read
+This is some long-winded disclaimer text that would automatically get wrapped
+at 40 characters. This helps make the text easier to read in mail programs that
+do not wrap sentences for you.
 {/textformat}
 ]]>
     </programlisting>
@@ -111,12 +85,12 @@ numbered word you have read
 <![CDATA[
 <?php
 
-// get contact from database eg using pear or adodb
-$query  = 'select name, email, login_id from contacts where contact_id='.$contact_id;
-$contact = $db->getRow($sql);
-$smarty->assign('contact', $contact);
+// get $contact_info from db or other resource here
 
-mail($contact['email'], 'Subject', $smarty->fetch('email_body.tpl'));
+$smarty->assign('contact_info',$contact_info);
+$smarty->assign('login_url',"http://{$_SERVER['SERVER_NAME']}/login");
+
+mail($contact_info['email'], 'Thank You', $smarty->fetch('email_body.tpl'));
 
 ?>
 ]]>
