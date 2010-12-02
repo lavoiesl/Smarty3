@@ -15,12 +15,16 @@
    <type>void</type><methodname>assign</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+   <methodparam choice="opt"><type>bool</type><parameter>nocache</parameter></methodparam>
   </methodsynopsis>
   <para>
    You can  explicitly pass name/value pairs, or associative arrays
    containing the name/value pairs.
   </para>
-  
+  <para>
+   If you pass the optional third <parameter>nocache</parameter> parameter of &true;, the variable is assigned as nocache variable.
+   See <link linkend="cacheability.variables"><parameter>Cacheability of Variables</parameter></link> for details.
+  </para>
   <note><para>
     When you assign/register objects to templates, be sure that all properties and methods accessed from the template are for presentation purposes only. It is very easy to inject application logic through objects, and this leads to poor designs that are difficult to manage. See the Best Practices section of the Smarty website.
   </para></note>    
