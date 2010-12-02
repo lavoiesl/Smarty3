@@ -24,8 +24,8 @@
     <para>
      If the function needs to assign some variables to the template or use
      some other Smarty-provided functionality, it can use the supplied
-     <parameter>$smarty</parameter> object to do so eg
-     <literal>$smarty->foo()</literal>.
+     <parameter>$template</parameter> object to do so eg
+     <literal>$template->foo()</literal>.
     </para>
 
     <para>
