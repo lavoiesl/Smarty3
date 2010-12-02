@@ -9,7 +9,7 @@
 
      <itemizedlist>
      <listitem><para>
-     <parameter>$caching</parameter> must be turned on (either SMARTY_CACHING_LIFETIME_CURRENT or SMARTY_CACHING_LIFETIME_SAVED) for
+      <parameter>$caching</parameter> must be turned on (either Smarty::CACHING_LIFETIME_CURRENT or Smarty::CACHING_LIFETIME_SAVED) for
      <parameter>$cache_lifetime</parameter> to have any purpose.
      </para></listitem>
 
@@ -20,13 +20,13 @@
      <listitem><para>A value of 0 will cause
      the cache to always regenerate (good for testing only, to disable caching
      a more efficient method is to set <link
-     linkend="variable.caching"><parameter>$caching</parameter></link> = SMARTY_CACHING_OFF).
+      linkend="variable.caching"><parameter>$caching</parameter></link> = Smarty::CACHING_OFF).
     </para></listitem>
 
-    <listitem><para>
-      If you want to give certain templates their own cache lifetime, you could
+    <listitem><para>      If you want to give certain templates their own cache lifetime,
+      you could
       do this by setting <link linkend="variable.caching">
-      <parameter>$caching</parameter></link> = SMARTY_CACHING_LIFETIME_SAVED,
+       <parameter>$caching</parameter></link> = Smarty::CACHING_LIFETIME_SAVED,
       then set <parameter>$cache_lifetime</parameter> to a unique value just
       before calling <link linkend="api.display"><varname>display()</varname>
       </link> or <link linkend="api.fetch"><varname>fetch()</varname></link>.
