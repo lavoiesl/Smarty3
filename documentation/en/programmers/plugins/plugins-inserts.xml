@@ -39,7 +39,7 @@
 function smarty_insert_time($params, $smarty)
 {
     if (empty($params['format'])) {
-        $smarty->triggerError("insert time: missing 'format' parameter");
+        trigger_error("insert time: missing 'format' parameter");
         return;
     }
     return strftime($params['format']);

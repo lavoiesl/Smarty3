@@ -97,7 +97,7 @@ function mysql_cache_handler($action, $smarty_obj, &$cache_content, $tpl_file=nu
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj->_triggerError_msg('cache_handler: could not connect to database');
+		trigger_error('cache_handler: could not connect to database');
 		return false;
 	}
 	mysql_select_db($db_name);
@@ -107,7 +107,7 @@ function mysql_cache_handler($action, $smarty_obj, &$cache_content, $tpl_file=nu
 			// read cache from database
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj->_triggerError_msg('cache_handler: query failed.');
+				trigger_error('cache_handler: query failed.');
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 
@@ -132,7 +132,7 @@ function mysql_cache_handler($action, $smarty_obj, &$cache_content, $tpl_file=nu
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj->_triggerError_msg('cache_handler: query failed.');
+				trigger_error('cache_handler: query failed.');
 			}
 			$return = $results;
 			break;
@@ -145,13 +145,13 @@ function mysql_cache_handler($action, $smarty_obj, &$cache_content, $tpl_file=nu
 				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");
 			}
 			if(!$results) {
-				$smarty_obj->_triggerError_msg('cache_handler: query failed.');
+				trigger_error('cache_handler: query failed.');
 			}
 			$return = $results;
 			break;
 		default:
 			// error, unknown action
-			$smarty_obj->_triggerError_msg("cache_handler: unknown action \"$action\"");
+			trigger_error("cache_handler: unknown action \"$action\"");
 			$return = false;
 			break;
 	}

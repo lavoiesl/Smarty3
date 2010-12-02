@@ -65,14 +65,7 @@ The template can access only variables assigned to any of the objects in the par
  <parameter>$compile_id</parameter>.
  This is in the event that you want to compile different versions of
  the same template, such as having separate templates compiled
- for different languages. Another use for
- <parameter>$compile_id</parameter> is when you use more than one
- <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>
- but only one
- <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>.
- Set a separate <parameter>$compile_id</parameter> for each
- <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>,
- otherwise templates of the same name will overwrite each other. You can
+ for different languages. You can
  also set the <link linkend="variable.compile.id">
  <parameter>$compile_id</parameter></link> variable once instead of passing
   this to each call to this function.

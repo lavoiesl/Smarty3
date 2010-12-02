@@ -11,7 +11,7 @@
    <type>string</type><methodname>fetch</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>$compile_id</parameter>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
    </methodparam>
   </methodsynopsis>
   <para>

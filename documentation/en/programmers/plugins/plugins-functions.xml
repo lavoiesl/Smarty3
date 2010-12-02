@@ -85,12 +85,12 @@ Answer: {eightball}.
 function smarty_function_assign($params, $template)
 {
     if (empty($params['var'])) {
-        $smarty->triggerError("assign: missing 'var' parameter");
+        trigger_error("assign: missing 'var' parameter");
         return;
     }
 
     if (!in_array('value', array_keys($params))) {
-        $smarty->triggerError("assign: missing 'value' parameter");
+        trigger_error("assign: missing 'value' parameter");
         return;
     }
 
