@@ -164,6 +164,10 @@ A common question: "Web designers have to learn a syntax anyways, why not PHP?" 
   <para>
      Templating in PHP is a hot topic, and opinions widely vary. It is important that you understand Smarty, understand your own requirements, and make an informed decision for yourself. You are welcome to ask specific questions in the forums or the IRC channel.
   </para>
+  
+  <para>
+  See also the section about "Use Cases and Work Flow" on the Smarty website.
+  </para>
 
   <para>
    <emphasis role="bold">Sites using Smarty</emphasis>
