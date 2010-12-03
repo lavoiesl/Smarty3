@@ -69,7 +69,7 @@
   </para>  
     
   <para>
-   A common question: "Web designers have to learn a syntax anyways, why not PHP?" Of course web designers can learn PHP, but this isn't about their ability to learn it. They use PHP, then start adding things into templates that don't belong there (you just handed them a swiss-army knife when they just needed a knife.) You can teach them the rules of application development design, but this is probably something they don't really need to learn (now they are developers!) Smarty gives web designers exactly the tools they need, and gives developers fine-grained control over those tools.
+A common question: "Web designers have to learn a syntax anyways, why not PHP?" Of course web designers can learn PHP, and they may already be familiar with it. The issue isn't their ability to learn PHP, it is about the consequences of mixing PHP with HTML. If designers use PHP, it is too easy to add code into templates that doesn't belong there (you just handed them a swiss-army knife when they just needed a knife.) You can teach them the rules of application design, but this is probably something they don't really need to learn (now they are developers!) The PHP manual is also an overwhelming pile of information to sift through. It is like handing the owner of a car the factory assembly manual when all they need is the owners manual. Smarty gives web designers exactly the tools they need, and gives developers fine-grained control over those tools. The simplicity of the tag-based syntax is also a huge welcome for designers, it helps them streamline the organization and management of templates.
   </para>
 
   <para>
