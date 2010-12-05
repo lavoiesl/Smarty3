@@ -561,7 +561,11 @@ function(res)     ::= ID(f) OPENP params(p) CLOSEP.	{if (!$this->security || $th
 																					                  if (count(p) != 1) {
 																					                   $this->compiler->trigger_template_error ('Illegal number of paramer in "empty()"');
 																					                  }
-																					                  res = $func_name.'('.p[0].')';
+																					                  if ($func_name == 'empty') {
+																					                  	res = $func_name.'('.str_replace("')->value","',null,true,false)->value",p[0]).')';
+																					                  } else {
+																					                  	res = $func_name.'('.p[0].')';
+																					                  }
 																					                } else {
 																					                  res = f . "(". implode(',',p) .")";
 																					                }
