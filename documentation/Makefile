@@ -4,6 +4,7 @@ ZIP = /usr/bin/zip
 FOP = /usr/bin/fop
 XMLTO = /usr/bin/xmlto
 XSLTPROC = /usr/bin/xsltproc
+WINE = /usr/bin/wine
 LANG = en
 LANGS_AVAIL = de en es fr it ja pt_BR ru
 
@@ -51,6 +52,25 @@ htmlweb: set-current-lang-symlink set-date
            manual.xml
 	$(PHP) -f scripts/makeweb.php manualweb-$(LANG) htmlweb-$(LANG)
 	rm -rf manualweb-$(LANG)
+
+chm: set-current-lang-symlink set-date
+	rm -rf htmlhelp-$(LANG)
+	$(XSLTPROC) \
+	 -o htmlhelp-$(LANG)/ \
+	 --stringparam htmlhelp.encoding 'UTF-8' \
+	 --stringparam htmlhelp.enhanced.decompilation 1  \
+	 --stringparam htmlhelp.hhc.binary 1 \
+	 --stringparam htmlhelp.autolabel 1 \
+     --stringparam suppress.navigation 0 \
+	 --stringparam htmlhelp.default.topic 'make_chm_index.html' \
+	 --stringparam htmlhelp.use.hhk 1 \
+	 $(STYLESHEETS_DIR)/htmlhelp/htmlhelp.xsl \
+	 manual.xml
+	cp $(LANG)/make_chm_index.html htmlhelp-$(LANG)/
+	$(WINE) regsvr32 tools/hhw/it*.dll
+	WINEDLLOVERRIDES="itircl,itss=n" wine tools/hhw/hhc.exe htmlhelp-en/htmlhelp.hhp || true
+	cp htmlhelp-$(LANG)/htmlhelp.chm ./manual-$(LANG).chm
+	rm -rf htmlhelp-$(LANG)
 
 revcheck:
 	$(PHP) -f scripts/revcheck.php $(LANG) > revcheck.html

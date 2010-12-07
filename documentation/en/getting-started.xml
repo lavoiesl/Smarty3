@@ -588,7 +588,7 @@ require('Smarty.class.php');
 
 class Smarty_GuestBook extends Smarty {
 
-   function Smarty_GuestBook()
+   function __construct()
    {
 
         // Class Constructor.
