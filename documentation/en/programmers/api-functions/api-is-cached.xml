@@ -18,10 +18,9 @@
   <itemizedlist>
   <listitem><para>
    This only works if <link linkend="variable.caching">
-   <parameter>$caching</parameter></link> is set to &true;, see the
+    <parameter>$caching</parameter></link> is set to one of <literal>Smarty::CACHING_LIFETIME_CURRENT</literal> or <literal>Smarty::CACHING_LIFETIME_SAVED</literal> to enable caching. See the
    <link linkend="caching">caching section</link> for more info.
   </para></listitem>
-
     <listitem><para>
    You can also pass a <parameter>$cache_id</parameter> as an optional second
    parameter in case you want
