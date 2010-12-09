@@ -10,13 +10,12 @@
 
   <itemizedlist>
     <listitem><para>
-      The inheritance tree can be as big as you want (meaning you can extend a file that extends another 
-      one that extends another one and so on..), but be aware that all files have to be checked for modifications 
-      at runtime so the more inheritance the more overhead you add.    
+      The inheritance tree can be as deep as you want, meaning you can extend a file that extends another 
+      one that extends another one and so on.
     </para></listitem>
     <listitem><para>
       The child templates can not define any content besides what's inside <link linkend="language.function.block"><varname>{block}</varname></link>
-      tags they override, anything outside of <link linkend="language.function.block"><varname>{block}</varname></link> tags will be removed.
+      tags they override. Anything outside of <link linkend="language.function.block"><varname>{block}</varname></link> tags will be removed.
     </para></listitem>
     <listitem><para>
       The content of <link linkend="language.function.block"><varname>{block}</varname></link> tags from child and parent templates can be merged by 
@@ -24,20 +23,23 @@
       tag option flags and <literal>{$smarty.block.parent}</literal> or <literal>{$smarty.block.child}</literal> placeholders.
     </para></listitem>
     <listitem><para>
-      Template inheritance is a compile time process which does create a single compiled template file. Compared to corresponding 
+      Template inheritance is a compile time process which creates a single compiled template file. Compared to corresponding 
       solutions based on subtemplates included with the <link linkend="language.function.include"><varname>{include}</varname></link>
-      tag it does have much better performance when redering.
+      tag it does have much better performance when rendering.
     </para></listitem>
     <listitem><para>
-      The child template does extend its parent defined with the <link linkend="language.function.extends"><varname>{extends}</varname></link> tag, 
+      The child template extends its parent defined with the <link linkend="language.function.extends"><varname>{extends}</varname></link> tag, 
       which must be the first line in the child template. Instead of using the <link linkend="language.function.extends"><varname>{extends}</varname></link>
       tags in the template files you can define the whole template inheritance tree in the PHP script when you are calling <link linkend="api.fetch"><varname>fetch()</varname></link>
       or <link linkend="api.display"><varname>display()</varname></link> with the <literal>extends:</literal> template resource type. The later provides even more flexibillity.
     </para></listitem>
   </itemizedlist>
   <note><para>
-    If you have a subtemplate which is included with <link linkend="language.function.include"><varname>{include}</varname></link> and it does contain 
-    <link linkend="language.function.block"><varname>{block}</varname></link> areas it does work only if the <link linkend="language.function.include"><varname>{include}</varname></link>
+    When <parameter>$compile_check</parameter> is enabled, all files in the inheritance tree are checked for modifications upon each invocation. You may want to disable <parameter>$compile_check</parameter> on production servers for this reason.
+  </para></note>
+  <note><para>
+    If you have a subtemplate which is included with <link linkend="language.function.include"><varname>{include}</varname></link> and it contains 
+    <link linkend="language.function.block"><varname>{block}</varname></link> areas it works only if the <link linkend="language.function.include"><varname>{include}</varname></link>
     itself is called from within a surrounding  <link linkend="language.function.block"><varname>{block}</varname></link>. In the final parent template you may need a dummy <link linkend="language.function.block"><varname>{block}</varname></link> for it.
   </para></note>
   
