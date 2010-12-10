@@ -10,7 +10,9 @@
      meaning that Smarty
      will look for the
      <filename class="directory">templates/</filename> directory in
-     the same directory as the executing php script.
+     the same directory as the executing php script. <property>$template_dir</property>
+     can also be an array of directory paths: Smarty will traverse the
+     directories and stop on the first matching template found.
     </para>
     <note>
      <title>Technical Note</title>
