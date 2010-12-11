@@ -835,7 +835,7 @@ END_OF_MULTILINE;
                  . 'old=' . $file['revision'][1] . '&'
                  . 'r=' . $file['revision'][0] . '&'
                  . 'format=side&'
-                 . 'path=' . urlencode('/trunk/' . preg_replace("'^".$DOCDIR."'", 'docs/', $file['full_name']));
+                 . 'path=' . urlencode('/trunk/' . preg_replace("'^".$DOCDIR."'", 'documentation/', $file['full_name']));
 
             $file['short_name'] = '<a href="' . $url . '">'. $file["short_name"] . '</a>';
         }
