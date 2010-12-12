@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <chapter id="tips">
   <title>ヒント &amp; 裏ワザ</title>
@@ -19,9 +19,10 @@
     </link> を使った簡略な方法があります。
     <note>
     <para><quote>Undefined variable</quote> というエラーが表示されるのは、
-    PHP の <ulink url="&url.php-manual;error_reporting">
-    <varname>error_reporting()</varname></ulink> が <constant>E_ALL</constant>
-    になっており、変数が Smarty に代入されていない場合です。
+     PHP の <ulink url="&url.php-manual;error_reporting"><varname>error_reporting()</varname></ulink>
+     レベルや Smarty の <link linkend="variable.error.reporting"><parameter>$error_reporting</parameter></link>
+     プロパティで E_NOTICE が無効になっており、
+     かつ変数が Smarty に代入されていない場合です。
     </para>
     </note>
    </para>
@@ -360,7 +361,7 @@ function fetch_ticker($symbol)
    return $ticker_info;
 }
 
-function smarty_function_load_ticker($params, &$smarty)
+function smarty_function_load_ticker($params, $smarty)
 {
    // 関数をコールします
    $ticker_info = fetch_ticker($params['symbol']);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.escaping">
  <title>Smarty の構文解析を回避する</title>
@@ -13,20 +13,48 @@
   である { と } を使用するときに問題が発生します。
  </para>
 
- <para>
+ <note><para>
   もっとも単純な解決方法は、Javascript と CSS コードをそれぞれファイルに切り分け、
   それらにアクセスするために標準的な HTML の機能を使用する事で状況を回避する事です。
- </para>
+  これは、ブラウザのスクリプトキャッシュも利用します。
+  Smarty の変数や関数を Javascript/CSS で使いたい場合は、次のようにします。
+ </para></note>
 
  <para>
-  リテラルコンテンツを含めるには <link
+  Smarty のテンプレート内では、{ や } の両側に空白文字があればそれをデリミタとはみなしません。
+  この挙動を無効にするには、Smarty のクラス変数 <link linkend="variable.auto.literal"><parameter>$auto_literal</parameter></link>
+  を false にします。
+ </para>
+ 
+ <example>
+  <title>自動リテラル機能の使用</title>
+  <programlisting>
+<![CDATA[
+<script>
+   // 次の波括弧は Smarty に無視されます
+   // その両側に空白文字があるからです
+   function foobar {
+	alert('foobar!');
+   }
+   // こちらの場合はリテラルとして扱うエスケープが必要です
+   {literal}
+	function bazzy {alert('foobar!');}
+   {/literal}
+</script>
+]]>  
+ </programlisting>
+ </example>
+ 
+ <para>
+  テンプレートロジックのブロックをエスケープするには <link
   linkend="language.function.literal">
   <varname>{literal}..{/literal}</varname></link> ブロックを使用します。
   HTML エンティティの使用法と同様に、 <link
   linkend="language.function.ldelim"><varname>{ldelim}</varname></link>、<link
   linkend="language.function.ldelim"><varname>{rdelim}</varname></link> あるいは <link
   linkend="language.variables.smarty.ldelim">
-  <varname>{$smarty.ldelim}</varname></link> を使用して現在のデリミタを表示することができます。
+  <varname>{$smarty.ldelim}</varname>、<varname>{$smarty.rdelim}</varname></link>
+  を使用してデリミタを個別にエスケープすることもできます。
  </para>
 
  <para>
@@ -36,6 +64,12 @@
   <link linkend="variable.right.delimiter">
   <parameter>$right_delimiter</parameter></link>
   を変更するだけでも便利になることが多々あります。
+  <note>
+    <para>
+      デリミタの変更は、すべてのテンプレートの構文およびエスケープに影響を及ぼします。
+      変更した後は、キャッシュやコンパイル済みファイルを一度削除するようにしましょう。
+    </para>
+  </note>
  </para>
  <example>
   <title>デリミタを変更する例</title>

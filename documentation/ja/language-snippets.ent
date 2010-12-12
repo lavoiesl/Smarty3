@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- $Revision: 2763 $ -->
-<!-- EN-Revision: 2723 Maintainer: takagi Status: ready -->
+<!-- $Revision$ -->
+<!-- EN-Revision: 3836 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 
 <!ENTITY note.parameter.merge '<note>
@@ -26,25 +26,78 @@
  </para>
 </note>'>
 
+<!ENTITY parameter.cacheid '<listitem>
+<para>
+<parameter>cache_id</parameter> はオプションのパラメータです。
+ この関数をコールするたびにこのパラメータを指定するかわりに、変数
+ <link linkend="variable.cache.id">
+ <parameter>$cache_id</parameter></link> を使うこともできます。
+ これは、同じテンプレートを使う異なるコンテンツ (異なる製品を表示するページなど)
+ をキャッシュする場合に使います。
+ 詳細は <link linkend="caching">キャッシュ</link> を参照ください。
+</para>
+</listitem>'>
+
+<!ENTITY parameter.compileid2 '<listitem>
+<para>
+<parameter>compile_id</parameter> はオプションのパラメータです。
+ この関数をコールするたびにこのパラメータを指定するかわりに、変数
+ <link linkend="variable.compile.id">
+ <parameter>$compile_id</parameter></link> を使うこともできます。
+ これは、同じテンプレートの異なるバージョンをコンパイルしたい場合
+ (言語ごとに別々にコンパイルしたい場合など)
+ に使います。
+</para>
+</listitem>'>
+
+<!ENTITY parameter.parent '<listitem>
+<para>
+<parameter>parent</parameter> はオプションのパラメータです。
+これは、メイン Smarty オブジェクトやユーザが作成したデータオブジェクト、
+あるいはユーザが作成したテンプレートオブジェクトなどへのアップリンクです。
+これらのオブジェクトは連結することができます。
+テンプレートからは、連結したオブジェクト内で代入されたすべての値にアクセスできます。
+</para>
+</listitem>'>
+
+<!ENTITY parameter.data '<listitem>
+<para>
+<parameter>data</parameter> はオプションのパラメータです。
+これは、オブジェクトに代入された変数の 名前/値 のペアを含む連想配列です。
+</para>
+</listitem>'>
+
 <!ENTITY parameter.compileid '<para>
  任意の第３パラメータとして <parameter>$compile_id</parameter>
  を渡すことができます。
  異なる言語でコンパイルされた別々のテンプレートが存在するような、
  同じテンプレートの異なるバージョンをコンパイルしたい場合に利用します。
- <parameter>$compile_id</parameter> の別の利用法としては、複数の
- <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>
- を持っているが
- <link linkend="variable.compile.dir"><parameter>$compile_dir</parameter></link>
- は１つしかない場合などがあります。各
- <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>
- に別々の <parameter>$compile_id</parameter> をセットしなければ、
- 同名のテンプレートはお互いに上書きされてしまいます。
  この関数をコールする度に compile_id を渡す代わりに、一度
  <link linkend="variable.compile.id">
  <parameter>$compile_id</parameter></link> 変数をセットすることもできます。
 </para>'>
 
-<!ENTITY api.register.snippet '<para>
+
+<!ENTITY parameter.filtertype '<listitem>
+<para>
+<parameter>type</parameter> にはフィルタの型を定義します。使える値は "pre"、"post"、"output" および "variable" です。
+</para>
+</listitem>'>
+
+<!ENTITY parameter.plugintype '<listitem>
+<para>
+<parameter>type</parameter> にはプラグインの型を定義します。使える値は "function"、"block"、"compiler" および "modifier" です。
+</para>
+</listitem>'>
+
+<!ENTITY parameter.pluginname '<listitem>
+<para>
+<parameter>name</parameter> にはプラグインの名前を定義します。
+</para>
+</listitem>'>
+
+<!ENTITY parameter.callback '<listitem>
+<para>
    PHP 関数のコールバック <parameter>function</parameter>
    は、次のいずれかとなります。
    <itemizedlist>
@@ -61,7 +114,9 @@
        <listitem><para>
        <literal>array($class, $method)</literal> という形式の配列
        （<literal>$class</literal> はクラス名であり、
-       <literal>$method</literal> はクラスのメソッド）
+       <literal>$method</literal> はクラスのメソッド名）
        </para></listitem>
    </itemizedlist>
-  </para>'>
+   </para>
+</listitem>'>
+

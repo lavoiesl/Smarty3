@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <sect1 id="language.modifier.regex.replace">
   <title>regex_replace</title>
@@ -10,6 +10,15 @@
       <ulink url="&url.php-manual;preg_replace">
      <varname>preg_replace()</varname></ulink> の構文を使用してください。
   </para>
+
+  <note><para>
+    Smarty にはこのように便利な正規表現用の修飾子がありますが、
+    通常は正規表現は PHP 側で使うことをおすすめします。カスタム関数や修飾子プラグインなどとしてです。
+    正規表現はアプリケーションのコードの一部であり、
+    画面の見た目に関するものではないからです。
+  </para></note>
+
+  <para>パラメータ</para>
 
   <informaltable frame="all">
    <tgroup cols="5">
@@ -79,6 +88,7 @@ Infertility unlikely to be passed on, experts say.
 ]]>
    </screen>
   </example>
+
   <para>
    <link linkend="language.modifier.replace">
    <varname>replace</varname></link>

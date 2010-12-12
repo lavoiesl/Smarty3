@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="variable.cache.modified.check">
 <title>$cache_modified_check</title>
@@ -18,7 +18,7 @@
    <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>、
   <link linkend="variable.cache.handler.func"><parameter>$cache_handler_func</parameter></link>
   および
-  <link linkend="caching">キャッシュの項</link> も参照してください。
+  <link linkend="caching">キャッシュの節</link> も参照ください。
   </para>
 
 </sect1>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="variable.error.reporting">
  <title>$error_reporting</title>
@@ -14,11 +14,10 @@
   が有効のときはこの値は無視され、エラーレベルには全く触れられません。
  </para>
  <para>
-  <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>、
   <link linkend="chapter.debugging.console">デバッギングコンソール</link>
   および
   <link linkend="troubleshooting">トラブルシューティング</link>
-  も参照してください。
+  も参照ください。
  </para>
 </sect1>
 

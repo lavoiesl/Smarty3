@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.include.php">
  <title>{include_php}</title>
   <note>
-   <title>テクニカルノート</title>
+   <title>重要な注意</title>
    <para>
-    <varname>{include_php}</varname> は Smarty ではほとんど推奨されていません。
-    カスタムテンプレート関数を使用すれば、同等の機能を実現できます。
-    <varname>{include_php}</varname> を使用する理由がもしあるとすれば、
-    <link linkend="variable.plugins.dir"><filename>plugins/</filename></link>
-    ディレクトリやアプリケーションのコードから PHP 関数を完全に隔離したい場合などです。
-    詳細は <link
-    linkend="tips.componentized.templates">コンポーネント化したテンプレートの例
-    </link> を参照してください。
+    <varname>{include_php}</varname> は Smarty では非推奨になりました。
+    プラグインを登録して使い、プレゼンテーションとアプリケーションのコードを適切に分離するようにしましょう。
    </para>
  </note>
 
@@ -40,11 +34,11 @@
      <entry>string</entry>
      <entry>Yes</entry>
      <entry><emphasis>n/a</emphasis></entry>
-     <entry>インクルードする PHP ファイル名</entry>
+     <entry>インクルードする PHP ファイルの絶対パス</entry>
     </row>
     <row>
      <entry>once</entry>
-     <entry>boolean</entry>
+    <entry>boolean</entry>
      <entry>No</entry>
      <entry><emphasis>&true;</emphasis></entry>
      <entry>同じ PHP ファイルが複数回インクルードされた場合に、一度だけインクルードするかどうか</entry>
@@ -60,16 +54,33 @@
   </tgroup>
  </informaltable>
 
+ <para><emphasis role="bold">オプションのフラグ</emphasis></para>
+ <informaltable frame="all">
+  <tgroup cols="2">
+   <colspec colname="param" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>名前</entry>
+     <entry>概要</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>nocache</entry>
+     <entry>インクルードした PHP スクリプトのキャッシュを無効にする</entry>
+    </row>    
+   </tbody>
+  </tgroup>
+ </informaltable>
+ 
  <para>
   <varname>{include_php}</varname> タグを使用して、PHP スクリプトをテンプレートにインクルードします。
-  <link linkend="variable.security"><parameter>$security</parameter></link>
-  が有効な場合は、PHP スクリプトは <link
-  linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>
-  で指定されたディレクトリに存在する必要があります。<varname>{include_php}</varname>
-  タグには <parameter>file</parameter> 属性が必須で、
-  ここにはインクルードする PHP ファイルへのパスを指定します。
-  このパスは <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>
-  からの相対パスか絶対パスのいずれかとなります。
+  属性 <parameter>file</parameter> のパスには、絶対パスあるいは
+   <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>
+   からの相対パスを指定することができます。セキュリティが有効な場合は、スクリプトは
+   セキュリティポリシーの <parameter>$trusted_dir</parameter> で指定したパスに存在する必要があります。
+   詳細は <link linkend="advanced.features.security">セキュリティ</link> の節を参照ください。
  </para>
  <para>
   デフォルトでは、PHPファイルはテンプレート内で複数回呼ばれても一度しかインクルードしません。
@@ -84,7 +95,7 @@
  </para>
  <para>
   Smarty オブジェクトは、インクルードした PHP スクリプト内で
-  <parameter>$this</parameter> として使用可能です。
+  <parameter>$_smarty_tpl->smarty</parameter> として使用可能です。
  </para>
  <example>
   <title>{include_php} 関数</title>
@@ -107,8 +118,9 @@ $this->assign('navigation', $db->getRows());
   </para>
   <programlisting>
 <![CDATA[
-{* 絶対パス、あるいは $trusted_dir からの相対パスか *}
+{* 絶対パス、あるいは $trusted_dir からの相対パス *}
 {include_php file='/path/to/load_nav.php'}
+{include_php '/path/to/load_nav.php'}             {* 短縮形 *}
 
 {foreach item='nav' from=$navigation}
   <a href="{$nav.url}">{$nav.name}</a><br />
@@ -118,14 +130,11 @@ $this->assign('navigation', $db->getRows());
  </example>
  <para>
   <link linkend="language.function.include"><varname>{include}</varname></link>、
-  <link linkend="variable.security"><parameter>$security</parameter></link>、
 <link linkend="variable.trusted.dir"><parameter>$trusted_dir</parameter></link>、
   <link linkend="language.function.php"><varname>{php}</varname></link>、<link
   linkend="language.function.capture"><varname>{capture}</varname></link>、<link
   linkend="template.resources">テンプレートリソース</link> および <link
-  linkend="tips.componentized.templates">コンポーネント化したテンプレート</link>
-  も参照してください。
- </para>
+  linkend="tips.componentized.templates">コンポーネント化したテンプレート</link> も参照ください。</para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

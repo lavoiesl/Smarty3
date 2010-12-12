@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3839 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="caching.groups">
     <title>キャッシュのグループ</title>
@@ -19,22 +19,22 @@
       </para></listitem>
 
       <listitem><para>
-      <literal>clear_cache(null,'a|b|c')</literal>
+      <literal>clearCache(null,'a|b|c')</literal>
       はファイル <literal>'/a/b/c/*'</literal> を、
-      <literal>clear_cache(null,'a|b')</literal> はファイル
+      <literal>clearCache(null,'a|b')</literal> はファイル
       <literal>'/a/b/*'</literal> を削除するのに似ています。
       </para></listitem>
 
       <listitem><para>
       <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
-      を <literal>clear_cache(null,'a|b','foo')</literal> のように指定すると、
+      を <literal>clearCache(null,'a|b','foo')</literal> のように指定すると、
       それをキャッシュグループに追加して
       <literal>'/a/b/c/foo/'</literal> として扱います。
       </para></listitem>
 
       <listitem><para>
       テンプレート名を
-      <literal>clear_cache('foo.tpl','a|b|c')</literal> のように指定すると、
+      <literal>clearCache('foo.tpl','a|b|c')</literal> のように指定すると、
       Smarty は <literal>'/a/b/c/foo.tpl'</literal> を削除しようと試みます。
       </para></listitem>
 
@@ -55,7 +55,7 @@
       テンプレートファイル構造をまねた 
       <literal>display('themes/blue/index.tpl','themes|blue')</literal>
       のような キャッシュグループ構造を作成する必要があり、それならば
-      <literal>clear_cache(null,'themes|blue')</literal>
+      <literal>clearCache(null,'themes|blue')</literal>
       によってキャッシュをクリアする事が出来ます。
      </para>
      <example>
@@ -66,17 +66,17 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 // はじめの２つのcache_idグループが"sports|basketball"のキャッシュを全てクリアします。
-$smarty->clear_cache(null,'sports|basketball');
+$smarty->clearCache(null,'sports|basketball');
 
 // はじめのcache_idグループが"sports"のキャッシュを全てクリアします。
 // これは"sports|basketball"又は"sports|(anything)|(anything)|(anything)|..."を用いてインクルードされたものでしょう。
-$smarty->clear_cache(null,'sports');
+$smarty->clearCache(null,'sports');
 
 // cache_id として"sports|basketball"を用いてfoo.tpl のキャッシュファイルをクリアします。
-$smarty->clear_cache('foo.tpl','sports|basketball');
+$smarty->clearCache('foo.tpl','sports|basketball');
 
 
 $smarty->display('index.tpl','sports|basketball');

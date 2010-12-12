@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3839 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.display">
  <refnamediv>
@@ -17,8 +17,8 @@
    </methodparam>
   </methodsynopsis>
   <para>
-   テンプレートを表示します
-   (<link linkend="api.fetch"><varname>fetch()</varname></link> と違い出力を行います)。
+   テンプレートの内容を表示します。テンプレートの内容を変数に返すには
+   <link linkend="api.fetch"><varname>fetch()</varname></link> を使います。
    第１パラメータには、有効な <link
    linkend="template.resources">テンプレートリソース</link>
    の種類を含むパスを指定する事ができます。任意の第２パラメータには
@@ -33,10 +33,10 @@
 <?php
 include(SMARTY_DIR.'Smarty.class.php');
 $smarty = new Smarty();
-$smarty->caching = true;
+$smarty->setCaching(true);
 
 // キャッシュが存在しない場合はデータベースを呼び出します
-if(!$smarty->is_cached('index.tpl')) {
+if(!$smarty->isCached('index.tpl')) {
 
   // ダミーデータ
   $address = '245 N 50th';
@@ -87,7 +87,7 @@ $smarty->display('db:header.tpl');
   </example>
   <para>
    <link linkend="api.fetch"><varname>fetch()</varname></link> および
-   <link linkend="api.template.exists"><varname>template_exists()</varname></link>
+   <link linkend="api.template.exists"><varname>templateExists()</varname></link>
    も参照してください。
   </para>
  </refsect1>

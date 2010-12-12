@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
      <sect1 id="variable.compile.check">
       <title>$compile_check</title>
@@ -21,7 +21,7 @@
        そのテンプレートが再コンパイルされる事は「ない」ので変更は反映されない事に注意してください。
        <link linkend="variable.caching"><parameter>$caching</parameter></link> と
        <parameter>$compile_check</parameter> が共に有効ならば、
-       テンプレートファイルが更新されるとキャッシュファイルが再生成されます
+       テンプレートファイルが更新されるとキャッシュファイルが再生成されます。
        詳細は、<link linkend="variable.force.compile">
        <parameter>$force_compile</parameter></link> および <link
        linkend="api.clear.compiled.tpl"><varname>clear_compiled_tpl()</varname>

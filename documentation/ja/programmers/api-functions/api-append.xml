@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.append">
  <refnamediv>
@@ -50,10 +50,10 @@ $smarty->append(array('city' => 'Lincoln', 'state' => 'Nebraska'));
    </programlisting>
   </example>
   <para>
-  <link linkend="api.append.by.ref"><varname>append_by_ref()</varname></link>、
+  <link linkend="api.append.by.ref"><varname>appendByRef()</varname></link>、
   <link linkend="api.assign"><varname>assign()</varname></link>
   および
-  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>
+  <link linkend="api.get.template.vars"><varname>getTemplateVars()</varname></link>
   も参照してください。
   </para>
  </refsect1>

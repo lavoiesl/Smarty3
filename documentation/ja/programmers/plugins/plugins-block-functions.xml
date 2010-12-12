@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.block.functions"><title>ブロック関数プラグイン</title>
     <funcsynopsis>
@@ -8,7 +8,7 @@
       <funcdef>void <function>smarty_block_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
       <paramdef>mixed <parameter>$content</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$template</parameter></paramdef>
       <paramdef>boolean <parameter>&amp;$repeat</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
@@ -51,7 +51,7 @@
      とする事で、<literal>{func}...{/func}</literal> 間のコンテンツが再度評価され、
      <parameter>$content</parameter> パラメータに新しいブロックコンテンツが格納された状態で、
      再び呼び出されます。
-    </para></listitem>
+	</para></listitem>
     </itemizedlist>
 
     <para>
@@ -59,7 +59,7 @@
      <literal>$smarty->_tag_stack</literal>
      にアクセスする事で親のブロック関数を見つける事が可能です。
      <ulink url="&url.php-manual;var_dump"><varname>var_dump()</varname></ulink>
-     を行い、構造をはっきりと理解すべきべきです。
+     を行い、構造をはっきりと理解すべきです。
     </para>
 
     <example>
@@ -73,16 +73,16 @@
  * File:     block.translate.php
  * Type:     block
  * Name:     translate
- * Purpose:  テキストブロックを翻訳する
+ * Purpose:  テキストブロックを変換する
  * -------------------------------------------------------------
  */
-function smarty_block_translate($params, $content, &$smarty, &$repeat)
+function smarty_block_translate($params, $content, $template, &$repeat)
 {
     // 終了タグでのみ出力します
     if(!$repeat){
         if (isset($content)) {
             $lang = $params['lang'];
-            // ここで $content に対する翻訳を行います
+            // ここで $content に対して何かの変換を行います
             return $translation;
         }
     }
@@ -93,10 +93,9 @@ function smarty_block_translate($params, $content, &$smarty, &$repeat)
     </example>
 
 <para>
- <link linkend="api.register.block"><varname>register_block()</varname></link>
- および
- <link linkend="api.unregister.block"><varname>unregister_block()</varname></link>
- も参照してください。
+ <link linkend="api.register.plugin"><varname>registerPlugin()</varname></link> および
+ <link linkend="api.unregister.plugin"><varname>unregisterPlugin()</varname></link>
+ も参照ください。
 </para>
 
    </sect1>

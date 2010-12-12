@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.php">
  <title>{php}</title>
+ 
+ <note>
+   <title>重要な注意</title>
+   <para>
+      <varname>{php}</varname> タグは将来廃止される予定です。使ってはいけません。
+      PHP のロジックは、PHP スクリプトかプラグイン関数に書くようにしましょう。
+   </para>
+ </note>
+ 
  <para>
   <varname>{php}</varname> タグで、PHP コードを直接テンプレートに埋め込むことができます。
   <link linkend="variable.php.handling"><parameter>$php_handling</parameter></link>
   の設定にかかわらず、これはエスケープされません。
-  このタグは上級ユーザのためのものなので通常は必要とされません。
  </para>
- <note>
-<title>テクニカルノート</title>
-<para>
-   <varname>{php}</varname> ブロック内の PHP 変数にアクセスするには、PHP の
-   <ulink url="&url.php-manual;global"><literal>global</literal></ulink>
-   キーワードを使う必要があります。
-</para>
-</note>
 
  <example>
   <title>{php} タグ内での PHP コード</title>

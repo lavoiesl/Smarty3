@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.modifiers"><title>修飾子プラグイン</title>
     <para>
      <link linkend="language.modifiers">修飾子プラグイン</link>
      は、テンプレートの変数が表示される前または他のコンテンツに使用される前に適用される関数です。
+     修飾子を連結することもできます。
     </para>
     <funcsynopsis>
      <funcprototype>
@@ -89,10 +90,9 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
      </programlisting>
     </example>
      <para>
-     <link linkend="api.register.modifier"><varname>register_modifier()</varname></link>
-     および
-     <link linkend="api.unregister.modifier"><varname>unregister_modifier()</varname></link>
-     も参照してください。
+     <link linkend="api.register.plugin"><varname>registerPlugin()</varname></link> および
+     <link linkend="api.unregister.plugin"><varname>unregisterPlugin()</varname></link>
+     も参照ください。
     </para>
    </sect1>
 

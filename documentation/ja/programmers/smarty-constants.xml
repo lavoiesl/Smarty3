@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <chapter id="smarty.constants">
 <title>定数</title>
@@ -35,39 +35,10 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
   および
   <link
   linkend="variable.php.handling"><parameter>$php_handling 定数</parameter></link>
-  も参照してください。
+  も参照ください。
   </para>
 </sect1>
 
-<sect1 id="constant.smarty.core.dir">
-    <title>SMARTY_CORE_DIR</title>
-    <para>
-     この定数には、Smarty のコアファイルの置かれた場所への
-     <emphasis>フルパス</emphasis> を指定します。定義されていない場合、Smartyは
-     <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>.
-     の下の <filename>internals/</filename> サブディレクトリをデフォルトとします。
-     定義した場合は、必ずスラッシュで終わるようにします。
-     手動で core.* ファイルをインクルードするような時にはこの定数を使用して下さい。
-    </para>
-    <example>
-     <title>SMARTY_CORE_DIR</title>
-     <programlisting role="php">
-<![CDATA[
-<?php
-
-// core.get_microtime.php を読み込みます
-require_once(SMARTY_CORE_DIR . 'core.get_microtime.php');
-
-?>
-]]>
-     </programlisting>
-    </example>
-
-    <para>
-    <link linkend="language.variables.smarty.const"><parameter>$smarty.const</parameter></link>
-    も参照してください。
-    </para>
-   </sect1>
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

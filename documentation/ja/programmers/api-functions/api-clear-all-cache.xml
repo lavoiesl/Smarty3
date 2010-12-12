@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.clear.all.cache">
  <refnamediv>
-  <refname>clear_all_cache()</refname>
+  <refname>clearAllCache()</refname>
   <refpurpose>全てのテンプレートのキャッシュをクリアします。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>clear_all_cache</methodname>
+   <type>void</type><methodname>clearAllCache</methodname>
    <methodparam choice="opt"><type>int</type><parameter>expire_time</parameter></methodparam>
   </methodsynopsis>
   <para>
@@ -18,22 +18,22 @@
    最低限の時間（秒）を与える事が出来ます。
   </para>
   <example>
-   <title>clear_all_cache</title>
+   <title>clearAllCache</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // キャッシュ全体をクリアします
-$smarty->clear_all_cache();
+$smarty->clearAllCache();
 
 // 一時間以上経過しているファイルをすべてクリアします
-$smarty->clear_all_cache(3600);
+$smarty->clearAllCache(3600);
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-  <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>、
-  <link linkend="api.is.cached"><varname>is_cached()</varname></link>
+  <link linkend="api.clear.cache"><varname>clearCache()</varname></link>、
+  <link linkend="api.is.cached"><varname>isCached()</varname></link>
   および
   <link linkend="caching">キャッシュ</link> のページも参照してください。
   </para>

@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
-<!-- CREDITS: mat-sh,daichi,joe -->
-     <sect1 id="variable.debug.tpl">
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
+     <sect1 id="variable.debug_template">
       <title>$debug_tpl</title>
       <para>
-	   これは、デバッギングコンソールに使用するテンプレートファイルの名前です。
-	   デフォルトは <filename>debug.tpl</filename> という名前で、
-	    <link linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link>
-	   に位置します。
+	   これは、デバッギングコンソールで使うテンプレートファイルの名前です。
+	   デフォルトの名前は <filename>debug.tpl</filename> で、
+	   場所は <link
+	   linkend="constant.smarty.dir"><constant>SMARTY_DIR</constant></link> にあります。
       </para>
       <para>
       <link linkend="variable.debugging"><parameter>$debugging</parameter></link>
       および
       <link linkend="chapter.debugging.console">デバッギングコンソール</link>
-      も参照してください。
+      の節も参照ください。
       </para>
 </sect1>
 <!-- Keep this comment at the end of the file

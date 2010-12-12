@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.register.object">
  <refnamediv>
-  <refname>register_object()</refname>
+  <refname>registerObject()</refname>
   <refpurpose>テンプレート内で使用するオブジェクトを登録します。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>register_object</methodname>
+   <type>void</type><methodname>registerObject</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
    <methodparam><type>object</type><parameter>object</parameter></methodparam>
    <methodparam><type>array</type><parameter>allowed_methods_properties</parameter>
@@ -18,15 +18,24 @@
    <methodparam><type>boolean</type><parameter>format</parameter></methodparam>
    <methodparam><type>array</type><parameter>block_methods</parameter></methodparam>
   </methodsynopsis>
+
+  <note><para>
+    オブジェクトをテンプレートに代入/登録するときは、
+    テンプレートからアクセスするプロパティやメソッドは表示に関する目的でだけ使うようにしましょう。
+    オブジェクトを通じてアプリケーションのロジックを取り込むのは簡単ですが、
+    それはまずい設計につながり、管理しづらくなってしまいます。
+    Smarty ウェブサイトのベストプラクティスのページも参照ください。
+  </para></note>  
+  
   <para>
    詳細は、
    <link linkend="advanced.features.objects">オブジェクト</link>
    の項を参照して下さい。
   </para>
   <para>
-   <link linkend="api.get.registered.object"><varname>get_registered_object()</varname></link>
+   <link linkend="api.get.registered.object"><varname>getRegisteredObject()</varname></link>
    および
-   <link linkend="api.unregister.object"><varname>unregister_object()</varname></link>
+   <link linkend="api.unregister.object"><varname>unregisterObject()</varname></link>
    も参照してください。
   </para>
  </refsect1>

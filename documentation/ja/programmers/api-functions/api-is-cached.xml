@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3849 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.is.cached">
  <refnamediv>
-  <refname>is_cached()</refname>
+  <refname>isCached()</refname>
   <refpurpose>テンプレートが有効なキャッシュを持つ場合にtrueを返します。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>bool</type><methodname>is_cached</methodname>
+   <type>bool</type><methodname>isCached</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
@@ -20,10 +20,11 @@
   <itemizedlist>
   <listitem><para>
    これは、<link linkend="variable.caching">
-   <parameter>$caching</parameter></link> が &true; の場合にのみ機能します。
+   <parameter>$caching</parameter></link> を
+   <literal>Smarty::CACHING_LIFETIME_CURRENT</literal> あるいは <literal>Smarty::CACHING_LIFETIME_SAVED</literal>
+   に設定してキャッシュが有効な場合にのみ機能します。
    <link linkend="caching">キャッシュの項</link> も参照してください。
   </para></listitem>
-
     <listitem><para>
    １つのテンプレートに
    <link linkend="caching.multiple.caches">複数のキャッシュ</link>
@@ -50,28 +51,28 @@
   <note>
   <title>テクニカルノート</title>
   <para>
-   <varname>is_cached()</varname> が &true; を返すと、
+   <varname>isCached()</varname> が &true; を返すと、
    実際にはキャッシュされた出力が読み込まれ、内部に格納されます。続いてコールされる
    <link linkend="api.display"><varname>display()</varname></link> または
    <link linkend="api.fetch"><varname>fetch()</varname></link>
    はこの内部に格納された出力を返し、キャッシュファイルを再読み込みしようとはしません。
-   これにより、上の例における <varname>is_cached()</varname> のコールから
+   これにより、上の例における <varname>isCached()</varname> のコールから
    <link linkend="api.display"><varname>display()</varname></link> のコールまでの間に
    別のプロセスがキャッシュをクリアしてしまうといった競合を防ぐことができます。これは、
-   <varname>is_cached()</varname> が &true; を返した後は
-   <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>
+   <varname>isCached()</varname> が &true; を返した後は
+   <link linkend="api.clear.cache"><varname>clearCache()</varname></link>
    やその他キャッシュ設定の変更が何の影響も及ぼさないということも意味します。
   </para>
   </note>
 
   <example>
-   <title>is_cached()</title>
+   <title>isCached()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->caching = true;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
-if(!$smarty->is_cached('index.tpl')) {
+if(!$smarty->isCached('index.tpl')) {
 // ここでデータベースを呼び出し、値を割り当てます
 }
 
@@ -82,13 +83,13 @@ $smarty->display('index.tpl');
   </example>
 
   <example>
-   <title>複数のキャッシュを使用したテンプレートにおける is_cached()</title>
+   <title>複数のキャッシュを使用したテンプレートにおける isCached()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->caching = true;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
-if(!$smarty->is_cached('index.tpl', 'FrontPage')) {
+if(!$smarty->isCached('index.tpl', 'FrontPage')) {
   // ここでデータベースを呼び出し、値を割り当てます
 }
 
@@ -100,8 +101,8 @@ $smarty->display('index.tpl', 'FrontPage');
 
 
     <para>
-    <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>、
-    <link linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>
+    <link linkend="api.clear.cache"><varname>clearCache()</varname></link>、
+    <link linkend="api.clear.all.cache"><varname>clearAllCache()</varname></link>
     および
     <link linkend="caching">キャッシュの項</link> も参照してください。
   </para>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 3006 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.resources"><title>リソースプラグイン</title>
     <para>
@@ -21,23 +21,23 @@
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
       <paramdef>string <parameter>&amp;$source</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
       <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
      <funcprototype>
       <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
       <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
 
@@ -91,7 +91,7 @@
  * Purpose:  データベースからテンプレートを取得する
  * -------------------------------------------------------------
  */
-function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
+function smarty_resource_db_source($tpl_name, &$tpl_source, $smarty)
 {
     // ここでデータベースを呼び出し、
     // 失際のテンプレートの内容を $tpl_source に代入します
@@ -100,7 +100,7 @@ function smarty_resource_db_source($tpl_name, &$tpl_source, &$smarty)
     return true;
 }
 
-function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
+function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, $smarty)
 {
     // テンプレートの最終更新時刻の Unix タイムスタンプを
     // $tpl_timestampに代入するためにデータベースを呼び出します
@@ -110,13 +110,13 @@ function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, &$smarty)
     return true;
 }
 
-function smarty_resource_db_secure($tpl_name, &$smarty)
+function smarty_resource_db_secure($tpl_name, $smarty)
 {
     // 全てのテンプレートがセキュアであるとみなします
     return true;
 }
 
-function smarty_resource_db_trusted($tpl_name, &$smarty)
+function smarty_resource_db_trusted($tpl_name, $smarty)
 {
     // テンプレートでは使用しません
 }
@@ -126,9 +126,9 @@ function smarty_resource_db_trusted($tpl_name, &$smarty)
     </example>
 
  <para>
- <link linkend="api.register.resource"><varname>register_resource()</varname></link>
+ <link linkend="api.register.resource"><varname>registerResource()</varname></link>
  および
- <link linkend="api.unregister.resource"><varname>unregister_resource()</varname></link>
+ <link linkend="api.unregister.resource"><varname>unregisterResource()</varname></link>
  も参照してください。
 </para>
 

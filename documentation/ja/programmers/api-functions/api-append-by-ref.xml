@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.append.by.ref">
  <refnamediv>
-  <refname>append_by_ref()</refname>
+  <refname>appendByRef()</refname>
   <refpurpose>参照として値を追加します。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>append_by_ref</methodname>
+   <type>void</type><methodname>appendByRef</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
    <methodparam choice="opt"><type>bool</type><parameter>merge</parameter></methodparam>
@@ -18,24 +18,25 @@
   <para>
    これを使用して、テンプレートに参照として値を
    <link linkend="api.append"><varname>追加</varname></link> します。
-   値を参照で追加すると、元の値が変更されると
-   追加した値も変更されます。
-   <link linkend="advanced.features.objects">オブジェクト</link> の場合は、
-   <varname>append_by_ref()</varname> を使用すると
-   追加されたオブジェクトをメモリ内でコピーすることを避けられます。
-   詳細は、PHP マニュアルのリファレンスの説明を参照して下さい。
-   任意の第３パラメータに &true; が渡された場合は、
-   値は現在のテンプレート配列に追加される代わりにマージされます。 
   </para>
+  <note>
+   <title>テクニカルノート</title>
+   <para>
+     PHP 5 以降では、<varname>appendByRef()</varname> はほとんどの場合で不要になりました。
+     <varname>appendByRef()</varname> が有用なのは、PHP の配列のインデックスの値を
+     テンプレートから再代入したい場合などです。オブジェクトのプロパティへの代入は、
+     デフォルトでこれと同じ挙動になります。
+   </para>
+  </note> 
   &note.parameter.merge;
   <example>
-   <title>append_by_ref</title>
+   <title>appendByRef</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // 名前/値 のペアを追加します
-$smarty->append_by_ref('Name', $myname);
-$smarty->append_by_ref('Address', $address);
+$smarty->appendByRef('Name', $myname);
+$smarty->appendByRef('Address', $address);
 ?>
 ]]>
    </programlisting>
@@ -44,7 +45,7 @@ $smarty->append_by_ref('Address', $address);
    <link linkend="api.append"><varname>append()</varname></link>、
   <link linkend="api.assign"><varname>assign()</varname></link>
   および
-  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>
+  <link linkend="api.get.template.vars"><varname>getTemplateVars()</varname></link>
   も参照してください。
 </para>
 

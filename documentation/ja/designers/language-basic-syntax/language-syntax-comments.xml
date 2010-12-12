@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.syntax.comments">
  <title>コメント</title>
@@ -75,11 +75,6 @@
 </select>
 *}
 
-
-{* テンプレート用の cvs タグ。以下の 36 はアメリカの通貨記号ですが、
-. cvs がこれを変換してしまいます…… *}
-{* &#36;Id: Exp &#36; *}
-{* $Id: *}
 </body>
 </html>
 ]]>

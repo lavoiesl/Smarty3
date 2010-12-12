@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.literal">
  <title>{literal}</title>
@@ -17,64 +17,31 @@
   で個々のデリミタをエスケープしてください。
  </para>
 
+ <note><para>
+   <varname>{literal}{/literal}</varname> タグは通常は不要です。Smarty は、
+   空白文字で囲まれたデリミタを無視するからです。
+   Javascript や CSS で波括弧を使う場合は両側に空白文字を入れるようにしましょう。
+   これは、Smarty 3 以降の新しい挙動です。
+ </para></note>
+
  <example>
   <title>{literal} タグ</title>
   <programlisting>
 <![CDATA[
-{literal}
-<script type="text/javascript">
-<!--
-  function isblank(field) {
-    if (field.value == '')
-      { return false; }
-    else
-      {
-      document.loginform.submit();
-      return true;
-    }
-  }
-// -->
+<script>
+   // 次の波括弧は Smarty では無視されます。
+   // 空白文字で囲まれているからです。
+   function myFoo {
+     alert('Foo!');
+   }
+   // こちらは、リテラルとして扱うエスケープが必要です
+   {literal}
+     function myBar {alert('Bar!');}
+   {/literal}
 </script>
-{/literal}
 ]]>
   </programlisting>
  </example>
-
- <example>
-   <title>Javascript の関数の例</title>
-   <programlisting>
-<![CDATA[
-<script language="JavaScript" type="text/javascript">
-{literal}
-function myJsFunction(name, ip){
-   alert("The server name\n" + name + "\n" + ip);
-}
-{/literal}
-</script>
-<a href="javascript:myJsFunction('{$smarty.server.SERVER_NAME}','{$smarty.server.SERVER_ADDR}')">Click here for the Server Info</a>
- ]]>
-   </programlisting>
- </example>
-
- <example>
-  <title>テンプレート内での css style</title>
-  <programlisting>
-<![CDATA[
-{* included this style .. as an experiment *}
-<style type="text/css">
-{literal}
-/* this is an intersting idea for this section */
-.madIdea{
-    border: 3px outset #ffffff;
-    margin: 2 3 4 5px;
-    background-color: #001122;
-}
-{/literal}
-</style>
-<div class="madIdea">With smarty you can embed CSS in the template</div>
-]]>
-</programlisting>
-</example>
 
  <para>
   <link linkend="language.function.ldelim"><varname>{ldelim} {rdelim}</varname></link>

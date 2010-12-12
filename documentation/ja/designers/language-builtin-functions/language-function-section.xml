@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 3152 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.section">
  <title>{section},{sectionelse}</title>
@@ -12,6 +12,17 @@
   をループするのとは異なります。すべての <varname>{section}</varname>
   タグは、終了タグ <varname>{/section}</varname> とペアになっている必要があります。
    </para>
+
+ <note><para>
+   <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
+   ループは、{section} ループができることならすべてできるうえに、構文がよりシンプルで簡単です。
+   通常は {section} ループよりもこちらのほうをお勧めします。
+ </para></note>
+ <note><para>
+   {section} ループは連想配列を扱うことができません。数値のインデックスで、かつ 0,1,2,...
+   と順に並んでいなければなりません。連想配列の場合は
+   <link linkend="language.function.foreach"><varname>{foreach}</varname></link> ループを使いましょう。
+ </para></note>
 
  <informaltable frame="all">
   <tgroup cols="5">
@@ -85,7 +96,27 @@
   </tgroup>
  </informaltable>
 
- <itemizedlist>
+  <para><emphasis role="bold">オプションのフラグ</emphasis></para>
+  <informaltable frame="all">
+    <tgroup cols="2">
+      <colspec colname="param" align="center" />
+      <colspec colname="desc" />
+      <thead>
+        <row>
+          <entry>名前</entry>
+          <entry>概要</entry>
+        </row>
+      </thead>
+      <tbody>
+        <row>
+          <entry>nocache</entry>
+          <entry><varname>{section}</varname> ループのキャッシュを無効にする</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </informaltable>
+  
+  <itemizedlist>
    <listitem><para>
    必須の属性は <parameter>name</parameter> と <parameter>loop</parameter>
    です。
@@ -162,11 +193,13 @@ $smarty->assign('custid',$data);
 <![CDATA[
 {* この例は $custid 配列のすべての値を表示します *}
 {section name=customer loop=$custid}
+{section customer $custid} {* 短縮形 *}
   id: {$custid[customer]}<br />
 {/section}
 <hr />
 {* $custid 配列のすべての値を逆順に表示します *}
 {section name=foo loop=$custid step=-1}
+{section foo $custid step=-1} {* 短縮形 *}
   {$custid[foo]}<br />
 {/section}
 ]]>
@@ -316,8 +349,13 @@ $smarty->assign('address',$addr);
 ?>
 ]]>
 </programlisting>
-<para><parameter>loop</parameter> 変数は、ループの回数を決定するためにのみ使用します。
-  <varname>{section}</varname> 内ではあらゆるテンプレート変数にアクセス可能です。</para>
+  <para>
+  <parameter>loop</parameter> 変数は、ループの回数を決定するためにのみ使用します。
+  <varname>{section}</varname> 内ではあらゆるテンプレート変数にアクセス可能です。
+  これは、複数の配列をループさせるときに便利です。
+  ループ回数を決めるための配列を渡すこともできますが、
+  整数値を渡してループ回数を決めることもできます。
+  </para>
   <programlisting>
 <![CDATA[
 {section name=customer loop=$custid}
@@ -477,7 +515,7 @@ $smarty->assign('contacts', $db->getAll($sql));
    1(又は <parameter>step</parameter> 属性の値)ずつ増加します。
   </para>
   <note>
-   <title>テクニカルノート</title>
+   <title>注意</title>
    <para>
     <parameter>step</parameter> と <parameter>start</parameter>
     属性が変更されていない場合は、セクションのプロパティ <link
@@ -488,7 +526,7 @@ $smarty->assign('contacts', $db->getAll($sql));
   <example>
 <title>{section} の <varname>index</varname> プロパティ</title>
 <para>
-<note><title>ちなみに……</title>
+<note><title>注意</title>
 <para><literal>$custid[customer.index]</literal> と
 <literal>$custid[customer]</literal> は同じ意味です。</para>
 </note>
@@ -634,14 +672,12 @@ iteration=6 index=15 id=3015<br />
   <para>
    もうひとつの例は、<parameter>iteration</parameter> プロパティを使用して
    5 行おきにテーブルのヘッダ部を出力します。
-   <link linkend="language.function.if"><varname>{if}</varname></link>
-   関数を mod 演算子とともに使用します。
   </para>
    <programlisting>
 <![CDATA[
 <table>
 {section name=co loop=$contacts}
-  {if $smarty.section.co.iteration % 5 == 1}
+  {if $smarty.section.co.iteration is div by 5}
     <tr><th>&nbsp;</th><th>Name></th><th>Home</th><th>Cell</th><th>Email</th></tr>
   {/if}
   <tr>
@@ -654,8 +690,37 @@ iteration=6 index=15 id=3015<br />
 {/section}
 </table>
 ]]>
-  </programlisting>
+  </programlisting>  
+    <para>
+     <parameter>iteration</parameter> プロパティを使って、
+     3 行ごとにテキストの色を変更します。
+    </para>
+     <programlisting>
+  <![CDATA[
+  <table>
+  {section name=co loop=$contacts}
+    {if $smarty.section.co.iteration is even by 3}
+      <span style="color: #ffffff">{$contacts[co].name}</span>
+    {else}
+      <span style="color: #dddddd">{$contacts[co].name}</span>
+    {/if}
+  {/section}
+  </table>
+  ]]>
+    </programlisting>
 </example>
+
+
+<note><para>
+  <emphasis>"is div by"</emphasis> 構文は、PHP の mod 演算子と同じ意味です。
+  mod 演算子も同じように使えるので、<literal>{if $smarty.section.co.iteration % 5 == 1}</literal>
+  も同じように動作します。
+</para></note>
+
+<note><para>
+  同じく <emphasis>"is odd by"</emphasis> を使えば、色を反転させることができます。
+</para></note>
+
  </sect2>
 
 
@@ -807,10 +872,12 @@ the section was shown.
   </programlisting>
   </example>
   <para>
-   <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
+   <link linkend="language.function.foreach"><varname>{foreach}</varname></link>、
+   <link linkend="language.function.for"><varname>{for}</varname></link>、
+   <link linkend="language.function.while"><varname>{while}</varname></link>
    および
    <link linkend="language.variables.smarty.loops"><parameter>$smarty.section</parameter></link>
-   も参照してください。
+   も参照ください。
   </para>
  </sect2>
 </sect1>

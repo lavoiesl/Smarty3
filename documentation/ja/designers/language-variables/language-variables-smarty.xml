@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3831 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.variables.smarty">
  <title>予約変数 {$smarty}</title>
@@ -63,6 +63,12 @@
 ]]>
 </programlisting>
   </note>
+  <note><para>
+    Smarty では、利便性のため PHP のスーパーグローバル変数に直接アクセスすることもできます。
+    これを使う場合は注意が必要です。
+    アプリケーションのコードの構造とテンプレートとをまぜてしまうことになるからです。
+    必要な値だけをテンプレート変数に代入して使うのがお勧めです。
+  </para></note>
  </sect2>
 
  <sect2 id="language.variables.smarty.now">
@@ -105,6 +111,7 @@ define('MY_CONST_VAL','CHERRIES');
 ]]>
 </programlisting>
 </informalexample>
+
 <para>定数を出力するテンプレート</para>
 <informalexample>
 <programlisting>
@@ -113,6 +120,14 @@ define('MY_CONST_VAL','CHERRIES');
 ]]>
 </programlisting>
 </informalexample>
+
+<note><para>
+  Smarty では、利便性のため PHP の定数に直接アクセスすることもできます。
+  しかし通常は避けたほうがよいでしょう。
+  アプリケーションのコードの構造とテンプレートとをまぜてしまうことになるからです。
+  必要な値だけをテンプレート変数に代入して使うのがお勧めです。
+</para></note>
+
  </sect2>
 
  <sect2 id="language.variables.smarty.capture">
@@ -142,43 +157,34 @@ define('MY_CONST_VAL','CHERRIES');
  </sect2>
 
  <sect2 id="language.variables.smarty.loops">
-  <title>{$smarty.section}、{$smarty.foreach}</title>
+  <title>{$smarty.section}</title>
   <para>
-   <parameter>{$smarty.section}</parameter> 変数および
-   <parameter>{$smarty.foreach}</parameter> 変数は、
+   <parameter>{$smarty.section}</parameter> 変数は、
    <link linkend="language.function.section"><varname>{section}</varname></link>
-   および
-   <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
    のループプロパティを参照するために使用します。
    この中には <varname>.first</varname>、<varname>.index</varname>
    といった有用な値が含まれます。
   </para>
+  <note><para>
+    <varname>{$smarty.foreach}</varname> 変数はもはや使われておらず、新しい
+    <link linkend="language.function.foreach"><varname>{foreach}</varname></link>
+    構文になりました。しかし、Smarty 2.x 形式の foreach 構文もサポートしています。
+  </para></note>
  </sect2>
 
  <sect2 id="language.variables.smarty.template">
   <title>{$smarty.template}</title>
   <para>
-   現在処理中のテンプレートの名前を返します。
-   次の例の <filename>container.tpl</filename> と、そこからインクルードしている
-   <filename>banner.tpl</filename> の両方で
-   <parameter>{$smarty.template}</parameter> を使用しています。
+   現在処理中のテンプレートの名前 (ディレクトリを含まない) を返します。
   </para>
-<programlisting>
-<![CDATA[
-<b>Main container is {$smarty.template}</b>
-{include file='banner.tpl'}
-]]>
-</programlisting>
-    <para>
-    出力は、このようになります。
-    </para>
-<programlisting>
-<![CDATA[
-<b>Main page is container.tpl</b>
-banner.tpl
-]]>
-</programlisting>
  </sect2>
+
+  <sect2 id="language.variables.smarty.current_dir">
+   <title>{$smarty.current_dir}</title>
+   <para>
+    現在処理中のテンプレートのディレクトリ名を返します。
+   </para>
+  </sect2>
 
  <sect2 id="language.variables.smarty.version">
   <title>{$smarty.version}</title>
@@ -192,17 +198,35 @@ banner.tpl
 </programlisting>
  </sect2>
 
+ <sect2 id="language.variables.smarty.block.child">
+  <title>{$smarty.block.child}</title>
+  <para>
+   子テンプレートのブロックのテキストを返します。
+   <link linkend="advanced.features.template.inheritance">テンプレートの継承</link>
+   を参照ください。
+  </para>
+ </sect2>
+
+ <sect2 id="language.variables.smarty.block.parent">
+  <title>{$smarty.block.parent}</title>
+  <para>
+   親テンプレートのブロックのテキストを返します。
+   <link linkend="advanced.features.template.inheritance">テンプレートの継承</link>
+   を参照ください。
+  </para>
+ </sect2>
+
  <sect2 id="language.variables.smarty.ldelim">
-  <title>{$smarty.ldelim}、{$smarty.rdelim}</title>
+  <title>{$smarty.ldelim}, {$smarty.rdelim}</title>
   <para>
    これらの変数を使用して、左右のデリミタをそのまま表示します。
    <link linkend="language.function.ldelim">
    <varname>{ldelim}、{rdelim}</varname></link> と同じです。
   </para>
   <para>
-   <link linkend="language.assigned.variables">assigned variables</link> および
-   <link linkend="language.config.variables">config variables</link>
-   も参照してください。
+   <link linkend="language.assigned.variables">PHP から割り当てられた変数</link> および
+   <link linkend="language.config.variables">設定ファイルから読み込まれた変数</link>
+   も参照ください。
   </para>
  </sect2>
 </sect1>

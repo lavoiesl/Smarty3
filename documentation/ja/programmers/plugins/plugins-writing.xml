@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.writing">
     <title>プラグインの記述</title>
@@ -19,7 +19,7 @@
     <programlisting role="php">
 <![CDATA[
 <?php
-require_once $smarty->_get_plugin_filepath('function', 'html_options');
+$_smarty_tpl->loadPlugin('smarty_shared_make_timestamp'); 
 ?>
 ]]>
     </programlisting>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <chapter id="language.modifiers">
  <title>変数の修飾子</title>
@@ -24,35 +24,32 @@
 {$title|upper}
 
 {* パラメータを持つ修飾子 *}
-{$title|truncate:40:'...'}
+{$title|truncate:40:"..."}
 
-{* テンプレート関数のパラメータに修飾子を適用 *}
+{* 関数のパラメータに修飾子を適用 *}
 {html_table loop=$myvar|upper}
 
 {* パラメータ付き *}
-{html_table loop=$myvar|truncate:40:'...'}
+{html_table loop=$myvar|truncate:40:"..."}
 
 {* リテラル文字列に修飾子を適用 *}
-{'foobar'|upper}
+{"foobar"|upper}
 
 {* 現在の日付を整形するために date_format を使用 *}
 {$smarty.now|date_format:"%Y/%m/%d"}
 
 {* カスタム関数に修飾子を適用 *}
-{mailto|upper address='smarty@example.com'}
+{mailto|upper address="smarty@example.com"}
 
 {* php の str_repeat を使用 *}
-{'='|str_repeat:80}
+{"="|str_repeat:80}
 
 {* php の count *}
 {$myArray|@count}
 
-{* php の shuffle をサーバの ip に対して使用 *}
-{$smarty.server.SERVER_ADDR|shuffle}
-
 (* 配列全体の大文字変換と切り詰め *}
 <select name="name_id">
-{html_options output=$myArray|upper|truncate:20}
+{html_options output=$my_array|upper|truncate:20}
 </select>
 ]]>
   </programlisting>
@@ -60,23 +57,26 @@
  <itemizedlist>
 
  <listitem><para>
-  配列に対して修飾子を用いた場合は、その配列に格納された全ての値に影響を及ぼします。
-  配列全体を１つの値として作用させるには修飾子の先頭に <literal>@</literal>
-  記号をつける必要があります。
-  <note>
-  <title>例</title>
-  <para><literal>{$articleTitle|@count}</literal> - これは、
-  配列 <parameter>$articleTitle</parameter> の要素数を、php の
-  <ulink url="&url.php-manual;count"><varname>count()</varname></ulink>
-  関数を修飾子として用いて出力します。
-  </para></note>
-  </para> </listitem>
+  修飾子は、配列やオブジェクトを含む任意の型の変数に適用することができます。
+  
+    <note><para>Smarty 3 ではデフォルトの挙動が変わりました。Smarty 2.x の場合は
+    配列に修飾子を適用するときには "<literal>@</literal>" を使って
+    <literal>{$articleTitle|@count}</literal> のようにする必要がありましたが、
+    Smarty 3 では "<literal>@</literal>" は不要になり、無視されます。
+    </para>
+    <para>
+      配列の個々の要素に対して修飾子を適用したい場合は、
+      テンプレート内で配列をループさせるか
+      修飾子関数の中にその機能を組み込まなければなりません。
+    </para></note>
+  </para>
+ </listitem>
 
  <listitem><para>
   修飾子は <link
   linkend="variable.plugins.dir"><parameter>$plugins_dir</parameter></link>
   から自動的に読み込むか、明示的に <link
-  linkend="api.register.modifier"><varname>register_modifier()</varname></link>
+  linkend="api.register.plugin"><varname>registerPlugin()</varname></link>
   関数で登録します。２つ目の方法は、PHP スクリプトと Smarty テンプレートで
   関数を共有する場合などに有用です。
   </para></listitem>
@@ -92,24 +92,23 @@
    のほうがより直感的です。
   </para></listitem>
    <listitem><para>
-   第２に、<link linkend="variable.security">
-   <parameter>$security</parameter></link> が有効な場合、
+   第２に、セキュリティが有効な場合、
    修飾子として使用される全ての PHP 関数は
-   <link linkend="variable.security.settings">
-   <parameter>$security_settings</parameter></link> 配列の
-   <literal>MODIFIER_FUNCS</literal> 要素で
-   信頼できるものとして定義される必要があります。
+   セキュリティポリシーの <parameter>$modifiers</parameter>
+   プロパティで信頼できるものとして定義される必要があります。
+   詳細は <link linkend="advanced.features.security">セキュリティ</link>
+   の節を参照ください。
   </para></listitem>
    </itemizedlist>
  </para></listitem>
   </itemizedlist>
 
  <para>
-  <link linkend="api.register.modifier"><varname>register_modifier()</varname></link>、
+  <link linkend="api.register.plugin"><varname>registerPlugin()</varname></link>、
   <link linkend="language.combining.modifiers">修飾子の連結</link>
   および
   <link linkend="plugins">プラグインによる Smarty の拡張</link>
-  も参照してください。
+  も参照ください。
  </para>
 
  &designers.language-modifiers.language-modifier-capitalize;

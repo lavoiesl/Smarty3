@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <chapter id="chapter.debugging.console">
  <title>デバッギングコンソール</title>
@@ -17,7 +17,7 @@
   <para>
   <literal>debug.tpl</literal> (デフォルトでは <link linkend="constant.smarty.dir">
   <constant>SMARTY_DIR</constant></link> 内にあります) に
-  <link linkend="variable.debug.tpl">
+  <link linkend="variable.debug_template">
   <parameter>$debug_tpl</parameter></link> のテンプレートリソースのパスを示す必要がある場合は、
   Smarty で
   <link linkend="variable.debugging"><parameter>$debugging</parameter></link>
@@ -31,9 +31,8 @@
   デバッギングコンソールを無効にするには
   <link linkend="variable.debugging"><parameter>$debugging</parameter></link>
   を &false; に設定します。また、一時的にデバッギングコンソールを有効にするには、
-  <link linkend="variable.debugging.ctrl"><parameter>$debugging_ctrl</parameter>
+  <link linkend="variable.debugging.ctrl"><parameter>$debugging_ctrl</parameter></link>
   で URL の中に <literal>SMARTY_DEBUG</literal> を含めます。
-  </link>.
  </para>
  <note>
   <title>テクニカルノート</title>
@@ -56,12 +55,7 @@
   </para>
  </note>
     <para>
-    <link linkend="troubleshooting">トラブルシューティング</link>、
-    <link linkend="variable.error.reporting">
-    <parameter>$error_reporting</parameter></link>
-    および
-    <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>
-    も参照してください。
+    <link linkend="troubleshooting">トラブルシューティング</link> も参照ください。
    </para>
 </chapter>
 

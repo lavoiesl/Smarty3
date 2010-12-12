@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
@@ -16,15 +16,14 @@
   <emphasis>is_array()</emphasis> など、PHP の条件演算子や関数はすべて利用可能です。
  </para>
  <para>
-  <link linkend="variable.security"><parameter>$security</parameter></link>
-  が有効な場合は、 <link
-  linkend="variable.security.settings"><parameter>$security_settings</parameter></link>
-  の配列 <emphasis>IF_FUNCS</emphasis> に含まれる PHP の関数のみが利用可能となります。
+  セキュリティが有効な場合は、 セキュリティポリシーの <parameter>$php_functions</parameter>
+  プロパティに含まれる PHP の関数のみが利用可能となります。
+  詳細は <link linkend="advanced.features.security">セキュリティ</link> の節を参照ください。
  </para>
  <para>
   以下は認識される条件演算子の一覧です。
   これらはスペースによって周りの要素から分離される必要があります。
-  [] 内に記載された項目は任意である事に注意して下さい。
+  [ ] で囲まれた要素は任意であることに注意しましょう。
   "PHP 相当" には、PHP において当てはまるものが示されます。
  </para>
 
@@ -236,7 +235,7 @@
     {* 何かを行います *}
 {/if}
 
-{if is_array($foo) && count($foo) > 0)
+{if is_array($foo) && count($foo) > 0}
     {* foreach ループを実行します *}
 {/if}
   ]]>

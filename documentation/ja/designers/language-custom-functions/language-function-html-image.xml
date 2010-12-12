@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.html.image">
  <title>{html_image}</title>
@@ -87,10 +87,8 @@
   <parameter>basedir</parameter> 属性は、画像の相対パスの基準となるベースディレクトリです。
   指定しなかった場合は、web サーバのドキュメントルートである
   <varname>$_ENV['DOCUMENT_ROOT']</varname> を使用します。
-  <link linkend="variable.security"><parameter>$security</parameter></link>
-  が有効な場合は、画像のパスは
-  <link linkend="variable.secure.dir">セキュアディレクトリ</link>
-  内になければなりません。
+  セキュリティが有効な場合は、画像はセキュリティポリシーの
+  詳細は <link linkend="advanced.features.security">セキュリティ</link> の節を参照ください。
  </para></listitem>
 
  <listitem><para>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3842 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.assign">
  <refnamediv>
   <refname>assign()</refname>
-  <refpurpose>テンプレートに値を割り当てます。</refpurpose>
+  <refpurpose>テンプレートに値/オブジェクトを割り当てます。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
@@ -17,10 +17,24 @@
    <type>void</type><methodname>assign</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
+   <methodparam choice="opt"><type>bool</type><parameter>nocache</parameter></methodparam>
   </methodsynopsis>
   <para>
    テンプレート変数名/値のペアを明示的に指定するか、それらが格納された連想配列を指定します。
   </para>
+  <para>
+   オプションの三番目のパラメータ <parameter>nocache</parameter> に &true; を渡すと、
+   キャッシュしない変数として代入します。詳細は
+   <link linkend="cacheability.variables"><parameter>変数のキャッシュ機能</parameter></link> を参照ください。
+  </para>
+  <note><para>
+    オブジェクトをテンプレートに代入/登録するときは、
+    テンプレートからアクセスするプロパティやメソッドは表示に関する目的でだけ使うようにしましょう。
+    オブジェクトを通じてアプリケーションのロジックを取り込むのは簡単ですが、
+    それはまずい設計につながり、管理しづらくなってしまいます。
+    Smarty ウェブサイトのベストプラクティスのページも参照ください。
+  </para></note>    
+  
   <example>
    <title>assign()</title>
 <programlisting role="php">
@@ -68,9 +82,9 @@ $smarty->assign('contact', $db->getRow($sql));
   </para>
 
   <para>
- <link linkend="api.assign.by.ref"><varname>assign_by_ref()</varname></link>、
- <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>、
- <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>、
+ <link linkend="api.assign.by.ref"><varname>assignByRef()</varname></link>、
+ <link linkend="api.get.template.vars"><varname>getTemplateVars()</varname></link>、
+ <link linkend="api.clear.assign"><varname>clearAssign()</varname></link>、
  <link linkend="api.append"><varname>append()</varname></link>
  および
  <link linkend="language.function.assign"><varname>{assign}</varname></link>

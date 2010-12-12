@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.include">
  <title>{include}</title>
@@ -34,11 +34,15 @@
  </para></listitem>
 
   <listitem><para>
-  全ての割り当て変数の値は、インクルードされたテンプレートのスコープが閉じた後に元に戻ります。
-  これは、インクルードされたテンプレート内で全ての変数を使用可能であるということです。
-  しかし、インクルードされたテンプレート内での変数の変更は
-  <varname>{include}</varname>
-  の後でインクルードしている側のテンプレート内では見ることはできません。
+  インクルードしたテンプレート側からは、インクルード元のテンプレートにあるすべての変数を使えます。
+  しかし、インクルードされたテンプレート内での変数の変更や新たな変数の作成はローカルスコープになり、
+  <varname>{include}</varname> ステートメントの後のインクルード元テンプレート側からは見えません。
+  このデフォルトの挙動を、インクルードされたテンプレート内で代入されたすべての変数について変更することができます。
+  その方法は、<varname>{include}</varname> ステートメントの scope 属性を使うか、
+  あるいは <link linkend="language.function.assign"><varname>{assign}</varname></link>
+  ステートメントを使うかのいずれかです。
+   後者の方法は、インクルードしたテンプレートからインクルード元のテンプレートに
+   値を返す場合に便利です。
   </para></listitem>
 
   <listitem><para>
@@ -80,6 +84,34 @@
      <entry>インクルードしたコンテンツの出力を格納する変数名</entry>
     </row>
     <row>
+     <entry>cache_lifetime</entry>
+     <entry>integer</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>このサブテンプレートのキャッシュについて独自に設定するキャッシュの有効期限</entry>
+    </row>
+    <row>
+     <entry>compile_id</entry>
+     <entry>string/integer</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>このサブ連プレートのコンパイルに使う独自の compile_id</entry>
+    </row>
+    <row>
+     <entry>cache_id</entry>
+     <entry>string/integer</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>このサブテンプレートのキャッシュに使う独自の cache_id</entry>
+    </row>
+    <row>
+     <entry>scope</entry>
+    <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>サブテンプレート内で代入されたすべての変数のスコープ。'parent'、'root' あるいは 'global'</entry> 
+    </row>
+    <row>
      <entry>[var ...]</entry>
      <entry>[var type]</entry>
      <entry>No</entry>
@@ -89,7 +121,35 @@
    </tbody>
   </tgroup>
  </informaltable>
-
+ 
+ <para><emphasis role="bold">オプションのフラグ</emphasis></para>
+ <informaltable frame="all">
+  <tgroup cols="2">
+   <colspec colname="param" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>名前</entry>
+     <entry>概要</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>nocache</entry>
+     <entry>このサブテンプレートのキャッシュを無効にする</entry>
+    </row>
+    <row>
+     <entry>caching</entry>
+     <entry>このサブテンプレートのキャッシュを有効にする</entry>
+    </row>
+    <row>
+     <entry>inline</entry>
+     <entry>サブテンプレートをコンパイルしたコードを呼び出し元テンプレートのコンパイル済みコードとマージする</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ 
  <example>
   <title>シンプルな {include} の例</title>
   <programlisting>
@@ -106,7 +166,8 @@
 *}
 {include file="$tpl_name.tpl"}
 
-{include file='page_footer.tpl'}
+{* file 属性の短縮形 *}
+{include 'page_footer.tpl'}
 </body>
 </html>
 ]]>
@@ -117,9 +178,9 @@
   <title>{include} に変数を渡す</title>
   <programlisting>
 <![CDATA[
-{include file='links.tpl' title='Newest links' links=$link_array}
+{include 'links.tpl' title='Newest links' links=$link_array}
 {* ここにテンプレートの本体を記述します *}
-{include file='footer.tpl' foo='bar'}
+{include 'footer.tpl' foo='bar'}
 ]]>
   </programlisting>
   <para>このテンプレートは、以下のような <filename>links.tpl</filename> をインクルードします。</para>
@@ -136,8 +197,65 @@
 ]]>
 </programlisting>
  </example>
-
-
+ 
+ <example>
+  <title>{include} での parent スコープの使用</title>
+  <para>インクルードされたテンプレート内で代入した変数は、インクルードした側のテンプレートからも見えます。</para>
+  <programlisting>
+<![CDATA[
+{include 'sub_template.tpl' scope=parent}
+...
+{* sub_template で代入した変数を表示します *}
+{$foo}<br>
+{$bar}<br>
+...
+]]>
+  </programlisting>
+  <para>上のテンプレートでインクルードしている <filename>sub_template.tpl</filename> は、次のようになります。</para>
+  <programlisting>
+<![CDATA[
+...
+{assign var=foo value='something'}
+{assign var=bar value='value'}
+...
+]]>
+</programlisting>
+ </example>
+ 
+ <example>
+  <title>キャッシュを無効にした {include}</title>
+  <para>インクルードされたテンプレートはキャッシュされません。</para>
+  <programlisting>
+<![CDATA[
+{include 'sub_template.tpl' nocache}
+...
+]]>
+  </programlisting>
+ </example>
+ 
+ <example>
+  <title>個別のキャッシュ有効期限を設定した {include}</title>
+  <para>この例では、インクルードされたテンプレートのキャッシュ有効期限を独自に 500 秒に設定します。</para>
+  <programlisting>
+<![CDATA[
+{include 'sub_template.tpl' cache_lifteime=500}
+...
+]]>
+  </programlisting>
+ </example>
+ 
+ <example>
+  <title>強制的にキャッシュする {include}</title>
+  <para>この例では、グローバルなキャッシュ設定にかかわらず、インクルードされたテンプレートはキャッシュされます。</para>
+  <programlisting>
+<![CDATA[
+{include 'sub_template.tpl' caching}
+...
+]]>
+  </programlisting>
+ </example>
+ 
+ 
   <example>
    <title>{include} と変数への割り当て</title>
    <para>この例は、<filename>nav.tpl</filename>
@@ -147,12 +265,12 @@
    <programlisting>
  <![CDATA[
 <body>
-  {include file='nav.tpl' assign=navbar}
-  {include file='header.tpl' title='Smarty is cool'}
+  {include 'nav.tpl' assign=navbar}
+  {include 'header.tpl' title='Smarty is cool'}
     {$navbar}
     {* テンプレートの本体をここへ記述します *}
     {$navbar}
-  {include file='footer.tpl'}
+  {include 'footer.tpl'}
 </body>
 ]]>
    </programlisting>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <chapter id="troubleshooting">
   <title>トラブルシューティング</title>
@@ -31,7 +31,7 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
 
    <para>
     タグの閉じ忘れのような、Smarty がキャッチできないエラーがあります。
-    通常、このような場合のエラーは PHP コンパイル時にパースエラーで終了します。 
+    通常、このような場合のエラーは PHP コンパイル時にパースエラーで終了します。
    </para>
 
    <example>
@@ -168,12 +168,8 @@ Fatal error: Smarty error: unable to write to $cache_dir '/...
  </example>
 
    <para>
-   <link linkend="chapter.debugging.console">デバッグ</link>、
-   <link linkend="variable.error.reporting">
-   <parameter>$error_reporting</parameter></link>
-   および
-   <link linkend="api.trigger.error"><varname>trigger_error()</varname></link>
-   の項も参照してください。
+   <link linkend="chapter.debugging.console">デバッギング</link>
+   も参照ください。
    </para>
   </sect1>
 </chapter>

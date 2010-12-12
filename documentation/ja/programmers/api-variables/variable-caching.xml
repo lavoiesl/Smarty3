@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
      <sect1 id="variable.caching">
       <title>$caching</title>
       <para>
        テンプレートの出力を <link linkend="variable.cache.dir">
        <parameter>$cache_dir</parameter></link> にキャッシュするかどうかを設定します。
-       デフォルトは 0 で、これは無効を意味します。
+       デフォルトは Smarty::CACHING_OFF です。
        テンプレートが何度も同じコンテンツを生成するような場合は、
        <parameter>$caching</parameter> を有効にするほうがよいでしょう。
        これにより、パフォーマンスが向上します。
@@ -20,22 +20,22 @@
 
        <itemizedlist>
        <listitem><para>
-       値として 1 または 2 を指定すると、キャッシュを有効にします。
-       </para></listitem>
+       値として Smarty::CACHING_LIFETIME_CURRENT または Smarty::CACHING_LIFETIME_SAVED を指定すると、キャッシュを有効にします。
+     </para></listitem>
 
        <listitem><para>
-       1 は、Smarty にそのキャッシュが期限切れかどうかを調べるために、 現在の時間と
+        Smarty::CACHING_LIFETIME_CURRENT は、Smarty にそのキャッシュが期限切れかどうかを調べるために、 現在の時間と
        <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>
        の値を比較するように指示します。
        </para></listitem>
         <listitem><para>
-         2 は、Smarty にそのキャッシュが生成された時点の時間と
+         Smarty::CACHING_LIFETIME_SAVED は、Smarty にそのキャッシュが生成された時点の時間と
         <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>
          の値を比較するように指示します。このようにキャッシュの期限を制御するために、
         テンプレートを <link linkend="api.fetch">取得</link> する直前に
       <link linkend="variable.cache.lifetime"> <parameter>$cache_lifetime</parameter></link>
         をセットする事ができます。詳細は、
-       <link linkend="api.is.cached"><varname>is_cached()</varname></link>
+       <link linkend="api.is.cached"><varname>isCached()</varname></link>
       の項を参照して下さい。
            </para></listitem>
 
@@ -57,7 +57,7 @@
   <link linkend="variable.cache.modified.check"><parameter>$cache_modified_check</parameter></link>、
   <link linkend="api.is.cached"><varname>is_cached()</varname></link>
   および
-<link linkend="caching">キャッシュの項</link> も参照してください。
+<link linkend="caching">キャッシュの節</link> も参照ください。
 </para>
 
 </sect1>

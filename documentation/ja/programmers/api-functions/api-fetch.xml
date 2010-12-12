@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3838 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.fetch">
  <refnamediv>
@@ -13,7 +13,7 @@
    <type>string</type><methodname>fetch</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
-   <methodparam choice="opt"><type>string</type><parameter>$compile_id</parameter>
+   <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
    </methodparam>
   </methodsynopsis>
   <para>
@@ -36,27 +36,13 @@
 include('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = true;
+$smarty->setCaching(true);
 
-// キャッシュが存在しない場合はデータベースを呼び出します
-if(!$smarty->is_cached('index.tpl')) {
-
-  // ダミーデータを用意
-  $address = '245 N 50th';
-  $db_data = array(
-               'City' => 'Lincoln',
-               'State' => 'Nebraska',
-               'Zip' => '68502'
-             );
-
-  $smarty->assign('Name','Fred');
-  $smarty->assign('Address',$address);
-  $smarty->assign($db_data);
-
-}
+// URL ごとに個別のキャッシュ ID を設定します
+$cache_id = md5($_SERVER['REQUEST_URI']);
 
 // 出力を取り込みます
-$output = $smarty->fetch('index.tpl');
+$output = $smarty->fetch('index.tpl', $cache_id);
 
 // ここで$outputについて何かの処理を行います
 echo $output;
@@ -74,19 +60,22 @@ echo $output;
     </para>
     <programlisting>
 <![CDATA[
-Dear {$contact.name},
+Dear {$contact_info.name},
 
-Welcome and thankyou for signing up as a member of our user group,
+Welcome and thank you for signing up as a member of our user group.
 
-Click on the link below to login with your user name of '{$contact.login_id}'
-so you can post in our forums.
+Click on the link below to login with your user name
+of '{$contact_info.username}' so you can post in our forums.
 
-http://{$smarty.server.SERVER_NAME}/login/
+{$login_url}
 
 List master
-Some user group
 
-{include file='email_disclaimer.tpl'}
+{textformat wrap=40}
+This is some long-winded disclaimer text that would automatically get wrapped
+at 40 characters. This helps make the text easier to read in mail programs that
+do not wrap sentences for you.
+{/textformat}
 ]]>
     </programlisting>
     <para>
@@ -113,12 +102,12 @@ numbered word you have read
 <![CDATA[
 <?php
 
-// pear や adodb などを使用して、データベースから連絡先を取得します
-$query  = 'select name, email, login_id from contacts where contact_id='.$contact_id;
-$contact = $db->getRow($sql);
-$smarty->assign('contact', $contact);
+// $contact_info は、データベースやその他のリソースから取得します
 
-mail($contact['email'], 'Subject', $smarty->fetch('email_body.tpl'));
+$smarty->assign('contact_info',$contact_info);
+$smarty->assign('login_url',"http://{$_SERVER['SERVER_NAME']}/login");
+
+mail($contact_info['email'], 'Thank You', $smarty->fetch('email_body.tpl'));
 
 ?>
 ]]>
@@ -131,7 +120,7 @@ mail($contact['email'], 'Subject', $smarty->fetch('email_body.tpl'));
    <link linkend="api.display"><varname>display()</varname></link>、
    <link linkend="language.function.eval"><varname>{eval}</varname></link>、
    および
-   <link linkend="api.template.exists"><varname>template_exists()</varname></link>
+   <link linkend="api.template.exists"><varname>templateExists()</varname></link>
    も参照してください。
   </para>
  </refsect1>

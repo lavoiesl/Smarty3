@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.syntax.functions">
  <title>関数</title>
@@ -9,7 +9,7 @@
   <link linkend="language.variables">変数</link>
   を出力するか何らかの関数を呼び出す動作をします。
   関数は、
-  <literal>{funcname attr1='val1' attr2='val2'}</literal>
+  <literal>{funcname attr1="val1" attr2="val2"}</literal>
   のように関数名とその
   <link linkend="language.syntax.attributes">属性</link>
   をデリミタで囲みます。
@@ -18,18 +18,18 @@
   <title>関数の構文</title>
   <programlisting>
 <![CDATA[
-{config_load file='colors.conf'}
+{config_load file="colors.conf"}
 
-{include file='header.tpl'}
-{insert file='banner_ads.tpl' title='イケてる Smarty'}
+{include file="header.tpl"}
+{insert file="banner_ads.tpl" title="イケてる Smarty"}
 
 {if $logged_in}
-    ようこそ、<font color="{#fontColor#}">{$name}!</font>
+    ようこそ、<span style="color:{#fontColor#}">{$name}!</span>
 {else}
     やぁ、{$name}
 {/if}
 
-{include file='footer.tpl' ad=$random_id}
+{include file="footer.tpl"}
 ]]>
   </programlisting>
  </example>
@@ -54,15 +54,14 @@
   <link linkend="plugins">プラグイン</link> で実装します。
   これらは自由に修正したり、新たな関数を追加したりする事が可能です。
   <link linkend="language.function.html.options">
-  <varname>{html_options}</varname></link> や
-  <link linkend="language.function.popup"><varname>{popup}</varname></link>
+  <varname>{html_options}</varname></link>
   などがカスタム関数の例です。
  </para></listitem>
 </itemizedlist>
 
  <para>
- <link linkend="api.register.function"><varname>register_function()</varname></link>
- も参照してください。
+ <link linkend="api.register.plugin"><varname>registerPlugin()</varname></link>
+ も参照ください。
  </para>
 </sect1>
 

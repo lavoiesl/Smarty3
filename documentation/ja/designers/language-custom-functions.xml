@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <chapter id="language.custom.functions">
  <title>カスタム関数</title>
@@ -8,10 +8,8 @@
   Smarty は、テンプレートで使用可能なカスタム関数をいくつか実装しています。
  </para>
 
- &designers.language-custom-functions.language-function-assign;
  &designers.language-custom-functions.language-function-counter;
  &designers.language-custom-functions.language-function-cycle;
- &designers.language-custom-functions.language-function-debug;
  &designers.language-custom-functions.language-function-eval;
  &designers.language-custom-functions.language-function-fetch;
  &designers.language-custom-functions.language-function-html-checkboxes;
@@ -23,8 +21,6 @@
  &designers.language-custom-functions.language-function-html-table;
  &designers.language-custom-functions.language-function-mailto;
  &designers.language-custom-functions.language-function-math;
- &designers.language-custom-functions.language-function-popup;
- &designers.language-custom-functions.language-function-popup-init;
  &designers.language-custom-functions.language-function-textformat;
 
 </chapter>

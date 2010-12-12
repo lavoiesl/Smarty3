@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3841 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
   <sect1 id="caching.setting.up">
    <title>キャッシュのセットアップ</title>
    <para>
     まずはじめにキャッシュを有効にします。これは、<link
     linkend="variable.caching">
-    <parameter>$caching</parameter></link><literal> = 1 (あるいは 2)</literal>
+    <parameter>$caching</parameter></link> に <literal>Smarty::CACHING_LIFETIME_CURRENT</literal> あるいは <literal>Smarty::CACHING_LIFETIME_SAVED</literal>
     を設定するだけです。
    </para>
    <example>
@@ -18,7 +18,9 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 1;
+// $smarty->cacheLifetime() の値を使って
+// キャッシュの有効期限が決まります
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 $smarty->display('index.tpl');
 ?>
@@ -45,9 +47,9 @@ $smarty->display('index.tpl');
    <para>
     各々のキャッシュされたページは、
     <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>
-    生存時間が限られています。デフォルト値は 3600 秒です。
+    生存時間が限られています。デフォルト値は 3600 秒、つまり一時間です。
     期限が過ぎた後、キャッシュは再生成されます。
-    <link linkend="variable.caching"><parameter>$caching</parameter></link><literal>=2</literal>
+    <link linkend="variable.caching"><parameter>$caching</parameter></link> に <literal>Smarty::CACHING_LIFETIME_SAVED</literal>
     を設定する事によって、個々のキャッシュに自分自身の生存時間を与える事が可能です。詳細は、
     <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>
     を参照して下さい
@@ -60,21 +62,23 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 2; // 生存時間はキャッシュごと
+// 現在のキャッシュの生存時間は display がコールされるごとに残ります
+$smarty->setCaching(Smarty::CACHING_LIFETIME_SAVED);
 
 // index.tplに5分のcache_lifetimeをセットします
-$smarty->cache_lifetime = 300;
+$smarty->setCacheLifetime(300);
 $smarty->display('index.tpl');
 
 // home.tplに1時間のcache_lifetimeをセットします
-$smarty->cache_lifetime = 3600;
+$smarty->setCacheLifetime(3600);
 $smarty->display('home.tpl');
 
-// 注: $caching = 2の時、次のような$cache_lifetimeの設定は動作しません。
+// 注: $caching が Smarty::CACHING_LIFETIME_SAVED のとき、
+// 次のような$cache_lifetimeの設定は動作しません。
 // home.tplのキャッシュの生存時間は既に1時間にセットされているので、
 // もはや、$cache_lifetimeの値が尊重される事はありません。
 // home.tplのキャッシュは、今までどおり1時間後に満期になるでしょう。
-$smarty->cache_lifetime = 30; // 30 seconds
+$smarty->setCacheLifetime(30); // 30 seconds
 $smarty->display('home.tpl');
 ?>
 ]]>
@@ -82,7 +86,7 @@ $smarty->display('home.tpl');
    </example>
    <para>
     <link linkend="variable.compile.check">
-    <parameter>$compile_check</parameter></link> が有効の時、
+    <parameter>$compile_check</parameter></link> が有効 (デフォルト) の時、
     キャッシュファイルに入り組んだすべてのテンプレートファイルと設定ファイルは
     修正されたかどうかをチェックされます。
     もしキャッシュが生成されてからいくつかのファイルが修正されていた場合、
@@ -92,15 +96,15 @@ $smarty->display('home.tpl');
     </link> は &false; にして下さい。
    </para>
    <example>
-    <title>$compile_check を有効にする</title>
+    <title>$compile_check の無効化</title>
     <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 1;
-$smarty->compile_check = true;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+$smarty->setCompileCheck(false);
 
 $smarty->display('index.tpl');
 ?>
@@ -110,31 +114,32 @@ $smarty->display('index.tpl');
    <para>
     <link linkend="variable.force.compile">
     <parameter>$force_compile</parameter></link> が有効の場合、
-    キャッシュファイルは常に再生成されます。これは事実上、キャッシュ機能を無効にします。通常、
+    キャッシュファイルは常に再生成されます。これは事実上、キャッシュ機能を無効にします。
+    しかし同時に、パフォーマンスの低下も引き起こします。通常、
     <link linkend="variable.force.compile"><parameter>$force_compile</parameter>
     </link> は <link linkend="chapter.debugging.console">デバッグ</link>
     目的でのみ使用し、キャッシュは
     <link linkend="variable.caching"><parameter>$caching</parameter>
-    </link><literal> = 0</literal>.
+    </link> を Smarty::CACHING_OFF
     にセットして無効にするのがさらに効率の良い方法です。
    </para>
    <para>
-    <link linkend="api.is.cached"><varname>is_cached()</varname></link>
+    <link linkend="api.is.cached"><varname>isCached()</varname></link>
     関数は、テンプレートが有効なキャッシュを持っているかどうかを調べるのに使われます。
     もしデータベースフェッチを必要とするようなテンプレートのキャッシュが存在する場合、
     フェッチ過程をスキップするためにこの関数を使う事が出来ます。
    </para>
    <example>
-    <title>is_cached() を使用する</title>
+    <title>isCached() を使用する</title>
     <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 1;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
-if(!$smarty->is_cached('index.tpl')) {
+if(!$smarty->isCached('index.tpl')) {
     // キャッシュが有効でないので、ここで変数の割り当てを行います
     $contents = get_database_contents();
     $smarty->assign($contents);
@@ -146,8 +151,13 @@ $smarty->display('index.tpl');
     </programlisting>
    </example>
    <para>
+    <link linkend="language.function.nocache"><varname>{nocache}{/nocache}</varname></link>
+    ブロック関数、
     <link linkend="language.function.insert"><varname>{insert}</varname></link>
-    テンプレート関数によってページの一部を動的に保つ事が出来ます。
+    テンプレート関数、あるいは大半のテンプレート関数に用意されている <literal>nocache</literal>
+    パラメータによってページの一部を動的に保つ (キャッシュを無効にする) 事が出来ます。
+   </para>
+   <para>  
     例えば、すべてのページは右下に表示されるバナー以外はキャッシュが可能だとします。
     バナー部分には
     <link linkend="language.function.insert"><varname>{insert}</varname></link>
@@ -156,8 +166,8 @@ $smarty->display('index.tpl');
     のドキュメントを参照してください。
    </para>
    <para>
-    <link linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>
-    関数または <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>
+    <link linkend="api.clear.all.cache"><varname>clearAllCache()</varname></link>
+    関数または <link linkend="api.clear.cache"><varname>clearCache()</varname></link>
     関数によって、個々のキャッシュファイル (<link linkend="caching.groups">そしてグループ</link>)
     をクリアする事ができます。
    </para>
@@ -169,13 +179,13 @@ $smarty->display('index.tpl');
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 1;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 // 全てのキャッシュファイルをクリアします
-$smarty->clear_cache('index.tpl');
+$smarty->clearCache('index.tpl');
 
 // index.tplのキャッシュファイルのみクリアします
-$smarty->clear_all_cache();
+$smarty->clearAllCache();
 
 $smarty->display('index.tpl');
 ?>

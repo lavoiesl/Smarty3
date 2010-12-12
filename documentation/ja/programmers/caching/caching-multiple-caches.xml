@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3839 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="caching.multiple.caches">
     <title>ページごとに複数のキャッシュ</title>
@@ -22,7 +22,7 @@
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 1;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 $my_cache_id = $_GET['article_id'];
 
@@ -56,24 +56,24 @@ $smarty->display('index.tpl', $my_cache_id);
      </para>
     </note>
     <para>
-     <link linkend="api.is.cached"><varname>is_cached()</varname></link> と
-     <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>
+     <link linkend="api.is.cached"><varname>isCached()</varname></link> と
+     <link linkend="api.clear.cache"><varname>clearCache()</varname></link>
      には、第２パラメータとして同じ <parameter>$cache_id</parameter>
      を渡すようにしましょう。
     </para>
     <example>
-     <title>is_cached() に cache_id を渡す</title>
+     <title>isCached() に cache_id を渡す</title>
      <programlisting role="php">
 <![CDATA[
 <?php
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 1;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 $my_cache_id = $_GET['article_id'];
 
-if(!$smarty->is_cached('index.tpl',$my_cache_id)) {
+if(!$smarty->isCached('index.tpl',$my_cache_id)) {
     // キャッシュが有効でないので、ここで変数の割り当てを行いますn
     $contents = get_database_contents();
     $smarty->assign($contents);
@@ -85,7 +85,7 @@ $smarty->display('index.tpl',$my_cache_id);
      </programlisting>
     </example>
     <para>
-     <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>
+     <link linkend="api.clear.cache"><varname>clearCache()</varname></link>
      の第１パラメータとして &null; を渡すと、指定した
      <parameter>$cache_id</parameter> のすべてのキャッシュをクリアすることができます。
     </para>
@@ -97,10 +97,10 @@ $smarty->display('index.tpl',$my_cache_id);
 require('Smarty.class.php');
 $smarty = new Smarty;
 
-$smarty->caching = 1;
+$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 
 // cache_idが"sports"のキャッシュをすべてクリアする
-$smarty->clear_cache(null,'sports');
+$smarty->clearCache(null,'sports');
 
 $smarty->display('index.tpl','sports');
 ?>

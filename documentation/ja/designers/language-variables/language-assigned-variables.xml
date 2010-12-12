@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.assigned.variables">
  <title>PHP から割り当てられた変数</title>
  <para>
-  PHP から <link linkend="api.assign">割り当てられた</link> 変数は、
-  (php と同様に) 先頭にドル記号 (<literal>$</literal>) をつける事で参照できます。
-  テンプレート内で
-  <link linkend="language.function.assign"><varname>{assign}</varname></link>
-  関数を用いて割り当てられた変数もこの方法で表示されます。
+  代入された変数は、先頭にドル記号 (<literal>$</literal>) がつきます。
  </para>
 
  <example>
   <title>割り当てられた変数</title>
-   <para> php script</para>
+   <para>PHP のコード</para>
 <programlisting role="php">
 <![CDATA[
 <?php
@@ -31,7 +27,7 @@ $smarty->display('index.tpl');
 ]]>
 </programlisting>
      <para>
-      一方、<filename>index.tpl</filename> の内容はこのようになります。
+      <filename>index.tpl</filename> のソース
      </para>
 <programlisting>
 <![CDATA[
@@ -62,7 +58,7 @@ This weeks meeting is in New York.
   <title>連想配列</title>
   <para>
    PHP から割り当てられた連想配列を参照することもできます。
-   この場合は、'.' (ピリオド) 記号の後にキーを指定します。
+   その場合は、ドット "." の後にキーを指定します。
   </para>
   <example>
    <title>連想配列の値にアクセスする</title>
@@ -81,7 +77,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    一方、<filename>index.tpl</filename> の内容はこのようになります。
+    <filename>index.tpl</filename> のソース
    </para>
    <programlisting>
 <![CDATA[
@@ -129,7 +125,7 @@ $smarty->display('index.tpl');
 ]]>
    </programlisting>
    <para>
-    一方、<filename>index.tpl</filename> の内容はこのようになります。
+    <filename>index.tpl</filename> のソース
    </para>
    <programlisting>
 <![CDATA[

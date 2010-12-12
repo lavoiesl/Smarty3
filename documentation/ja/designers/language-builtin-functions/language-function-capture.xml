@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.capture">
  <title>{capture}</title>
@@ -23,6 +23,7 @@
    </para>
 
 
+ <para><emphasis role="bold">属性</emphasis></para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -42,9 +43,9 @@
    <tbody>
     <row>
      <entry>name</entry>
-     <entry>string</entry>
-     <entry>no</entry>
-     <entry><emphasis>default</emphasis></entry>
+    <entry>string</entry>
+     <entry>Yes</entry>
+     <entry><emphasis>n/a</emphasis></entry>
      <entry>キャプチャされるブロックの名前</entry>
     </row>
     <row>
@@ -54,11 +55,37 @@
      <entry><emphasis>n/a</emphasis></entry>
      <entry>キャプチャされた出力を割り当てるための変数名</entry>
     </row>
+    <row>
+     <entry>append</entry>
+    <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>キャプチャされた出力を追記するための配列変数名</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
-
-
+ 
+ <para><emphasis role="bold">オプションのフラグ</emphasis></para>
+ <informaltable frame="all">
+  <tgroup cols="2">
+   <colspec colname="param" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>名前</entry>
+     <entry>概要</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>nocache</entry>
+     <entry>キャプチャされたブロックのキャッシュを無効にする</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+ 
  <note>
  <title>注意</title>
   <para>
@@ -77,34 +104,54 @@
    <programlisting>
 <![CDATA[
 {* コンテンツが表示されない限り、テーブルの行を表示しません *}
-{capture name=banner}
-  {include file='get_banner.tpl'}
+{capture name="banner"}
+{capture "banner"} {* short-hand *}
+  {include file="get_banner.tpl"}
 {/capture}
 
-{if $smarty.capture.banner ne ''}
+{if $smarty.capture.banner ne ""}
 <div id="banner">{$smarty.capture.banner}</div>
 {/if}
 ]]>
    </programlisting>
   </example>
 
-    <example>
-     <title>{capture} をテンプレート変数に格納</title>
-     <para>この例は、
-     <link linkend="language.function.popup"><varname>{popup}</varname></link>
-     関数の使用法を示すものです。</para>
-     <programlisting>
+  <example>
+   <title>{capture} をテンプレート変数に格納</title>
+   <para>この例は、キャプチャ関数の使用法を示すものです。</para>
+   <programlisting>
 <![CDATA[
 {capture name=some_content assign=popText}
-The server is {$smarty.server.SERVER_NAME|upper} at {$smarty.server.SERVER_ADDR}<br>
-Your ip is {$smarty.server.REMOTE_ADDR}.
+{capture some_content assign=popText} {* short-hand *}
+The server is {$my_server_name|upper} at {$my_server_addr}<br>
+Your ip is {$my_ip}.
 {/capture}
-<a href="#" {popup caption='Server Info' text=$popText}>help</a>
+<a href="#">{$popText}</a>
 ]]>
      </programlisting>
   </example>
-
-
+  
+  <example>
+   <title>{capture} をテンプレート配列変数に格納</title>
+   <para>
+    この例は、キャプチャを複数回行って、その結果を配列に格納する方法を示すものです。
+   </para>
+   <programlisting>
+<![CDATA[
+{capture append="foo"}hello{/capture}I say just {capture append="foo"}world{/capture}
+{foreach $foo as $text}{$text} {/foreach}
+]]>
+     </programlisting>
+   <para>
+    上の例の出力は次のようになります。
+   </para>
+   <screen>
+<![CDATA[
+I say just hello world
+]]>
+  </screen>  </example>
+  
+  
  </para>
  <para>
   <link
@@ -113,7 +160,7 @@ Your ip is {$smarty.server.REMOTE_ADDR}.
   <link linkend="language.function.fetch"><varname>{fetch}</varname></link>、
   <link linkend="api.fetch"><varname>fetch()</varname></link>
   および <link linkend="language.function.assign"><varname>{assign}</varname></link>
-  も参照してください。
+  も参照ください。
  </para>
 </sect1>
 

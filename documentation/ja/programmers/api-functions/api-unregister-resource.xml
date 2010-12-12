@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.unregister.resource">
  <refnamediv>
-  <refname>unregister_resource()</refname>
+  <refname>unregisterResource()</refname>
   <refpurpose>動的に登録されたリソースプラグインを未登録にします。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>unregister_resource</methodname>
+   <type>void</type><methodname>unregisterResource</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
   </methodsynopsis>
   <para>
    パラメータにはリソース名を渡します。
   </para>
   <example>
-   <title>unregister_resource()</title>
+   <title>unregisterResource()</title>
 <programlisting role="php">
 <![CDATA[
 <?php
 
-$smarty->unregister_resource('db');
+$smarty->unregisterResource('db');
 
 ?>
 ]]>
@@ -31,7 +31,7 @@ $smarty->unregister_resource('db');
 
  <para>
  <link linkend="api.register.resource">
- <varname>register_resource()</varname></link>
+ <varname>registerResource()</varname></link>
  および
  <link linkend="template.resources">テンプレートリソース</link>
  も参照してください。

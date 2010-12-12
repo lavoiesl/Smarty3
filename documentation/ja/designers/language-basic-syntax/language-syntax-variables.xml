@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.syntax.variables">
  <title>変数</title>
@@ -44,9 +44,73 @@
 
 {* サーバ変数 "SERVER_NAME" の内容を表示します ($_SERVER['SERVER_NAME'])*}
 {$smarty.server.SERVER_NAME}
+
+演算やタグの埋め込みもできます。
+
+{$x+$y}                             // x と y の輪を表示します。
+{assign var=foo value=$x+$y}        // 属性としての使用
+{$foo[$x+3]}                        // 配列のインデックスとしての使用
+{$foo={counter}+3}                  // タグ内でのタグ
+{$foo="this is message {counter}"}  // ダブルクォートで囲まれた文字列内でのタグ
+
+配列を定義します。
+
+{assign var=foo value=[1,2,3]}
+{assign var=foo value=['y'=>'yellow','b'=>'blue']}
+{assign var=foo value=[1,[9,8],3]}   // ネストすることもできます
+
+短縮形での代入
+
+{$foo=$bar+2}
+{$foo = strlen($bar)}               // 関数の結果の代入
+{$foo = myfunct( ($x+$y)*3 )}       // 関数のパラメータとしての代入
+{$foo.bar=1}                        // 配列の特定の要素への代入
+{$foo.bar.baz=1}                    
+{$foo[]=1}                          // 配列への追加
+
+Smarty の "ドット" 構文 (注意: {} の埋め込みは、あいまいさを回避するために使います)
+
+{$foo.a.b.c}        =>  $foo['a']['b']['c'] 
+{$foo.a.$b.c}       =>  $foo['a'][$b]['c']         // 配列のインデックス
+{$foo.a.{$b+4}.c}   =>  $foo['a'][$b+4]['c']       // 演算結果をインデックスとして使用
+{$foo.a.{$b.c}}     =>  $foo['a'][$b['c']]         // インデックスのネスト
+
+"ドット" 構文の代替手段としての、PHP 風の構文
+
+{$foo[1]}             // 通常のアクセス
+{$foo['bar']}
+{$foo['bar'][1]}
+{$foo[$x+$x]}         // インデックスには任意の演算を指定できます
+{$foo[$bar[1]]}       // インデックスのネスト
+{$foo[section_name]}  // smarty の {section} へのアクセスであり、配列アクセスではなりません!
+
+可変変数
+
+$foo                     // 通常の変数
+$foo_{$bar}              // 他の変数を含む変数名
+$foo_{$x+$y}             // 演算を含む変数名
+$foo_{$bar}_buh_{$blar}  // 複数のセグメントからなる変数名
+{$foo_{$x}}              // $x の値が 1 の場合、これは変数 $foo_1 を表示します。
+
+オブジェクトの連結
+
+{$object->method1($x)->method2($y)}
+
+PHP の関数への直接のアクセス
+
+{time()}
+
 ]]>
   </programlisting>
  </example>
+
+ <note><para>
+    Smarty では非常に複雑な演算や構文を処理することもできますが、
+    テンプレートの構文は必要最小限にして表示内容に注力することをお勧めします。
+    もしテンプレートの構文が複雑になりすぎてきたと感じたら、
+    表示内容に直接関係のない部分をプラグインや修飾子として
+    PHP 側に追い出すとよいでしょう。
+ </para></note>
 
  <para><literal>$_GET</literal> や
  <literal>$_SESSION</literal> などのようなリクエスト変数は、
@@ -61,7 +125,7 @@
   <link linkend="language.function.assign"><varname>{assign}</varname></link>
   および
   <link linkend="api.assign"><varname>assign()</varname></link>
-  も参照してください。
+  も参照ください。
  </para>
 </sect1>
 

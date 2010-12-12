@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3836 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
   <sect1 id="section.template.cache.handler.func">
    <title>キャッシュハンドラ関数</title>
    <para>
     デフォルトのファイルベースのキャッシュメカニズムの代替として、
     キャッシュファイルの読み書きや破棄を直接行うキャッシュハンドラ関数を指定できます。
+    これは、キャッシュファイルの
+    <literal>read</literal>、<literal>write</literal> および
+    <literal>clear</literal> で使われます。
    </para>
    <para>
     まず、アプリケーション内にSmartyがキャッシュハンドラとして使用するための関数を定義します。
@@ -81,7 +84,7 @@ CacheContents MEDIUMTEXT NOT NULL
 
 **************************************************/
 
-function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
+function mysql_cache_handler($action, $smarty_obj, &$cache_content, $tpl_file=null, $cache_id=null, $compile_id=null, $exp_time=null)
 {
 	// ここでDBのホスト名・ユーザ名・パスワードを指定します
 	$db_host = 'localhost';
@@ -94,7 +97,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 	$CacheID = md5($tpl_file.$cache_id.$compile_id);
 
 	if(! $link = mysql_pconnect($db_host, $db_user, $db_pass)) {
-		$smarty_obj->_trigger_error_msg('cache_handler: could not connect to database');
+		trigger_error('cache_handler: could not connect to database');
 		return false;
 	}
 	mysql_select_db($db_name);
@@ -104,7 +107,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 			// キャッシュをデータベースから読み込みます
 			$results = mysql_query("select CacheContents from CACHE_PAGES where CacheID='$CacheID'");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg('cache_handler: query failed.');
+				trigger_error('cache_handler: query failed.');
 			}
 			$row = mysql_fetch_array($results,MYSQL_ASSOC);
 
@@ -129,7 +132,7 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 							'".addslashes($contents)."')
 						");
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg('cache_handler: query failed.');
+				trigger_error('cache_handler: query failed.');
 			}
 			$return = $results;
 			break;
@@ -142,13 +145,13 @@ function mysql_cache_handler($action, &$smarty_obj, &$cache_content, $tpl_file=n
 				$results = mysql_query("delete from CACHE_PAGES where CacheID='$CacheID'");
 			}
 			if(!$results) {
-				$smarty_obj->_trigger_error_msg('cache_handler: query failed.');
+				trigger_error('cache_handler: query failed.');
 			}
 			$return = $results;
 			break;
 		default:
 			// エラー・未知の動作
-			$smarty_obj->_trigger_error_msg("cache_handler: unknown action \"$action\"");
+			trigger_error("cache_handler: unknown action \"$action\"");
 			$return = false;
 			break;
 	}

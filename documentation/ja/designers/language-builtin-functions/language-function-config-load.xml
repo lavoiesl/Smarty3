@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.config.load">
  <title>{config_load}</title>
@@ -11,6 +11,7 @@
    を読み込みます。
  </para>
 
+ <para><emphasis role="bold">属性</emphasis></para>
  <informaltable frame="all">
   <tgroup cols="5">
    <colspec colname="param" align="center" />
@@ -55,17 +56,6 @@
       global を指定すると、すべてのテンプレートでテンプレート変数として利用できます。
      </entry>
     </row>
-    <row>
-     <entry>global</entry>
-     <entry>boolean</entry>
-     <entry>No</entry>
-     <entry><emphasis>No</emphasis></entry>
-     <entry>
-      変数が親テンプレートから利用できるかどうか。scope=parent と同じです
-      (注: この属性は非推奨です。代わりに scope 属性を使用するようになっていますが、
-      まだサポートされています。scope 属性を指定すると、この値は無視されます)。
-     </entry>
-    </row>
    </tbody>
   </tgroup>
  </informaltable>
@@ -94,6 +84,7 @@ pageTitle = "Customer Info"
   <programlisting>
 <![CDATA[
 {config_load file="example.conf"}
+{config_load "example.conf"}  {* 短縮形 *}
 
 <html>
 <title>{#pageTitle#|default:"No title"}</title>
@@ -131,6 +122,7 @@ pageTitle = "Customer Info"
   <programlisting>
 <![CDATA[
 {config_load file='example.conf' section='Customer'}
+{config_load 'example.conf' 'Customer'} {* 短縮形 *}
 
 <html>
 <title>{#pageTitle#}</title>

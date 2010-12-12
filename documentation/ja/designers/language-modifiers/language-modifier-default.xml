@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <sect1 id="language.modifier.default">
   <title>default</title>
@@ -8,16 +8,6 @@
      変数のデフォルト値を設定します。変数が空であるか設定されていない場合に、
      代わりとしてデフォルト値が表示されます。この修飾子は１つのパラメータをとります。
   </para>
-     <para>
-     <note>
-      <para>
-       <ulink url="&url.php-manual;error_reporting">
-       <varname>error_reporting(E_ALL)</varname></ulink> を指定すると、
-       テンプレート内で未定義の変数を使用した場合に常にエラーが発生します。
-       この関数を使用すると、null あるいは空文字列に変換できるので便利です。
-    </para>
-    </note>
-    </para>
 
   <informaltable frame="all">
    <tgroup cols="5">

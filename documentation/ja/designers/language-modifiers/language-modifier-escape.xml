@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <sect1 id="language.modifier.escape">
   <title>escape</title>
@@ -50,11 +50,11 @@
       <entry>2</entry>
       <entry>string</entry>
       <entry>No</entry>
-      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>
+      <entry><literal>ISO-8859-1</literal>, <literal>UTF-8</literal>,
       および <ulink url="&url.php-manual;htmlentities">
       <varname>htmlentities()</varname></ulink> がサポートする任意の文字セット
       </entry>
-      <entry><literal>ISO-8859-1</literal></entry>
+      <entry><literal>UTF-8</literal></entry>
       <entry>htmlentities() へ渡す文字セットのエンコーディング</entry>
      </row>
     </tbody>
@@ -111,14 +111,10 @@ smarty [AT] example [DOT] com
 
    <example>
    <title>別の例</title>
-   <para>PHP の関数を修飾子として使用できます。これは
-   <link linkend="variable.security">
-   <varname>$security</varname></link> の設定によります。
-    </para>
-   <screen>
+    <screen>
 <![CDATA[
 {* "rewind" パラメータに現在の場所を登録します *}
-<a href="{$SCRIPT_NAME}?page=foo&rewind={$smarty.server.REQUEST_URI|urlencode}">click here</a>
+<a href="$my_path?page=foo&rewind=$my_uri|urlencode}">click here</a>
 ]]>
    </screen>
       <para>これは email 用に便利です。しかし、
@@ -137,7 +133,7 @@ smarty [AT] example [DOT] com
    <link linkend="language.function.mailto"><varname>{mailto}</varname></link>
    および
    <link linkend="tips.obfuscating.email">E-mail アドレスを混乱させる</link>
-   のページも参照してください。
+   も参照ください。
   </para>
  </sect1>
 

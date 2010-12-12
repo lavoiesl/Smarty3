@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
      <sect1 id="variable.cache.handler.func">
       <title>$cache_handler_func</title>
@@ -9,8 +9,8 @@
        用いる組み込みメソッドを使用する代わりに、
        キャッシュファイルを操作するために定義された関数の名前を指定します。
        詳細は、
-       <link linkend="section.template.cache.handler.func">cache
-       キャッシュハンドラ関数</link> の項を参照して下さい。
+       <link linkend="section.template.cache.handler.func">
+       キャッシュハンドラ関数</link> を参照ください。
       </para>
      </sect1>
 

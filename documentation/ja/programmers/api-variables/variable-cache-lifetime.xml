@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3840 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="variable.cache.lifetime">
     <title>$cache_lifetime</title>
@@ -11,7 +11,8 @@
      <itemizedlist>
      <listitem><para>
      <parameter>$cache_lifetime</parameter> を使用するためには、
-     <parameter>$caching</parameter> を有効に (1 あるいは 2 のいずれかに) する必要があります。
+     <parameter>$caching</parameter> を有効に (Smarty::CACHING_LIFETIME_CURRENT あるいは Smarty::CACHING_LIFETIME_SAVED
+     のいずれかに) する必要があります。
      </para></listitem>
 
      <listitem><para>
@@ -22,14 +23,14 @@
      この値を 0 にすると、キャッシュを常に再生成します
      (これはテスト時にのみ有用です。
      キャッシュを無効にするためには、より効率的な方法として <link
-     linkend="variable.caching"><parameter>$caching</parameter></link> = 0
+     linkend="variable.caching"><parameter>$caching</parameter></link> = Smarty::CACHING_OFF
      があります)。
     </para></listitem>
 
     <listitem><para>
       各テンプレートごとに有効期限を独自に設定したい場合は
       <link linkend="variable.caching">
-      <parameter>$caching</parameter></link> = 2
+      <parameter>$caching</parameter></link> = Smarty::CACHING_LIFETIME_SAVED
       とします。そして
       <link linkend="api.display"><varname>display()</varname>
       </link> あるいは <link linkend="api.fetch"><varname>fetch()</varname></link>

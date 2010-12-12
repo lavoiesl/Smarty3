@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
  <bookinfo id="bookinfo">
   <title>Smarty - コンパイリング PHP テンプレートエンジン</title>
@@ -10,8 +10,8 @@
     <surname>Ohrt &lt;monte at ohrt dot com&gt;</surname>
    </author>
    <author>
-    <firstname>Andrei</firstname>
-    <surname>Zmievski &lt;andrei@php.net&gt;</surname>
+    <firstname>Uwe</firstname>
+    <surname>Tews &lt;uwe dot tews at googlemail dot com&gt;</surname>
    </author>
   </authorgroup>
   <authorgroup id="translators">
@@ -30,7 +30,7 @@
   </authorgroup>
   <pubdate>&build-date;</pubdate>
   <copyright>
-   <year>2001-2005</year>
+   <year>2001-2010</year>
    <holder>New Digital Group, Inc.</holder>
   </copyright>
  </bookinfo>

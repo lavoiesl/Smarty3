@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.prefilters.postfilters">
     <title>プリフィルタ/ポストフィルタプラグイン</title>
@@ -12,7 +12,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$source</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -26,7 +26,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$compiled</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -50,7 +50,7 @@
  * Purpose:  html タグを小文字に変換する
  * -------------------------------------------------------------
  */
- function smarty_prefilter_pre01($source, &$smarty)
+ function smarty_prefilter_pre01($source, $smarty)
  {
      return preg_replace('!<(\w+)[^>]+>!e', 'strtolower("$1")', $source);
  }
@@ -73,9 +73,9 @@
  * Purpose:  現在のテンプレートのすべての変数をリストするスクリプトを出力する
  * -------------------------------------------------------------
  */
- function smarty_postfilter_post01($compiled, &$smarty)
+ function smarty_postfilter_post01($compiled, $smarty)
  {
-     $compiled = "<pre>\n<?php print_r(\$this->get_template_vars()); ?>\n</pre>" . $compiled;
+     $compiled = "<pre>\n<?php print_r(\$this->getTemplateVars()); ?>\n</pre>" . $compiled;
      return $compiled;
  }
 ?>
@@ -83,16 +83,11 @@
      </programlisting>
     </example>
         <para>
-     <link linkend="api.register.prefilter">
-     <varname>register_prefilter()</varname></link>、
-     <link linkend="api.unregister.prefilter">
-     <varname>unregister_prefilter()</varname></link>、
-        <link linkend="api.register.postfilter">
-     <varname>register_postfilter()</varname></link>
-     および
-     <link linkend="api.unregister.postfilter">
-     <varname>unregister_postfilter()</varname></link>
-     も参照してください。
+     <link linkend="api.register.filter">
+     <varname>registerFilter()</varname></link> および
+     <link linkend="api.unregister.filter">
+     <varname>unregisterFilter()</varname></link>
+     も参照ください。
     </para>
    </sect1>
 

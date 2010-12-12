@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <chapter id="language.variables">
  <title>変数</title>
@@ -41,6 +41,7 @@
 
 
  &designers.language-variables.language-assigned-variables;
+ &designers.language-variables.language-variable-scopes;
  &designers.language-variables.language-config-variables;
  &designers.language-variables.language-variables-smarty;
 

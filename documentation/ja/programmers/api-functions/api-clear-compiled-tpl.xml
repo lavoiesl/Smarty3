@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.clear.compiled.tpl">
  <refnamediv>
-  <refname>clear_compiled_tpl()</refname>
+  <refname>clearCompiledTemplate()</refname>
   <refpurpose>指定したテンプレートのキャッシュを破棄します。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>clear_compiled_tpl</methodname>
+   <type>void</type><methodname>clearCompiledTemplate</methodname>
    <methodparam choice="opt"><type>string</type><parameter>tpl_file</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
    </methodparam>
@@ -28,21 +28,21 @@
    この関数は上級者のみが使用するもので、通常は不要です。
   </para>
   <example>
-   <title>clear_compiled_tpl()</title>
+   <title>clearCompiledTemplate()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // 指定したテンプレートリソースを破棄します
-$smarty->clear_compiled_tpl('index.tpl');
+$smarty->clearCompiledTemplate('index.tpl');
 
 // コンパイルディレクトリの内容を全て破棄します
-$smarty->clear_compiled_tpl();
+$smarty->clearCompiledTemplate();
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-  <link linkend="api.clear.cache"><varname>clear_cache()</varname></link>
+  <link linkend="api.clear.cache"><varname>clearCache()</varname></link>
   も参照してください。
   </para>
  </refsect1>

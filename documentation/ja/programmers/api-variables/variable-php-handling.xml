@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
      <sect1 id="variable.php.handling">
       <title>$php_handling</title>
       <para>
        テンプレートに埋め込まれた PHP コードの扱いを設定します。
        これには４つの設定があり、デフォルトは
-       <constant>SMARTY_PHP_PASSTHRU</constant> です。
+       <constant>Smarty::PHP_PASSTHRU</constant> です。
        テンプレート内の <link linkend="language.function.php">
-       <varname>{php}{/php}</varname></link> 
+       <varname>{php}{/php}</varname></link>
        タグで囲まれたPHPコードには影響を及ぼさない事に注意して下さい。
       </para>
 
 
       <itemizedlist>
        <listitem><para>
-       <constant>SMARTY_PHP_PASSTHRU</constant> - PHPコードを実行せずにそのまま出力します。
+       <constant>Smarty::PHP_PASSTHRU</constant> - PHPコードを実行せずにそのまま出力します。
        </para></listitem>
 
        <listitem><para>
-       <constant>SMARTY_PHP_QUOTE</constant> - PHPコードをHTMLエンティティとして表示します。
+       <constant>Smarty::PHP_QUOTE</constant> - PHPコードをHTMLエンティティとして表示します。
          </para></listitem>
 
        <listitem><para>
-       <constant>SMARTY_PHP_REMOVE</constant> - PHPコードをテンプレートから除去します。
+       <constant>Smarty::PHP_REMOVE</constant> - PHPコードをテンプレートから除去します。
          </para></listitem>
 
        <listitem><para>
-       <constant>SMARTY_PHP_ALLOW</constant> - PHPコードを実行します。
+       <constant>Smarty::PHP_ALLOW</constant> - PHPコードを実行します。
          </para></listitem>
       </itemizedlist>
 

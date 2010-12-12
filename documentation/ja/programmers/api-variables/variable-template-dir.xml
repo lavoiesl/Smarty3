@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3851 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="variable.template.dir">
     <title>$template_dir</title>
@@ -12,6 +12,9 @@
      これは、実行しているスクリプトと同じ場所にある
      <filename class="directory">templates/</filename>
      ディレクトリを探すということです。
+     <property>$template_dir</property> にはディレクトリのパスの配列を渡すこともできます。
+     Smarty は、ディレクトリを順に走査し、
+     マッチするテンプレートが最初に見つかった時点で停止します。
     </para>
     <note>
      <title>テクニカルノート</title>

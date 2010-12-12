@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3837 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
    <sect1 id="plugins.functions"><title>テンプレート関数プラグイン</title>
     <funcsynopsis>
      <funcprototype>
       <funcdef>void <function>smarty_function_<replaceable>name</replaceable></function></funcdef>
       <paramdef>array <parameter>$params</parameter></paramdef>
-      <paramdef>object <parameter>&amp;$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$template</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -25,8 +25,8 @@
     <para>
      関数によっていくつかの変数をテンプレートに割り当てる必要がある、
      もしくは Smarty に提供された他の機能を使う必要がある場合は、
-     提供された <parameter>$smarty</parameter> オブジェクトを使用して
-     <literal>$smarty->foo()</literal> のようにします。
+     提供された <parameter>$template</parameter> オブジェクトを使用して
+     <literal>$template->foo()</literal> のようにします。
     </para>
 
     <para>
@@ -44,7 +44,7 @@
  * Purpose:  ランダムに回答を出力する
  * -------------------------------------------------------------
  */
-function smarty_function_eightball($params, &$smarty)
+function smarty_function_eightball($params, $template)
 {
     $answers = array('はい',
                      'いいえ',
@@ -83,19 +83,20 @@ function smarty_function_eightball($params, &$smarty)
  * Purpose:  テンプート変数に値を割り当てる
  * -------------------------------------------------------------
  */
-function smarty_function_assign($params, &$smarty)
+function smarty_function_assign($params, $template)
 {
     if (empty($params['var'])) {
-        $smarty->trigger_error("assign: パラメータ 'var' がありません");
+        trigger_error("assign: パラメータ 'var' がありません");
         return;
     }
 
     if (!in_array('value', array_keys($params))) {
-        $smarty->trigger_error("assign: パラメータ 'value' がありません");
+        trigger_error("assign: パラメータ 'value' がありません");
         return;
     }
 
-    $smarty->assign($params['var'], $params['value']);
+    $template->assign($params['var'], $params['value']);     
+    
 }
 ?>
 ]]>
@@ -103,10 +104,9 @@ function smarty_function_assign($params, &$smarty)
      </example>
     </para>
         <para>
-     <link linkend="api.register.function"><varname>register_function()</varname></link>
-     および
-     <link linkend="api.unregister.function"><varname>unregister_function()</varname></link>
-     も参照してください。
+     <link linkend="api.register.plugin"><varname>registerPlugin()</varname></link> および
+     <link linkend="api.unregister.plugin"><varname>unregisterPlugin()</varname></link>
+     も参照ください。
     </para>
   </sect1>
 

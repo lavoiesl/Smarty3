@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.template.exists">
  <refnamediv>
-  <refname>template_exists()</refname>
+  <refname>templateExists()</refname>
   <refpurpose>指定したテンプレートが存在するかどうかをチェックします。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>bool</type><methodname>template_exists</methodname>
+   <type>bool</type><methodname>templateExists</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
   </methodsynopsis>
   <para>
@@ -19,7 +19,7 @@
   </para>
 
   <example>
-  <title>template_exists()</title>
+  <title>templateExists()</title>
     <para>
     この例は、コンテンツテンプレートを
     <link linkend="language.function.include"><varname>インクルード</varname></link>
@@ -51,7 +51,7 @@
 // index.inc.tpl のようにファイル名をセットします
 $mid_template = $_GET['page'].'.inc.tpl';
 
-if( !$smarty->template_exists($mid_template) ){
+if( !$smarty->templateExists($mid_template) ){
     $mid_template = 'page_not_found.tpl';
 }
 $smarty->assign('content_template', $mid_template);

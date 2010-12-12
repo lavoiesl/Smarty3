@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.clear.all.assign">
  <refnamediv>
-  <refname>clear_all_assign()</refname>
+  <refname>clearAllAssign()</refname>
   <refpurpose>割り当てられた全てのテンプレート変数を破棄します。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>clear_all_assign</methodname>
+   <type>void</type><methodname>clearAllAssign</methodname>
    <void />
   </methodsynopsis>
   <example>
-   <title>clear_all_assign()</title>
+   <title>clearAllAssign()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
@@ -23,22 +23,22 @@ $smarty->assign('Name', 'Fred');
 $smarty->assign('Address', $address);
 
 // 上の内容を出力します
-print_r( $smarty->get_template_vars() );
+print_r( $smarty->getTemplateVars() );
 
 // 割り当てられた変数を破棄します
-$smarty->clear_all_assign();
+$smarty->clearAllAssign();
 
 // 何も出力しません
-print_r( $smarty->get_template_vars() );
+print_r( $smarty->getTemplateVars() );
 
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-  <link linkend="api.clear.assign"><varname>clear_assign()</varname></link>、
-  <link linkend="api.clear.config"><varname>clear_config()</varname></link>、
-  <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>、
+  <link linkend="api.clear.assign"><varname>clearAssign()</varname></link>、
+  <link linkend="api.clear.config"><varname>clearConfig()</varname></link>、
+  <link linkend="api.get.template.vars"><varname>getTemplateVars()</varname></link>、
   <link linkend="api.assign"><varname>assign()</varname></link>
   および <link linkend="api.append"><varname>append()</varname></link>
   も参照してください。

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3832 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.register.resource">
  <refnamediv>
-  <refname>register_resource()</refname>
+  <refname>registerResource()</refname>
   <refpurpose>リソースプラグインを動的に登録します。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>register_resource</methodname>
+   <type>void</type><methodname>registerResource</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
-   <methodparam><type>array</type><parameter>resource_funcs</parameter></methodparam>
+   <methodparam><type>array</type><parameter>resource_callbacks</parameter></methodparam>
   </methodsynopsis>
   <para>
    <link linkend="template.resources">リソースプラグイン</link>
@@ -34,27 +34,37 @@
 
   <itemizedlist>
   <listitem><para>
-   PHP関数名が含まれる配列 <parameter>resource_funcs</parameter>
-   には４つまたは５つの要素が必要です。
-   </para></listitem>
-   <listitem><para>
-   要素が４つの場合は、<literal>source</literal>、
+   配列 <parameter>resource_callabcks</parameter>
+   には４つの要素が必要です。それぞれ
+   <literal>source</literal>、
    <literal>timestamp</literal>、<literal>secure</literal> および
    <literal>trusted</literal> がリソースの関数としてそれぞれコールバックされます。
    </para></listitem>
    <listitem><para>
-   要素が５つの場合は、最初の要素はリソースを実装するオブジェクトの参照または
-   オブジェクトのクラス名またはクラスである必要があり、続く４つの要素は 
-   <literal>source</literal>、<literal>timestamp</literal>、<literal>secure</literal>
-   および <literal>trusted</literal> を実装したメソッド名である必要があります。
-  </para></listitem>
+    各要素で PHP のコールバックを定義します。次のいずれかを指定できます。
+    <itemizedlist>
+     <listitem><para>
+      関数名を含む文字列
+     </para></listitem>
+     <listitem><para>
+      <literal>array($object, $method)</literal> 形式の配列。
+      <literal>&amp;$object</literal> はオブジェクトへの参照で、
+      <literal>$method</literal> はメソッド名を含む文字列。
+     </para></listitem>
+     <listitem><para>
+      <literal>array($class, $method)</literal> 形式の配列。
+      <literal>$class</literal> はクラス名で、
+      <literal>$method</literal> はクラスのメソッド名。
+     </para></listitem>
+    </itemizedlist>
+   </para></listitem>
   </itemizedlist>
   <example>
-   <title>register_resource()</title>
+   <title>registerResource()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->register_resource('db', array(
+$smarty->registerResource('db', array(
                                 'db_get_template',
                                 'db_get_timestamp',
                                 'db_get_secure',
@@ -64,9 +74,25 @@ $smarty->register_resource('db', array(
 ]]>
    </programlisting>
   </example>
+  <example>
+   <title>registerResource() でのオブジェクトのメソッドの使用</title>
+   <programlisting role="php">
+<![CDATA[
+<?php
+$smarty->registerResource('db', array(
+                                array($obj,'db_get_template'),
+                                array($obj,'db_get_timestamp'),
+                                array($obj,'db_get_secure'),
+                                array($obj,'db_get_trusted')
+                                )
+                          );
+?>
+]]>
+   </programlisting>
+  </example>
 
 <para>
-  <link linkend="api.unregister.resource"><varname>unregister_resource()</varname></link>
+  <link linkend="api.unregister.resource"><varname>unregisterResource()</varname></link>
   および
   <link linkend="template.resources">テンプレートリソース</link>
   も参照してください。

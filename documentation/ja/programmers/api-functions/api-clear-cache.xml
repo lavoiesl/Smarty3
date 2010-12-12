@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.clear.cache">
  <refnamediv>
-  <refname>clear_cache()</refname>
+  <refname>clearCache()</refname>
   <refpurpose>指定したテンプレートのキャッシュを破棄します。</refpurpose>
  </refnamediv>
  <refsect1>
-  <title>Description</title>
+  <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>clear_cache</methodname>
+   <type>void</type><methodname>clearCache</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
    <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter>
@@ -20,46 +20,41 @@
 
   <itemizedlist>
   <listitem><para>
-   If you have <link linkend="caching.multiple.caches">multiple caches</link>
-   for a template, you can clear a specific
-   cache by supplying the <parameter>cache_id</parameter> as the second
-   parameter.
+   テンプレートに <link linkend="caching.multiple.caches">複数のキャッシュ</link>
+   がある場合は、二番目のパラメータで <parameter>cache_id</parameter>
+   を指定すると特定のキャッシュを破棄できます。
    </para></listitem>
    <listitem><para>
-   You can also pass a
    <link linkend="variable.compile.id"><parameter>$compile_id</parameter></link>
-   as a third parameter.
-   You can <link linkend="caching.groups">group templates together</link>
-    so they can be removed as a group, see the
-   <link linkend="caching">caching section</link> for more
-   information.
+   を三番目のパラメータで渡すことができます。
+   <link linkend="caching.groups">テンプレートをグループ化</link>
+   することもでき、それをグループ単位で削除することができます。詳細は
+   <link linkend="caching">キャッシュの節</link> を参照ください。
    </para></listitem>
    <listitem><para>
-   As an optional fourth parameter, you can supply a
-   minimum age in seconds the cache file must be before it will
-   get cleared.
+   オプションの四番目のパラメータで、キャッシュを破棄するまでの最小経過時間
+   (秒単位) を指定することができます。
   </para></listitem>
   </itemizedlist>
 
   <example>
-   <title>clear_cache()</title>
+   <title>clearCache()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-// clear the cache for a template
+// テンプレートのキャッシュを破棄します
 $smarty->clear_cache('index.tpl');
 
-// clear the cache for a particular cache id in an multiple-cache template
+// 複数キャッシュをもつテンプレートで、特定の ID のキャッシュだけを破棄します
 $smarty->clear_cache('index.tpl', 'MY_CACHE_ID');
 ?>
 ]]>
    </programlisting>
   </example>
   <para>
-  See also
-  <link linkend="api.clear.all.cache"><varname>clear_all_cache()</varname></link>
-  and
-  <link linkend="caching"><varname>caching</varname></link> section.
+  <link linkend="api.clear.all.cache"><varname>clearAllCache()</varname></link>
+  および
+  <link linkend="caching"><varname>キャッシュ</varname></link> の節も参照ください。
   </para>
  </refsect1>
 </refentry>

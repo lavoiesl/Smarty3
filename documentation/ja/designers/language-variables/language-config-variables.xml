@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
   <sect1 id="language.config.variables">
   <title>設定ファイルから読み込まれた変数</title>
@@ -9,7 +9,8 @@
  から読み込まれた変数を参照するには、それをハッシュマーク (<literal>#</literal>)
  で囲むか、あるいは Smarty 変数 <link linkend="language.variables.smarty.config">
  <parameter>$smarty.config</parameter></link> を使用します。
-  ２つ目の方法は、クォートされた属性値の中に含める場合に便利です。
+  ２つ目の方法は、クォートされた属性値の中に含める場合や
+  $smarty.config.$foo のような値にアクセスする場合に便利です。
   </para>
    <example>
     <title>設定ファイルの変数</title>

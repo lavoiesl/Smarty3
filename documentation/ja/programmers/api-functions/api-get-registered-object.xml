@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.get.registered.object">
  <refnamediv>
-  <refname>get_registered_object()</refname>
+  <refname>getRegisteredObject()</refname>
   <refpurpose>登録されたオブジェクトの参照を返します。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>array</type><methodname>get_registered_object</methodname>
+   <type>array</type><methodname>getRegisteredObject</methodname>
    <methodparam><type>string</type><parameter>object_name</parameter></methodparam>
   </methodsynopsis>
   <para>
@@ -20,15 +20,15 @@
    <link linkend="advanced.features.objects">オブジェクト</link> の項を参照ください。
   </para>
   <example>
-   <title>get_registered_object()</title>
+   <title>getRegisteredObject()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-function smarty_block_foo($params, &$smarty)
+function smarty_block_foo($params, $smarty)
 {
   if (isset($params['object'])) {
     // 登録されたオブジェクトの参照を取得します
-    $obj_ref = &$smarty->get_registered_object($params['object']);
+    $obj_ref = $smarty->getRegisteredObject($params['object']);
     // オブジェクトを参照している$obj_refを使用します
   }
 }
@@ -37,8 +37,8 @@ function smarty_block_foo($params, &$smarty)
    </programlisting>
   </example>
   <para>
-  <link linkend="api.register.object"><varname>register_object()</varname></link>、
-  <link linkend="api.unregister.object"><varname>unregister_object()</varname></link>
+  <link linkend="api.register.object"><varname>registerObject()</varname></link>、
+  <link linkend="api.unregister.object"><varname>unregisterObject()</varname></link>
   および
   <link linkend="advanced.features.objects">オブジェクトの項</link>
   も参照してください。

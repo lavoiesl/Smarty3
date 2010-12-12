@@ -1,54 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <refentry id="api.assign.by.ref">
  <refnamediv>
-  <refname>assign_by_ref()</refname>
+  <refname>assignByRef()</refname>
   <refpurpose>参照として値を割り当てます。</refpurpose>
  </refnamediv>
  <refsect1>
   <title>説明</title>
   <methodsynopsis>
-   <type>void</type><methodname>assign_by_ref</methodname>
+   <type>void</type><methodname>assignByRef</methodname>
    <methodparam><type>string</type><parameter>varname</parameter></methodparam>
    <methodparam><type>mixed</type><parameter>var</parameter></methodparam>
   </methodsynopsis>
   <para>
-   これを使用して、コピーを作ることなく参照として
+   これを使用して、参照として
    テンプレートに変数を <link linkend="api.assign"><varname>割り当て</varname></link>
-   ます。詳細は、PHP マニュアルのリファレンスの説明を参照して下さい。
+   ます。
   </para>
   <note>
    <title>テクニカルノート</title>
    <para>
-    これは参照によってテンプレートに変数を追加するのに使用されます。
-    参照による値が追加された場合は、その値が変更されると追加された元の値も変更されます。
-    <link linkend="advanced.features.objects">objects</link>
-    についても、<varname>assign_by_ref()</varname>
-    は追加されたオブジェクトをメモリ内にコピーする事を避けます。詳細は、
-    PHP マニュアルのリファレンスの説明を参照して下さい。
+     PHP 5 以降では、<varname>assignByRef()</varname> はほとんどの場合で不要になりました。
+     <varname>assignByRef()</varname> が有用なのは、PHP の配列のインデックスの値を
+     テンプレートから再代入したい場合などです。オブジェクトのプロパティへの代入は、
+     デフォルトでこれと同じ挙動になります。
    </para>
   </note>
   <example>
-   <title>assign_by_ref()</title>
+   <title>assignByRef()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
 // 名前/値のペアを渡します
-$smarty->assign_by_ref('Name', $myname);
-$smarty->assign_by_ref('Address', $address);
+$smarty->assignByRef('Name', $myname);
+$smarty->assignByRef('Address', $address);
 ?>
 ]]>
    </programlisting>
   </example>
    <para>
    <link linkend="api.assign"><varname>assign()</varname></link>、
-   <link linkend="api.clear.all.assign"><varname>clear_all_assign()</varname></link>、
+   <link linkend="api.clear.all.assign"><varname>clearAllAssign()</varname></link>、
    <link linkend="api.append"><varname>append()</varname></link>、
    <link linkend="language.function.assign"><varname>{assign}</varname></link>
    および
-    <link linkend="api.get.template.vars"><varname>get_template_vars()</varname></link>
+    <link linkend="api.get.template.vars"><varname>getTemplateVars()</varname></link>
     も参照してください。
    </para>
 
