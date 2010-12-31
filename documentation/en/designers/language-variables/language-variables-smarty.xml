@@ -15,10 +15,6 @@
    </ulink> such as <literal>$_GET</literal>, <literal>$_POST</literal>,
    <literal>$_COOKIE</literal>, <literal>$_SERVER</literal>,
    <literal>$_ENV</literal> and <literal>$_SESSION</literal>
-   (see <link linkend="variable.request.vars.order">
-   <varname>$request_vars_order</varname></link>
-   and <link  linkend="variable.request.use.auto.globals">
-   <varname>$request_use_auto_globals</varname></link>)
    can be accessed as demonstrated in the examples below:
   </para>
   <example>
