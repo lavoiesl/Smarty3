@@ -79,7 +79,6 @@
 <!ENTITY programmers.api-variables.variable-default-template-handler-func SYSTEM '../current_lang/programmers/api-variables/variable-default-template-handler-func.xml'>
 <!ENTITY programmers.api-variables.variable-use-sub-dirs SYSTEM '../current_lang/programmers/api-variables/variable-use-sub-dirs.xml'>
 <!ENTITY programmers.api-variables.variable-config-booleanize SYSTEM '../current_lang/programmers/api-variables/variable-config-booleanize.xml'>
-<!ENTITY programmers.api-variables.variable-config-fix-newlines SYSTEM '../current_lang/programmers/api-variables/variable-config-fix-newlines.xml'>
 <!ENTITY programmers.api-variables.variable-cache-modified-check SYSTEM '../current_lang/programmers/api-variables/variable-cache-modified-check.xml'>
 <!ENTITY programmers.api-variables.variable-compiler-class SYSTEM '../current_lang/programmers/api-variables/variable-compiler-class.xml'>
 <!ENTITY programmers.api-variables.variable-left-delimiter SYSTEM '../current_lang/programmers/api-variables/variable-left-delimiter.xml'>
