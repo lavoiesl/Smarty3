@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3911 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
   <chapter id="api.variables">
    <title>Smarty クラス変数</title>
@@ -35,7 +35,6 @@
 &programmers.api-variables.variable-compiler-class;
 &programmers.api-variables.variable-config-booleanize;
 &programmers.api-variables.variable-config-dir;
-&programmers.api-variables.variable-config-fix-newlines;
 &programmers.api-variables.variable-config-overwrite;
 &programmers.api-variables.variable-config-read-hidden;
 &programmers.api-variables.variable-debug-template;
@@ -49,8 +48,6 @@
 &programmers.api-variables.variable-left-delimiter;
 &programmers.api-variables.variable-php-handling;
 &programmers.api-variables.variable-plugins-dir;
-&programmers.api-variables.variable-request-use-auto-globals;
-&programmers.api-variables.variable-request-vars-order;
 &programmers.api-variables.variable-right-delimiter;
 &programmers.api-variables.variable-template-dir;
 &programmers.api-variables.variable-trusted-dir;

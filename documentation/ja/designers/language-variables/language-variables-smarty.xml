@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 3831 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3894 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.variables.smarty">
  <title>予約変数 {$smarty}</title>
@@ -16,10 +16,6 @@
    <literal>$_GET</literal>、<literal>$_POST</literal>、
    <literal>$_COOKIE</literal>、<literal>$_SERVER</literal>、
    <literal>$_ENV</literal> および <literal>$_SESSION</literal>
-   (<link linkend="variable.request.vars.order">
-   <varname>$request_vars_order</varname></link>
-   および <link  linkend="variable.request.use.auto.globals">
-   <varname>$request_use_auto_globals</varname></link> を参照してください)
    といった <ulink url="&url.php-manual;reserved.variables">リクエスト変数</ulink>
    にアクセスするには、下の例のようにします。
   </para>
