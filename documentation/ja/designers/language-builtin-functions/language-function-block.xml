@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 3827 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3923 Maintainer: takagi Status: ready -->
 <sect1 id="language.function.block">
  <title>{block}</title>
 
@@ -162,7 +162,7 @@ Page Title
 <![CDATA[
 <html>
   <head>
-    <title>{block name="title"} is my titel{/block}</title>
+    <title>{block name="title"} is my title{/block}</title>
   </head>
 </html>
 ]]>
@@ -204,7 +204,7 @@ Page Title
   <programlisting>
 <![CDATA[
 {extends file="parent.tpl"} 
-{block name="title" append}
+{block name="title"}
 Child Title
 {/block}
 ]]>
@@ -236,7 +236,7 @@ Child Title
   <programlisting>
 <![CDATA[
 {extends file="parent.tpl"} 
-{block name="title" append}
+{block name="title"}
 You will see now - {$smarty.block.parent} - here
 {/block}
 ]]>
