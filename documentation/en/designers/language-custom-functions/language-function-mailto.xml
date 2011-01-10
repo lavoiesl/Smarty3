@@ -127,7 +127,7 @@
 <a href="mailto:me@example.com?subject=Hello%20to%20you%21" >me@example.com</a>
 
 {mailto address="me@example.com" cc="you@example.com,they@example.com"}
-<a href="mailto:me@example.com?cc=you@example.com%2Cthey@example.com" >me@example.com</a>
+<a href="mailto:me@example.com?cc=you@example.com,they@example.com" >me@example.com</a>
 
 {mailto address="me@example.com" extra='class="email"'}
 <a href="mailto:me@example.com" class="email">me@example.com</a>
