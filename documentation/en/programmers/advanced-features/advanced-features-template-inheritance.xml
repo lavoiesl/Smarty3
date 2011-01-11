@@ -70,7 +70,7 @@
 ]]>
 
   </programlisting>
-   <para>myproject.tpl (grandchild)</para>
+   <para>mypage.tpl (grandchild)</para>
    <programlisting>
 <![CDATA[
 {extends file='project.tpl'}
