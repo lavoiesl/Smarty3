@@ -21,8 +21,6 @@
     private $internalError = false;
 
     function __construct($lex, $compiler) {
-        // set instance object
-        self::instance($this); 
         $this->lex = $lex;
         $this->compiler = $compiler;
         $this->smarty = $this->compiler->smarty;
@@ -39,13 +37,6 @@
 				$this->is_xml = false;
 				$this->asp_tags = (ini_get('asp_tags') != '0');
 				$this->current_buffer = $this->root_buffer = new _smarty_template_buffer($this);
-    }
-    public static function &instance($new_instance = null)
-    {
-        static $instance = null;
-        if (isset($new_instance) && is_object($new_instance))
-            $instance = $new_instance;
-        return $instance;
     }
 
     public static function escape_start_tag($tag_text) {
