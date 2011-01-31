@@ -341,7 +341,7 @@ class PHP_LexerGenerator_Parser#line 171 "Parser.php"
         }
         ');
         fwrite($this->out, '$yy_global_pattern = "' .
-            $pattern . '";' . "\n");
+            $pattern . 'iS";' . "\n");
         fwrite($this->out, '
         do {
             if (preg_match($yy_global_pattern, substr(' . $this->input . ', ' .

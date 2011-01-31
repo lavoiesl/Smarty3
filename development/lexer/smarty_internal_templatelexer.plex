@@ -152,13 +152,13 @@ stripstart = 'SMARTYldelstripSMARTYrdel'
 stripend = 'SMARTYldel/stripSMARTYrdel'
 stripspacestart = 'SMARTYldel\s{1,}strip\s{1,}SMARTYrdel'
 stripspaceend = 'SMARTYldel\s{1,}/strip\s{1,}SMARTYrdel'
-equals = /\s*==\s*|\s+(EQ|eq)\s+/
-notequals = /\s*!=\s*|\s*<>\s*|\s+(NE|NEQ|ne|neq)\s+/
-greaterthan = /\s*>\s*|\s+(GT|gt)\s+/
-lessthan = /\s*<\s*|\s+(LT|lt)\s+/
-greaterequal = /\s*>=\s*|\s+(GE|GTE|ge|gte)\s+/
-lessequal = /\s*<=\s*|\s+(LE|LTE|le|lte)\s+/
-mod = /\s+(MOD|mod)\s+/
+equals = /\s*==\s*|\s+eq\s+/
+notequals = /\s*!=\s*|\s*<>\s*|\s+(ne|neq)\s+/
+greaterthan = /\s*>\s*|\s+gt\s+/
+lessthan = /\s*<\s*|\s+lt\s+/
+greaterequal = /\s*>=\s*|\s+(ge|gte)\s+/
+lessequal = /\s*<=\s*|\s+(le|lte)\s+/
+mod = /\s+mod\s+/
 identity = /\s*===\s*/
 noneidentity = /\s*!==\s*/
 isoddby = /\s+is\s+odd\s+by\s+/
@@ -172,17 +172,17 @@ isnoteven = /\s+is\s+not\s+even/
 isdivby = /\s+is\s+div\s+by\s+/
 isnotdivby = /\s+is\s+not\s+div\s+by\s+/
 isin = /\s+is\s+in\s+/
-as = /\s+(AS|as)\s+/
-to = /\s+(to)\s+/
-step = /\s+(step)\s+/
+as = /\s+as\s+/
+to = /\s+to\s+/
+step = /\s+step\s+/
 ldelif = /SMARTYldel\s*(if|elseif|else if|while)(?![^\s])/
 ldelfor = /SMARTYldel\s*for(?![^\s])/
 ldelforeach = /SMARTYldel\s*foreach(?![^\s])/
 instanceof = /\s+instanceof\s+/
-not = /!\s*|(NOT|not)\s+/
-land = /\s*\&\&\s*|\s*(AND|and)\s+/
-lor = /\s*\|\|\s*|\s*(OR|or)\s+/
-lxor = /\s*(XOR|xor)\s+/
+not = /!\s*|not\s+/
+land = /\s*\&\&\s*|\s*and\s+/
+lor = /\s*\|\|\s*|\s*or\s+/
+lxor = /\s*xor\s+/
 typecast = /\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\)\s*/
 other = /./
 double_quote = /"/
@@ -312,6 +312,9 @@ textsmarty {
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
 }
 all {
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+}
+other {
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
 }
 
@@ -600,7 +603,7 @@ aspendtag {
 literaltexttoend {
   $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
 }
-all {
+other {
   $this->compiler->trigger_template_error ("missing or misspelled literal closing tag");
 }
 */
@@ -681,6 +684,9 @@ textdoublequoted {
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
 }
 all {
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+}
+other {
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
 }
 */
