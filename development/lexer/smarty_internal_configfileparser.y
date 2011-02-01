@@ -37,7 +37,6 @@
         if (in_array(strtolower($str) ,array('on','yes','true'))) {
             $res = true;
         } else {
-            assert(in_array(strtolower($str), array('off','no','false')));
             $res = false;
         }
         return $res;

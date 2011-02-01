@@ -41,12 +41,10 @@
 
     public static function escape_start_tag($tag_text) {
        $tag = preg_replace('/\A<\?(.*)\z/', '<<?php ?>?\1', $tag_text, -1 , $count); //Escape tag
-       assert($tag !== false && $count === 1);
        return $tag;
     }
 
     public static function escape_end_tag($tag_text) {
-       assert($tag_text === '?>');
        return '?<?php ?>>';
     }
 
