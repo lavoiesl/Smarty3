@@ -17,7 +17,7 @@
 
   <listitem><para>
   With any other characters, for example a .period or
-  <literal>$object>reference</literal>, then the variable must be
+  <literal>$object->reference</literal>, then the variable must be
   surrounded by  <literal>`backticks`</literal>.
   </para></listitem>
 
