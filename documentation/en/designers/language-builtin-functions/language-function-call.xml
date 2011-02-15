@@ -85,7 +85,7 @@
    <tbody>
     <row>
      <entry>nocache</entry>
-     <entry>Cakk the template function in nocache mode</entry>
+     <entry>Call the template function in nocache mode</entry>
     </row>
    </tbody>
   </tgroup>
