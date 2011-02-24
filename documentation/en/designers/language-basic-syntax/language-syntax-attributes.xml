@@ -7,7 +7,7 @@
   take attributes that specify or modify
   their behavior. Attributes to Smarty functions are much like HTML
   attributes. Static values don't have to be enclosed in quotes, but it
-  is required for literal strings. Variables with or without modifers may also be used, and
+  is required for literal strings. Variables with or without modifiers may also be used, and
   should not be in quotes. You can even use PHP function results, plugin results and complex expressions.
  </para>
  <para>
@@ -34,9 +34,9 @@
 
 {assign var=foo value=substr($bar,2,5)}  // PHP function result
 
-{assign var=foo value=$bar|strlen}  // using modifer
+{assign var=foo value=$bar|strlen}  // using modifier
 
-{assign var=foo value=$buh+$bar|strlen}  // more complex expresiion
+{assign var=foo value=$buh+$bar|strlen}  // more complex expression
 
 {html_select_date display_days=true}
 

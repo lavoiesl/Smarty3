@@ -16,14 +16,14 @@
   </para></listitem>
 
   <listitem><para>
-  With any other characters, for example a .period or
+  With any other characters, for example a period(.) or
   <literal>$object->reference</literal>, then the variable must be
   surrounded by  <literal>`backticks`</literal>.
   </para></listitem>
 
   <listitem><para>
   In addition Smarty3 does allow embedded Smarty tags in double quoted strings.
-  This is usefull if you want to include variables with modifers, plugin or PHP function results.
+  This is useful if you want to include variables with modifiers, plugin or PHP function results.
   </para></listitem>
  </itemizedlist>
 

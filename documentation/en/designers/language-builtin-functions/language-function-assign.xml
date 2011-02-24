@@ -73,7 +73,7 @@
    <tbody>
     <row>
      <entry>nocache</entry>
-     <entry>Assingns the variable with the 'nocache' attribute</entry>
+     <entry>Assigns the variable with the 'nocache' attribute</entry>
     </row>    
    </tbody>
   </tgroup>

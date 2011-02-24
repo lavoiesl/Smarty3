@@ -3,7 +3,7 @@
 <sect1 id="language.function.while">
  <title>{while}</title>
  <para>
-  <varname>{while}</varname> loopss in Smarty have much the same flexibility as PHP
+  <varname>{while}</varname> loops in Smarty have much the same flexibility as PHP
   <ulink url="&url.php-manual;while">while</ulink>
   statements, with a few added features for the template engine.
   Every <varname>{while}</varname> must be paired with a matching

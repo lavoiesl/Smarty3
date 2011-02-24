@@ -69,7 +69,7 @@ pass=foobar
  </para>
  <para>
   You can hide variables or entire sections by prepending the variable
-  name or section name with a period eg <literal>[.hidden]</literal>. This is useful if your
+  name or section name with a period(.) eg <literal>[.hidden]</literal>. This is useful if your
   application reads the config files and gets sensitive data from them
   that the template engine does not need. If you have third parties
   doing template editing, you can be certain that they cannot read

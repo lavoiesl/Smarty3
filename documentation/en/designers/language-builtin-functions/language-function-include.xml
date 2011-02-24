@@ -39,7 +39,7 @@
   all variables assigned in the included template by using the scope attribute at the
   <varname>{include}</varname> statement or for individual variables by using the scope
    attribute at the <link linkend="language.function.assign"><varname>{assign}</varname></link>
-   statement. The later is usefull to return values from the inculded template to the 
+   statement. The later is useful to return values from the included template to the 
    includung template.
   </para></listitem>
 
