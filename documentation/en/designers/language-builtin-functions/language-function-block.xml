@@ -114,7 +114,7 @@ Page Title
  </example>
  
  <example>
-  <title>Prepend <varname>{block}</varname> example</title>
+  <title>Append <varname>{block}</varname> example</title>
   <para>parent.tpl</para>
   <programlisting>
 <![CDATA[
@@ -129,7 +129,7 @@ Page Title
   <programlisting>
 <![CDATA[
 {extends file="parent.tpl"} 
-{block name="title" prepend}
+{block name="title" append}
 Page Title
 {/block}
 ]]>
@@ -147,7 +147,7 @@ Page Title
  </example>
 
  <example>
-  <title>Append <varname>{block}</varname> example</title>
+  <title>Prepend <varname>{block}</varname> example</title>
   <para>parent.tpl</para>
   <programlisting>
 <![CDATA[
@@ -162,7 +162,7 @@ Page Title
   <programlisting>
 <![CDATA[
 {extends file="parent.tpl"} 
-{block name="title" append}
+{block name="title" prepend}
 Page Title
 {/block}
 ]]>
