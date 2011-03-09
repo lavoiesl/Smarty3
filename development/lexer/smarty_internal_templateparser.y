@@ -229,7 +229,9 @@ literal_element(res) ::= ASPENDTAG(et). { res = '%<?php ?>>'; }
 
 									// output with optional attributes
 smartytag(res)   ::= LDEL value(e) RDEL. { res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>e));}
+smartytag(res)   ::= LDEL value(e) modifierlist(l) attributes(a) RDEL. { res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e, 'modifierlist'=>l));}
 smartytag(res)   ::= LDEL value(e) attributes(a) RDEL. { res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e));}
+smartytag(res)   ::= LDEL variable(e) modifierlist(l) attributes(a) RDEL. { res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e, 'modifierlist'=>l));}
 smartytag(res)   ::= LDEL variable(e) attributes(a) RDEL. { res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e));}
 smartytag(res)   ::= LDEL expr(e) modifierlist(l) attributes(a) RDEL. { res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e,'modifierlist'=>l));}
 smartytag(res)   ::= LDEL expr(e) attributes(a) RDEL. { res = $this->compiler->compileTag('private_print_expression',a,array('value'=>e));}
