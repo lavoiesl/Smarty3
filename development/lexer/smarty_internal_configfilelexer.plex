@@ -59,7 +59,7 @@ id = /[0-9]*[a-zA-Z_]\w*/
 newline = /\n/
 single_quoted_string = /'[^'\\]*(?:\\.[^'\\]*)*'(?=[ \t\r]*[\n#])/
 double_quoted_string = /"[^"\\]*(?:\\.[^"\\]*)*"(?=[ \t\r]*[\n#])/
-tripple_double_quoted_string = /"""[^"\\]*(?:\\.[^"\\]*)*"""(?=[ \t\r]*[\n#])/
+tripple_double_quoted_string = /"""([^"]|\\"|"{1,2}[^"])*"""(?=[ \t\r]*[\n#])/
 float = /\d+\.\d+(?=[ \t\r]*[\n#])/
 int = /\d+(?=[ \t\r]*[\n#])/
 maybe_bool = /[a-zA-Z]+(?=[ \t\r]*[\n#])/
