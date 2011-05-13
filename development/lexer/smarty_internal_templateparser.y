@@ -259,18 +259,18 @@ smartytag(res)   ::= LDEL ID(i) PTR ID(me) modifierlist(l) attributes(a) RDEL. {
                                                                                                res .= $this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).'?>';
                                                                                             }
 									// {if}, {elseif} and {while} tag
-smartytag(res)   ::= LDELIF(i) SPACE expr(ie) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));}
-smartytag(res)   ::= LDELIF(i) SPACE expr(ie) attributes(a) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));}
-smartytag(res)   ::= LDELIF(i) SPACE statement(ie) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));}
-smartytag(res)   ::= LDELIF(i) SPACE statement(ie)  attributes(a) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));}
+smartytag(res)   ::= LDELIF(i) expr(ie) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));}
+smartytag(res)   ::= LDELIF(i) expr(ie) attributes(a) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));}
+smartytag(res)   ::= LDELIF(i) statement(ie) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));}
+smartytag(res)   ::= LDELIF(i) statement(ie)  attributes(a) RDEL. { $tag = trim(substr(i,$this->lex->ldel_length)); res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));}
 									// {for} tag
-smartytag(res)   ::= LDELFOR SPACE statements(st) SEMICOLON optspace expr(ie) SEMICOLON optspace DOLLAR varvar(v2) foraction(e2) attributes(a) RDEL. {
+smartytag(res)   ::= LDELFOR statements(st) SEMICOLON optspace expr(ie) SEMICOLON optspace DOLLAR varvar(v2) foraction(e2) attributes(a) RDEL. {
                                                              res = $this->compiler->compileTag('for',array_merge(a,array(array('start'=>st),array('ifexp'=>ie),array('var'=>v2),array('step'=>e2))),1);}
 
   foraction(res)	 ::= EQUAL expr(e). { res = '='.e;}
   foraction(res)	 ::= INCDEC(e). { res = e;}
-smartytag(res)   ::= LDELFOR SPACE statement(st) TO expr(v) attributes(a) RDEL. { res = $this->compiler->compileTag('for',array_merge(a,array(array('start'=>st),array('to'=>v))),0);}
-smartytag(res)   ::= LDELFOR SPACE statement(st) TO expr(v) STEP expr(v2) attributes(a) RDEL. { res = $this->compiler->compileTag('for',array_merge(a,array(array('start'=>st),array('to'=>v),array('step'=>v2))),0);}
+smartytag(res)   ::= LDELFOR statement(st) TO expr(v) attributes(a) RDEL. { res = $this->compiler->compileTag('for',array_merge(a,array(array('start'=>st),array('to'=>v))),0);}
+smartytag(res)   ::= LDELFOR statement(st) TO expr(v) STEP expr(v2) attributes(a) RDEL. { res = $this->compiler->compileTag('for',array_merge(a,array(array('start'=>st),array('to'=>v),array('step'=>v2))),0);}
 									// {foreach} tag
 smartytag(res)   ::= LDELFOREACH attributes(a) RDEL. { res = $this->compiler->compileTag('foreach',a);}
 									// {foreach $array as $var} tag
