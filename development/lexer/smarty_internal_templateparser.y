@@ -131,8 +131,10 @@ template_element(res)::= PHPSTARTTAG(st). {
 											// '?>' tag
 template_element(res)::= PHPENDTAG. {if ($this->is_xml) {
                                        $this->compiler->tag_nocache = true; 
-                                       $this->is_xml = true; 
+                                       $this->is_xml = false;
+                                       $save = $this->template->has_nocache_code; 
                                        res = new _smarty_text($this, $this->compiler->processNocacheCode("<?php echo '?>';?>", $this->compiler, true));
+                                       $this->template->has_nocache_code = $save; 
                                       }elseif ($this->php_handling == Smarty::PHP_PASSTHRU) {
 					                             res = new _smarty_text($this, '?<?php ?>>');
                                       } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
@@ -194,7 +196,12 @@ template_element(res)::= FAKEPHPSTARTTAG(t). {if ($this->lex->strip) {
                                     }
 
 											// XML tag
-template_element(res)::= XMLTAG. { $this->compiler->tag_nocache = true; $this->is_xml = true; res = new _smarty_text($this, $this->compiler->processNocacheCode("<?php echo '<?xml';?>", $this->compiler, true));}	
+template_element(res)::= XMLTAG. { $this->compiler->tag_nocache = true;
+                                   $this->is_xml = true; 
+                                   $save = $this->template->has_nocache_code; 
+                                   res = new _smarty_text($this, $this->compiler->processNocacheCode("<?php echo '<?xml';?>", $this->compiler, true));
+                                   $this->template->has_nocache_code = $save;
+                                  }
 
 											// Other template text
 template_element(res)::= OTHER(o). {if ($this->lex->strip) {
