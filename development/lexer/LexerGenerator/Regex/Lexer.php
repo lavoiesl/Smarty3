@@ -107,15 +107,15 @@ class PHP_LexerGenerator_Regex_Lexer
         if ($this->N >= strlen($this->input)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(\\\\\\\\)|^([^[\\\\^$.|()?*+{}]+)|^(\\\\[][{}*.^$|?()+])|^(\\[)|^(\\|)|^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[0-9][0-9])|^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)/";
+        $yy_global_pattern = '/\G(\\\\\\\\)|\G([^[\\\\^$.|()?*+{}]+)|\G(\\\\[][{}*.^$|?()+])|\G(\\[)|\G(\\|)|\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[0-9][0-9])|\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)/';
 
         do {
-            if (preg_match($yy_global_pattern, substr($this->input, $this->N), $yymatches)) {
+            if (preg_match($yy_global_pattern,$this->input, $yymatches, null, $this->N)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        'an empty string.  Input "' . substr($this->input,
+                        ' an empty string.  Input "' . substr($this->input,
                         $this->N, 5) . '... state INITIAL');
                 }
                 next($yymatches); // skip global match
@@ -146,57 +146,75 @@ class PHP_LexerGenerator_Regex_Lexer
                     }
                     // skip this token
                     continue;
-                } else {                    $yy_yymore_patterns = array(
-        1 => "^([^[\\\\^$.|()?*+{}]+)|^(\\\\[][{}*.^$|?()+])|^(\\[)|^(\\|)|^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[0-9][0-9])|^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        2 => "^(\\\\[][{}*.^$|?()+])|^(\\[)|^(\\|)|^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[0-9][0-9])|^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        3 => "^(\\[)|^(\\|)|^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[0-9][0-9])|^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        4 => "^(\\|)|^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[0-9][0-9])|^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        5 => "^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[0-9][0-9])|^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        6 => "^(\\\\[0-9][0-9])|^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        7 => "^(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        8 => "^(\\^)|^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        9 => "^(\\\\A)|^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        10 => "^(\\))|^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        11 => "^(\\$)|^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        12 => "^(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        13 => "^(\\\\[zZ])|^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        14 => "^(\\(\\?)|^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        15 => "^(\\()|^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        16 => "^(\\.)|^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        17 => "^(\\\\[1-9])|^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        18 => "^(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        19 => "^(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        20 => "^(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|^(\\\\p[CLMNPSZ])|^(\\\\)",
-        21 => "^(\\\\p[CLMNPSZ])|^(\\\\)",
-        22 => "^(\\\\)",
-        23 => "",
+                } else {
+                    $yy_yymore_patterns = array(
+        1 => array(0, "\G([^[\\\\^$.|()?*+{}]+)|\G(\\\\[][{}*.^$|?()+])|\G(\\[)|\G(\\|)|\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[0-9][0-9])|\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        2 => array(0, "\G(\\\\[][{}*.^$|?()+])|\G(\\[)|\G(\\|)|\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[0-9][0-9])|\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        3 => array(0, "\G(\\[)|\G(\\|)|\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[0-9][0-9])|\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        4 => array(0, "\G(\\|)|\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[0-9][0-9])|\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        5 => array(0, "\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[0-9][0-9])|\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        6 => array(0, "\G(\\\\[0-9][0-9])|\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        7 => array(0, "\G(\\\\[abBGcedDsSwW0C]|\\\\c\\\\)|\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        8 => array(0, "\G(\\^)|\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        9 => array(0, "\G(\\\\A)|\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        10 => array(0, "\G(\\))|\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        11 => array(0, "\G(\\$)|\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        12 => array(0, "\G(\\*\\?|\\+\\?|[*?+]|\\{[0-9]+\\}|\\{[0-9]+,\\}|\\{[0-9]+,[0-9]+\\})|\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        13 => array(0, "\G(\\\\[zZ])|\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        14 => array(0, "\G(\\(\\?)|\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        15 => array(0, "\G(\\()|\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        16 => array(0, "\G(\\.)|\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        17 => array(0, "\G(\\\\[1-9])|\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        18 => array(0, "\G(\\\\p\\{\\^?..?\\}|\\\\P\\{..?\\}|\\\\X)|\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        19 => array(0, "\G(\\\\p\\{C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        20 => array(0, "\G(\\\\p\\{\\^C[cfnos]?|L[lmotu]?|M[cen]?|N[dlo]?|P[cdefios]?|S[ckmo]?|Z[lps]?\\})|\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        21 => array(0, "\G(\\\\p[CLMNPSZ])|\G(\\\\)"),
+        22 => array(0, "\G(\\\\)"),
+        23 => array(0, ""),
     );
 
                     // yymore is needed
                     do {
-                        if (!strlen($yy_yymore_patterns[$this->token])) {
+                        if (!strlen($yy_yymore_patterns[$this->token][1])) {
                             throw new Exception('cannot do yymore for the last token');
                         }
-                        if (preg_match($yy_yymore_patterns[$this->token],
-                              substr($this->input, $this->N), $yymatches)) {
+                        $yysubmatches = array();
+                        if (preg_match('/' . $yy_yymore_patterns[$this->token][1] . '/',
+                              $this->input, $yymatches, null, $this->N)) {
+                            $yysubmatches = $yymatches;
                             $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                             next($yymatches); // skip global match
-                            $this->token = key($yymatches); // token number
+                            $this->token += key($yymatches) + $yy_yymore_patterns[$this->token][0]; // token number
                             $this->value = current($yymatches); // token value
                             $this->line = substr_count($this->value, "\n");
+                            if ($tokenMap[$this->token]) {
+                                // extract sub-patterns for passing to lex function
+                                $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                                    $tokenMap[$this->token]);
+                            } else {
+                                $yysubmatches = array();
+                            }
                         }
-                    	$r = $this->{'yy_r1_' . $this->token}();
-                    } while ($r !== null || !$r);
-			        if ($r === true) {
-			            // we have changed state
-			            // process this token in the new state
-			            return $this->yylex();
-			        } else {
-	                    // accept
-	                    $this->N += strlen($this->value);
-	                    $this->line += substr_count($this->value, "\n");
-	                    return true;
-			        }
+                        $r = $this->{'yy_r1_' . $this->token}($yysubmatches);
+                    } while ($r !== null && !is_bool($r));
+                    if ($r === true) {
+                        // we have changed state
+                        // process this token in the new state
+                        return $this->yylex();
+                    } elseif ($r === false) {
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        if ($this->N >= strlen($this->input)) {
+                            return false; // end of input
+                        }
+                        // skip this token
+                        continue;
+                    } else {
+                        // accept
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        return true;
+                    }
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
@@ -339,15 +357,15 @@ class PHP_LexerGenerator_Regex_Lexer
         if ($this->N >= strlen($this->input)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(\\^)|^(\\])|^(.)/";
+        $yy_global_pattern = '/\G(\\^)|\G(\\])|\G(.)/';
 
         do {
-            if (preg_match($yy_global_pattern, substr($this->input, $this->N), $yymatches)) {
+            if (preg_match($yy_global_pattern,$this->input, $yymatches, null, $this->N)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        'an empty string.  Input "' . substr($this->input,
+                        ' an empty string.  Input "' . substr($this->input,
                         $this->N, 5) . '... state CHARACTERCLASSSTART');
                 }
                 next($yymatches); // skip global match
@@ -378,37 +396,55 @@ class PHP_LexerGenerator_Regex_Lexer
                     }
                     // skip this token
                     continue;
-                } else {                    $yy_yymore_patterns = array(
-        1 => "^(\\])|^(.)",
-        2 => "^(.)",
-        3 => "",
+                } else {
+                    $yy_yymore_patterns = array(
+        1 => array(0, "\G(\\])|\G(.)"),
+        2 => array(0, "\G(.)"),
+        3 => array(0, ""),
     );
 
                     // yymore is needed
                     do {
-                        if (!strlen($yy_yymore_patterns[$this->token])) {
+                        if (!strlen($yy_yymore_patterns[$this->token][1])) {
                             throw new Exception('cannot do yymore for the last token');
                         }
-                        if (preg_match($yy_yymore_patterns[$this->token],
-                              substr($this->input, $this->N), $yymatches)) {
+                        $yysubmatches = array();
+                        if (preg_match('/' . $yy_yymore_patterns[$this->token][1] . '/',
+                              $this->input, $yymatches, null, $this->N)) {
+                            $yysubmatches = $yymatches;
                             $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                             next($yymatches); // skip global match
-                            $this->token = key($yymatches); // token number
+                            $this->token += key($yymatches) + $yy_yymore_patterns[$this->token][0]; // token number
                             $this->value = current($yymatches); // token value
                             $this->line = substr_count($this->value, "\n");
+                            if ($tokenMap[$this->token]) {
+                                // extract sub-patterns for passing to lex function
+                                $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                                    $tokenMap[$this->token]);
+                            } else {
+                                $yysubmatches = array();
+                            }
                         }
-                    	$r = $this->{'yy_r2_' . $this->token}();
-                    } while ($r !== null || !$r);
-			        if ($r === true) {
-			            // we have changed state
-			            // process this token in the new state
-			            return $this->yylex();
-			        } else {
-	                    // accept
-	                    $this->N += strlen($this->value);
-	                    $this->line += substr_count($this->value, "\n");
-	                    return true;
-			        }
+                        $r = $this->{'yy_r2_' . $this->token}($yysubmatches);
+                    } while ($r !== null && !is_bool($r));
+                    if ($r === true) {
+                        // we have changed state
+                        // process this token in the new state
+                        return $this->yylex();
+                    } elseif ($r === false) {
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        if ($this->N >= strlen($this->input)) {
+                            return false; // end of input
+                        }
+                        // skip this token
+                        continue;
+                    } else {
+                        // accept
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        return true;
+                    }
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
@@ -458,15 +494,15 @@ class PHP_LexerGenerator_Regex_Lexer
         if ($this->N >= strlen($this->input)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(\\\\\\\\)|^(\\])|^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|^(\\\\[0-9][0-9])|^(\\\\[1-9])|^(\\\\[]\.\-\^])|^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)/";
+        $yy_global_pattern = '/\G(\\\\\\\\)|\G(\\])|\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G(\\\\[]\.\-\^])|\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)/';
 
         do {
-            if (preg_match($yy_global_pattern, substr($this->input, $this->N), $yymatches)) {
+            if (preg_match($yy_global_pattern,$this->input, $yymatches, null, $this->N)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        'an empty string.  Input "' . substr($this->input,
+                        ' an empty string.  Input "' . substr($this->input,
                         $this->N, 5) . '... state CHARACTERCLASS');
                 }
                 next($yymatches); // skip global match
@@ -497,45 +533,63 @@ class PHP_LexerGenerator_Regex_Lexer
                     }
                     // skip this token
                     continue;
-                } else {                    $yy_yymore_patterns = array(
-        1 => "^(\\])|^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|^(\\\\[0-9][0-9])|^(\\\\[1-9])|^(\\\\[]\.\-\^])|^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)",
-        2 => "^(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|^(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|^(\\\\[0-9][0-9])|^(\\\\[1-9])|^(\\\\[]\.\-\^])|^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)",
-        3 => "^(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|^(\\\\[0-9][0-9])|^(\\\\[1-9])|^(\\\\[]\.\-\^])|^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)",
-        4 => "^(\\\\[0-9][0-9])|^(\\\\[1-9])|^(\\\\[]\.\-\^])|^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)",
-        5 => "^(\\\\[1-9])|^(\\\\[]\.\-\^])|^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)",
-        6 => "^(\\\\[]\.\-\^])|^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)",
-        7 => "^(-(?!]))|^([^\-\\\\])|^(\\\\)|^(.)",
-        8 => "^([^\-\\\\])|^(\\\\)|^(.)",
-        9 => "^(\\\\)|^(.)",
-        10 => "^(.)",
-        11 => "",
+                } else {
+                    $yy_yymore_patterns = array(
+        1 => array(0, "\G(\\])|\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G(\\\\[]\.\-\^])|\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        2 => array(0, "\G(\\\\[frnt]|\\\\x[0-9a-fA-F][0-9a-fA-F]?|\\\\[0-7][0-7][0-7]|\\\\x\\{[0-9a-fA-F]+\\})|\G(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G(\\\\[]\.\-\^])|\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        3 => array(0, "\G(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G(\\\\[]\.\-\^])|\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        4 => array(0, "\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G(\\\\[]\.\-\^])|\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        5 => array(0, "\G(\\\\[1-9])|\G(\\\\[]\.\-\^])|\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        6 => array(0, "\G(\\\\[]\.\-\^])|\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        7 => array(0, "\G(-(?!]))|\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        8 => array(0, "\G([^\-\\\\])|\G(\\\\)|\G(.)"),
+        9 => array(0, "\G(\\\\)|\G(.)"),
+        10 => array(0, "\G(.)"),
+        11 => array(0, ""),
     );
 
                     // yymore is needed
                     do {
-                        if (!strlen($yy_yymore_patterns[$this->token])) {
+                        if (!strlen($yy_yymore_patterns[$this->token][1])) {
                             throw new Exception('cannot do yymore for the last token');
                         }
-                        if (preg_match($yy_yymore_patterns[$this->token],
-                              substr($this->input, $this->N), $yymatches)) {
+                        $yysubmatches = array();
+                        if (preg_match('/' . $yy_yymore_patterns[$this->token][1] . '/',
+                              $this->input, $yymatches, null, $this->N)) {
+                            $yysubmatches = $yymatches;
                             $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                             next($yymatches); // skip global match
-                            $this->token = key($yymatches); // token number
+                            $this->token += key($yymatches) + $yy_yymore_patterns[$this->token][0]; // token number
                             $this->value = current($yymatches); // token value
                             $this->line = substr_count($this->value, "\n");
+                            if ($tokenMap[$this->token]) {
+                                // extract sub-patterns for passing to lex function
+                                $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                                    $tokenMap[$this->token]);
+                            } else {
+                                $yysubmatches = array();
+                            }
                         }
-                    	$r = $this->{'yy_r3_' . $this->token}();
-                    } while ($r !== null || !$r);
-			        if ($r === true) {
-			            // we have changed state
-			            // process this token in the new state
-			            return $this->yylex();
-			        } else {
-	                    // accept
-	                    $this->N += strlen($this->value);
-	                    $this->line += substr_count($this->value, "\n");
-	                    return true;
-			        }
+                        $r = $this->{'yy_r3_' . $this->token}($yysubmatches);
+                    } while ($r !== null && !is_bool($r));
+                    if ($r === true) {
+                        // we have changed state
+                        // process this token in the new state
+                        return $this->yylex();
+                    } elseif ($r === false) {
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        if ($this->N >= strlen($this->input)) {
+                            return false; // end of input
+                        }
+                        // skip this token
+                        continue;
+                    } else {
+                        // accept
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        return true;
+                    }
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
@@ -621,15 +675,15 @@ class PHP_LexerGenerator_Regex_Lexer
         if ($this->N >= strlen($this->input)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(\\\\\\\\)|^(\\\\\\])|^(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|^(\\\\[0-9][0-9])|^(\\\\[1-9])|^([^\-\\\\])|^(\\\\)/";
+        $yy_global_pattern = '/\G(\\\\\\\\)|\G(\\\\\\])|\G(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G([^\-\\\\])|\G(\\\\)/';
 
         do {
-            if (preg_match($yy_global_pattern, substr($this->input, $this->N), $yymatches)) {
+            if (preg_match($yy_global_pattern,$this->input, $yymatches, null, $this->N)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        'an empty string.  Input "' . substr($this->input,
+                        ' an empty string.  Input "' . substr($this->input,
                         $this->N, 5) . '... state RANGE');
                 }
                 next($yymatches); // skip global match
@@ -660,41 +714,59 @@ class PHP_LexerGenerator_Regex_Lexer
                     }
                     // skip this token
                     continue;
-                } else {                    $yy_yymore_patterns = array(
-        1 => "^(\\\\\\])|^(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|^(\\\\[0-9][0-9])|^(\\\\[1-9])|^([^\-\\\\])|^(\\\\)",
-        2 => "^(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|^(\\\\[0-9][0-9])|^(\\\\[1-9])|^([^\-\\\\])|^(\\\\)",
-        3 => "^(\\\\[0-9][0-9])|^(\\\\[1-9])|^([^\-\\\\])|^(\\\\)",
-        4 => "^(\\\\[1-9])|^([^\-\\\\])|^(\\\\)",
-        5 => "^([^\-\\\\])|^(\\\\)",
-        6 => "^(\\\\)",
-        7 => "",
+                } else {
+                    $yy_yymore_patterns = array(
+        1 => array(0, "\G(\\\\\\])|\G(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G([^\-\\\\])|\G(\\\\)"),
+        2 => array(0, "\G(\\\\[bacedDsSwW0C]|\\\\c\\\\|\\\\x\\{[0-9a-fA-F]+\\}|\\\\[0-7][0-7][0-7]|\\\\x[0-9a-fA-F][0-9a-fA-F]?)|\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G([^\-\\\\])|\G(\\\\)"),
+        3 => array(0, "\G(\\\\[0-9][0-9])|\G(\\\\[1-9])|\G([^\-\\\\])|\G(\\\\)"),
+        4 => array(0, "\G(\\\\[1-9])|\G([^\-\\\\])|\G(\\\\)"),
+        5 => array(0, "\G([^\-\\\\])|\G(\\\\)"),
+        6 => array(0, "\G(\\\\)"),
+        7 => array(0, ""),
     );
 
                     // yymore is needed
                     do {
-                        if (!strlen($yy_yymore_patterns[$this->token])) {
+                        if (!strlen($yy_yymore_patterns[$this->token][1])) {
                             throw new Exception('cannot do yymore for the last token');
                         }
-                        if (preg_match($yy_yymore_patterns[$this->token],
-                              substr($this->input, $this->N), $yymatches)) {
+                        $yysubmatches = array();
+                        if (preg_match('/' . $yy_yymore_patterns[$this->token][1] . '/',
+                              $this->input, $yymatches, null, $this->N)) {
+                            $yysubmatches = $yymatches;
                             $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                             next($yymatches); // skip global match
-                            $this->token = key($yymatches); // token number
+                            $this->token += key($yymatches) + $yy_yymore_patterns[$this->token][0]; // token number
                             $this->value = current($yymatches); // token value
                             $this->line = substr_count($this->value, "\n");
+                            if ($tokenMap[$this->token]) {
+                                // extract sub-patterns for passing to lex function
+                                $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                                    $tokenMap[$this->token]);
+                            } else {
+                                $yysubmatches = array();
+                            }
                         }
-                    	$r = $this->{'yy_r4_' . $this->token}();
-                    } while ($r !== null || !$r);
-			        if ($r === true) {
-			            // we have changed state
-			            // process this token in the new state
-			            return $this->yylex();
-			        } else {
-	                    // accept
-	                    $this->N += strlen($this->value);
-	                    $this->line += substr_count($this->value, "\n");
-	                    return true;
-			        }
+                        $r = $this->{'yy_r4_' . $this->token}($yysubmatches);
+                    } while ($r !== null && !is_bool($r));
+                    if ($r === true) {
+                        // we have changed state
+                        // process this token in the new state
+                        return $this->yylex();
+                    } elseif ($r === false) {
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        if ($this->N >= strlen($this->input)) {
+                            return false; // end of input
+                        }
+                        // skip this token
+                        continue;
+                    } else {
+                        // accept
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        return true;
+                    }
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .
@@ -767,15 +839,15 @@ class PHP_LexerGenerator_Regex_Lexer
         if ($this->N >= strlen($this->input)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^([imsxUX]+-[imsxUX]+|[imsxUX]+|-[imsxUX]+)|^(:)|^(\\))|^(P<[^>]+>)|^(<=)|^(<!)|^(=)|^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)/";
+        $yy_global_pattern = '/\G([imsxUX]+-[imsxUX]+|[imsxUX]+|-[imsxUX]+)|\G(:)|\G(\\))|\G(P<[^>]+>)|\G(<=)|\G(<!)|\G(=)|\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)/';
 
         do {
-            if (preg_match($yy_global_pattern, substr($this->input, $this->N), $yymatches)) {
+            if (preg_match($yy_global_pattern,$this->input, $yymatches, null, $this->N)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                        'an empty string.  Input "' . substr($this->input,
+                        ' an empty string.  Input "' . substr($this->input,
                         $this->N, 5) . '... state ASSERTION');
                 }
                 next($yymatches); // skip global match
@@ -806,47 +878,65 @@ class PHP_LexerGenerator_Regex_Lexer
                     }
                     // skip this token
                     continue;
-                } else {                    $yy_yymore_patterns = array(
-        1 => "^(:)|^(\\))|^(P<[^>]+>)|^(<=)|^(<!)|^(=)|^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        2 => "^(\\))|^(P<[^>]+>)|^(<=)|^(<!)|^(=)|^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        3 => "^(P<[^>]+>)|^(<=)|^(<!)|^(=)|^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        4 => "^(<=)|^(<!)|^(=)|^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        5 => "^(<!)|^(=)|^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        6 => "^(=)|^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        7 => "^(!)|^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        8 => "^(>)|^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        9 => "^(\\(\\?)|^(#[^)]+)|^(R)|^(.)",
-        10 => "^(#[^)]+)|^(R)|^(.)",
-        11 => "^(R)|^(.)",
-        12 => "^(.)",
-        13 => "",
+                } else {
+                    $yy_yymore_patterns = array(
+        1 => array(0, "\G(:)|\G(\\))|\G(P<[^>]+>)|\G(<=)|\G(<!)|\G(=)|\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        2 => array(0, "\G(\\))|\G(P<[^>]+>)|\G(<=)|\G(<!)|\G(=)|\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        3 => array(0, "\G(P<[^>]+>)|\G(<=)|\G(<!)|\G(=)|\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        4 => array(0, "\G(<=)|\G(<!)|\G(=)|\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        5 => array(0, "\G(<!)|\G(=)|\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        6 => array(0, "\G(=)|\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        7 => array(0, "\G(!)|\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        8 => array(0, "\G(>)|\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        9 => array(0, "\G(\\(\\?)|\G(#[^)]+)|\G(R)|\G(.)"),
+        10 => array(0, "\G(#[^)]+)|\G(R)|\G(.)"),
+        11 => array(0, "\G(R)|\G(.)"),
+        12 => array(0, "\G(.)"),
+        13 => array(0, ""),
     );
 
                     // yymore is needed
                     do {
-                        if (!strlen($yy_yymore_patterns[$this->token])) {
+                        if (!strlen($yy_yymore_patterns[$this->token][1])) {
                             throw new Exception('cannot do yymore for the last token');
                         }
-                        if (preg_match($yy_yymore_patterns[$this->token],
-                              substr($this->input, $this->N), $yymatches)) {
+                        $yysubmatches = array();
+                        if (preg_match('/' . $yy_yymore_patterns[$this->token][1] . '/',
+                              $this->input, $yymatches, null, $this->N)) {
+                            $yysubmatches = $yymatches;
                             $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                             next($yymatches); // skip global match
-                            $this->token = key($yymatches); // token number
+                            $this->token += key($yymatches) + $yy_yymore_patterns[$this->token][0]; // token number
                             $this->value = current($yymatches); // token value
                             $this->line = substr_count($this->value, "\n");
+                            if ($tokenMap[$this->token]) {
+                                // extract sub-patterns for passing to lex function
+                                $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                                    $tokenMap[$this->token]);
+                            } else {
+                                $yysubmatches = array();
+                            }
                         }
-                    	$r = $this->{'yy_r5_' . $this->token}();
-                    } while ($r !== null || !$r);
-			        if ($r === true) {
-			            // we have changed state
-			            // process this token in the new state
-			            return $this->yylex();
-			        } else {
-	                    // accept
-	                    $this->N += strlen($this->value);
-	                    $this->line += substr_count($this->value, "\n");
-	                    return true;
-			        }
+                        $r = $this->{'yy_r5_' . $this->token}($yysubmatches);
+                    } while ($r !== null && !is_bool($r));
+                    if ($r === true) {
+                        // we have changed state
+                        // process this token in the new state
+                        return $this->yylex();
+                    } elseif ($r === false) {
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        if ($this->N >= strlen($this->input)) {
+                            return false; // end of input
+                        }
+                        // skip this token
+                        continue;
+                    } else {
+                        // accept
+                        $this->N += strlen($this->value);
+                        $this->line += substr_count($this->value, "\n");
+                        return true;
+                    }
                 }
             } else {
                 throw new Exception('Unexpected input at line' . $this->line .

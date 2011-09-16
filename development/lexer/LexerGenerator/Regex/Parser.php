@@ -1594,7 +1594,7 @@ static public $yy_action = array(
 #line 428 "Parser.y"
     function yy_r82(){
     $this->_retvalue = new PHP_LexerGenerator_ParseryyToken('(?=' . $this->yystack[$this->yyidx + -1]->minor->string . ')', array(
-        'pattern' => '(?=' . $this->yystack[$this->yyidx + -1]->minor['pattern'] . ')'));
+        'pattern'=> '(?=' . $this->yystack[$this->yyidx + -1]->minor['pattern'] . ')'));
     }
 #line 1605 "Parser.php"
 #line 432 "Parser.y"

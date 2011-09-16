@@ -82,17 +82,17 @@ class CompileBlockPluginTests extends PHPUnit_Framework_TestCase {
     */
     public function testBlockPluginRepeat()
     {
-        $this->smarty->plugins_dir[] = dirname(__FILE__)."/PHPunitplugins/";
+        $this->smarty->addPluginsDir(dirname(__FILE__)."/PHPunitplugins/");
         $this->assertEquals('12345', $this->smarty->fetch('eval:{testblock}{/testblock}'));
     } 
     public function testBlockPluginRepeatModidier1()
     {
-        $this->smarty->plugins_dir[] = dirname(__FILE__)."/PHPunitplugins/";
+        $this->smarty->addPluginsDir(dirname(__FILE__)."/PHPunitplugins/");
         $this->assertEquals('11111', $this->smarty->fetch('eval:{testblock}{/testblock|strlen}'));
     } 
     public function testBlockPluginRepeatModidier2()
     {
-        $this->smarty->plugins_dir[] = dirname(__FILE__)."/PHPunitplugins/";
+        $this->smarty->addPluginsDir(dirname(__FILE__)."/PHPunitplugins/");
         $this->assertEquals('11111', $this->smarty->fetch('eval:{testblock}{/testblock|strlen|default:""}'));
     } 
 } 

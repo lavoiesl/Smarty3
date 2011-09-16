@@ -1,9 +1,9 @@
 <?php
 /**
  * Smarty PHPunit tests register->templateFunction / unregister->templateFunction methods
- * 
+ *
  * @package PHPunit
- * @author Uwe Tews 
+ * @author Uwe Tews
  */
 
 /**
@@ -14,13 +14,12 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
-        $this->smarty->deprecation_notices = false;
-   } 
+   }
 
     public static function isRunnable()
     {
         return true;
-    } 
+    }
 
     /**
      * test register->templateFunction method for function
@@ -30,7 +29,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', 'myfunction');
         $this->assertEquals('myfunction', $this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction'][0]);
         $this->assertEquals('hello world 1', $this->smarty->fetch('eval:{testfunction value=1}'));
-    } 
+    }
     /**
      * test wrapper rfor egister_function method for function
      */
@@ -39,7 +38,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', 'myfunction');
         $this->assertEquals('myfunction', $this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction'][0]);
         $this->assertEquals('hello world 1', $this->smarty->fetch('eval:{testfunction value=1}'));
-    } 
+    }
     /**
      * test register->templateFunction method for class
      */
@@ -47,7 +46,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', array('myfunctionclass', 'execute'));
         $this->assertEquals('hello world 2', $this->smarty->fetch('eval:{testfunction value=2}'));
-    } 
+    }
     /**
      * test register->templateFunction method for object
      */
@@ -56,7 +55,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $myfunction_object = new myfunctionclass;
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', array($myfunction_object, 'execute'));
         $this->assertEquals('hello world 3', $this->smarty->fetch('eval:{testfunction value=3}'));
-    } 
+    }
     public function testRegisterFunctionCaching1()
     {
         $this->smarty->caching = 1;
@@ -66,7 +65,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->assign('y', 10);
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', 'myfunction');
         $this->assertEquals('hello world 0 10', $this->smarty->fetch('test_register_function.tpl'));
-    } 
+    }
     public function testRegisterFunctionCaching2()
     {
         $this->smarty->caching = 1;
@@ -75,7 +74,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->assign('y', 20);
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', 'myfunction');
         $this->assertEquals('hello world 0 10', $this->smarty->fetch('test_register_function.tpl'));
-    } 
+    }
     public function testRegisterFunctionCaching3()
     {
         $this->smarty->caching = 1;
@@ -85,7 +84,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->assign('y', 30);
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', 'myfunction', false);
         $this->assertEquals('hello world 2 30', $this->smarty->fetch('test_register_function.tpl'));
-    } 
+    }
     public function testRegisterFunctionCaching4()
     {
         $this->smarty->caching = 1;
@@ -94,7 +93,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->assign('y', 40);
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', 'myfunction', false);
         $this->assertEquals('hello world 3 30', $this->smarty->fetch('test_register_function.tpl'));
-    } 
+    }
     /**
      * test unregister->templateFunction method
      */
@@ -103,7 +102,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION,'testfunction', 'myfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION,'testfunction');
         $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
-    } 
+    }
     /**
      * test unregister->templateFunction method not registered
      */
@@ -111,7 +110,7 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION,'testfunction');
         $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
-    } 
+    }
     /**
      * test unregister->templateFunction method other registered
      */
@@ -120,17 +119,17 @@ class RegisterFunctionTests extends PHPUnit_Framework_TestCase {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK,'testfunction', 'myfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION,'testfunction');
         $this->assertTrue(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testfunction']));
-    } 
-} 
+    }
+}
 function myfunction($params, &$smarty)
 {
     return "hello world $params[value]";
-} 
+}
 class myfunctionclass {
     static function execute($params, &$smarty)
     {
         return "hello world $params[value]";
-    } 
-} 
+    }
+}
 
 ?>

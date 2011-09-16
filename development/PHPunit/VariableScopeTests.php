@@ -1,9 +1,9 @@
 <?php
 /**
 * Smarty PHPunit tests variable scope
-* 
+*
 * @package PHPunit
-* @author Uwe Tews 
+* @author Uwe Tews
 */
 
 
@@ -16,12 +16,12 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
         $this->smarty->assign('foo', 'bar');
-    } 
+    }
 
     public static function isRunnable()
     {
         return true;
-    } 
+    }
 
     /**
     * test root variable
@@ -30,7 +30,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", null, null, $this->smarty);
         $this->assertEquals("bar", $this->smarty->fetch($tpl));
-    } 
+    }
     public function testVariableScope12()
     {
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", $this->smarty);
@@ -40,7 +40,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", $this->smarty);
         $this->assertEquals("bar", $tpl->fetch());
-    } 
+    }
 
     /**
     * test root variable with data object chain
@@ -51,21 +51,21 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         $data2 = new Smarty_Data($data1);
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", null, null, $data2);
         $this->assertEquals("bar", $this->smarty->fetch($tpl));
-    } 
+    }
     public function testVariableScope22()
     {
         $data1 = new Smarty_Data($this->smarty);
         $data2 = new Smarty_Data($data1);
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", $data2);
         $this->assertEquals("bar", $this->smarty->fetch($tpl));
-    } 
+    }
     public function testVariableScope23()
     {
         $data1 = new Smarty_Data($this->smarty);
         $data2 = new Smarty_Data($data1);
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", $data2);
         $this->assertEquals("bar", $tpl->fetch());
-    } 
+    }
 
     /**
     * test overwrite variable with data object chain
@@ -78,26 +78,15 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", null, null, $data2);
         // must see the new value
         $this->assertEquals("newvalue", $this->smarty->fetch($tpl));
-        $tpl->parent = $this->smarty;
-        // rerender
-        $tpl->renderTemplate();
-        // must see the old value at root
-        $this->assertEquals("bar", $this->smarty->fetch($tpl));
-    } 
+    }
     public function testVariableScope32()
     {
         $data1 = new Smarty_Data($this->smarty);
-        $data1->assign('foo','newvalue');
         $data2 = new Smarty_Data($data1);
         $tpl = $this->smarty->createTemplate("eval:{\$foo}", $data2);
-        // must see the new value
-        $this->assertEquals("newvalue", $this->smarty->fetch($tpl));
-        $tpl->parent = $this->smarty;
-        // rerender
-        $tpl->renderTemplate();
         // must see the old value at root
         $this->assertEquals("bar", $this->smarty->fetch($tpl));
-    } 
+    }
 
     /**
     * test local variable not seen global
@@ -111,7 +100,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         // must see $foo2
         $tpl2 = $this->smarty->createTemplate("eval:{\$foo2}", null, null, $this->smarty);
         $this->assertEquals("", $this->smarty->fetch($tpl2));
-    } 
+    }
     public function testVariableScope42()
     {
  		$this->smarty->error_reporting  = error_reporting() & ~(E_NOTICE|E_USER_NOTICE);
@@ -121,7 +110,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         // must see $foo2
         $tpl2 = $this->smarty->createTemplate("eval:{\$foo2}", $this->smarty);
         $this->assertEquals("", $this->smarty->fetch($tpl2));
-    } 
+    }
 
     /**
     * test overwriting by global variable
@@ -136,7 +125,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         $tpl2 = $this->smarty->createTemplate("eval:{\$foo2}", null, null, $this->smarty);
         // must see the new value at root
         $this->assertEquals("newvalue", $this->smarty->fetch($tpl2));
-    } 
+    }
     public function testVariableScope52()
     {
         // create variable $foo2
@@ -147,7 +136,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         $tpl2 = $this->smarty->createTemplate("eval:{\$foo2}", $this->smarty);
         // must see the new value at root
         $this->assertEquals("newvalue", $this->smarty->fetch($tpl2));
-    } 
+    }
 
     /**
     * test creation of global variable in outerscope
@@ -161,7 +150,7 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         $tpl2 = $this->smarty->createTemplate("eval:{\$foo2}", null, null, $this->smarty);
         // must see the new value at root
         $this->assertEquals("newvalue", $this->smarty->fetch($tpl2));
-    } 
+    }
     public function testVariableScope62()
     {
         // create global variable $foo2 in template
@@ -171,18 +160,18 @@ class VariableScopeTests extends PHPUnit_Framework_TestCase {
         $tpl2 = $this->smarty->createTemplate("eval:{\$foo2}", $this->smarty);
         // must see the new value at root
         $this->assertEquals("newvalue", $this->smarty->fetch($tpl2));
-    } 
+    }
     public function testDataArray()
     {
         // create global variable $foo2 in template
         $tpl = $this->smarty->createTemplate("eval:{\$foo} {\$foo2}",array('foo'=>'bar','foo2'=>'bar2'));
         $this->assertEquals("bar bar2", $this->smarty->fetch($tpl));
-    } 
+    }
     public function testDataArray2()
     {
         // create global variable $foo2 in template
         $this->assertEquals("bar bar2", $this->smarty->fetch("eval:{\$foo} {\$foo2}",array('foo'=>'bar','foo2'=>'bar2')));
-    } 
-} 
+    }
+}
 
 ?>

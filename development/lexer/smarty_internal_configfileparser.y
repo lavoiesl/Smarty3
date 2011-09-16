@@ -87,7 +87,7 @@
 
     private function add_global_vars(Array $vars) {
         if (!isset($this->compiler->config_data['vars'])) {
-	    $this->compiler->config_data['vars'] = Array();
+      $this->compiler->config_data['vars'] = Array();
         }
         foreach ($vars as $var) {
             $this->set_var($var, $this->compiler->config_data);
@@ -129,37 +129,94 @@
 }
 
 // Complete config file
-start(res) ::= global_vars sections. { res = null; }
+start(res) ::= global_vars sections. {
+    res = null;
+}
 
 // Global vars
-global_vars(res) ::= var_list(vl). { $this->add_global_vars(vl); res = null; }
+global_vars(res) ::= var_list(vl). {
+    $this->add_global_vars(vl); res = null;
+}
 
 // Sections
-sections(res) ::= sections section. { res = null; }
-sections(res) ::= . { res = null; }
+sections(res) ::= sections section. {
+    res = null;
+}
 
-section(res) ::= OPENB SECTION(i) CLOSEB newline var_list(vars). { $this->add_section_vars(i, vars); res = null; }
-section(res) ::= OPENB DOT SECTION(i) CLOSEB newline var_list(vars). { if ($this->smarty->config_read_hidden) { $this->add_section_vars(i, vars); } res = null; } //parse and check, then discard!
+sections(res) ::= . {
+    res = null;
+}
+
+section(res) ::= OPENB SECTION(i) CLOSEB newline var_list(vars). {
+    $this->add_section_vars(i, vars);
+    res = null;
+}
+
+section(res) ::= OPENB DOT SECTION(i) CLOSEB newline var_list(vars). {
+    if ($this->smarty->config_read_hidden) {
+        $this->add_section_vars(i, vars);
+    }
+    res = null;
+}
 
 // Var list
-var_list(res) ::= var_list(vl) newline. { res = vl; }
-var_list(res) ::= var_list(vl) var(v). { res = array_merge(vl, Array(v)); }
-var_list(res) ::= . { res = Array(); }
+var_list(res) ::= var_list(vl) newline. {
+    res = vl;
+}
+
+var_list(res) ::= var_list(vl) var(v). {
+    res = array_merge(vl, Array(v));
+}
+
+var_list(res) ::= . {
+    res = Array();
+}
 
 
 // Var
-var(res) ::= ID(id) EQUAL value(v). { res = Array("key" => id, "value" => v); }
+var(res) ::= ID(id) EQUAL value(v). {
+    res = Array("key" => id, "value" => v);
+}
 
-value(res) ::= FLOAT(i). { res = (float) i; }
-value(res) ::= INT(i). { res = (int) i; }
-value(res) ::= BOOL(i). { res = $this->parse_bool(i); }
-value(res) ::= SINGLE_QUOTED_STRING(i). { res = self::parse_single_quoted_string(i); }
-value(res) ::= DOUBLE_QUOTED_STRING(i). { res = self::parse_double_quoted_string(i); }
-value(res) ::= TRIPPLE_DOUBLE_QUOTED_STRING(i). { res = self::parse_tripple_double_quoted_string(i); }
-value(res) ::= NAKED_STRING(i). { res = i; }
+
+value(res) ::= FLOAT(i). {
+    res = (float) i;
+}
+
+value(res) ::= INT(i). {
+    res = (int) i;
+}
+
+value(res) ::= BOOL(i). {
+    res = $this->parse_bool(i);
+}
+
+value(res) ::= SINGLE_QUOTED_STRING(i). {
+    res = self::parse_single_quoted_string(i);
+}
+
+value(res) ::= DOUBLE_QUOTED_STRING(i). {
+    res = self::parse_double_quoted_string(i);
+}
+
+value(res) ::= TRIPPLE_DOUBLE_QUOTED_STRING(i). {
+    res = self::parse_tripple_double_quoted_string(i);
+}
+
+value(res) ::= NAKED_STRING(i). {
+    res = i;
+}
 
 
 // Newline and comments
-newline(res) ::= NEWLINE. { res = null; }
-newline(res) ::= COMMENTSTART NEWLINE. { res = null; }
-newline(res) ::= COMMENTSTART NAKED_STRING NEWLINE. { res = null; }
+newline(res) ::= NEWLINE. {
+    res = null;
+}
+
+newline(res) ::= COMMENTSTART NEWLINE. {
+    res = null;
+}
+
+newline(res) ::= COMMENTSTART NAKED_STRING NEWLINE. {
+    res = null;
+}

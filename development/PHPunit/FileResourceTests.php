@@ -1,9 +1,9 @@
 <?php
 /**
 * Smarty PHPunit tests for File resources
-* 
+*
 * @package PHPunit
-* @author Uwe Tews 
+* @author Uwe Tews
 */
 
 
@@ -15,12 +15,21 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
-    } 
+    }
 
     public static function isRunnable()
     {
         return true;
-    } 
+    }
+
+    protected function relative($path)
+    {
+        $path = str_replace( dirname(__FILE__), '.', $path );
+        if (DS == "\\") {
+            $path = str_replace( "\\", "/", $path );
+        }
+        return $path;
+    }
 
     /**
     * test getTemplateFilepath
@@ -28,98 +37,102 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals('./templates/helloworld.tpl', str_replace('\\','/',$tpl->getTemplateFilepath()));
-    } 
+        $this->assertEquals('./templates/helloworld.tpl', str_replace('\\','/',$tpl->source->filepath));
+    }
     /**
     * test template file exits
     */
     public function testTemplateFileExists1()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue($tpl->isExisting());
-    } 
+        $this->assertTrue($tpl->source->exists);
+    }
     public function testTemplateFileExists2()
     {
         $this->assertTrue($this->smarty->templateExists('helloworld.tpl'));
-    } 
+    }
     /**
     * test template file is not existing
     */
     public function testTemplateFileNotExists1()
     {
         $tpl = $this->smarty->createTemplate('notthere.tpl');
-        $this->assertFalse($tpl->isExisting());
-    } 
+        $this->assertFalse($tpl->source->exists);
+    }
     public function testTemplateFileNotExists2()
     {
         $this->assertFalse($this->smarty->templateExists('notthere.tpl'));
-    } 
+    }
     public function testTemplateFileNotExists3()
     {
         try {
             $result = $this->smarty->fetch('notthere.tpl');
-        } 
+        }
         catch (Exception $e) {
             $this->assertContains('Unable to load template file \'notthere.tpl\'', $e->getMessage());
             return;
-        } 
+        }
         $this->fail('Exception for not existing template is missing');
-    } 
+    }
     /**
     * test getTemplateTimestamp
     */
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->getTemplateTimestamp()));
-        $this->assertEquals(10, strlen($tpl->getTemplateTimestamp()));
-    } 
+        $this->assertTrue(is_integer($tpl->source->timestamp));
+        $this->assertEquals(10, strlen($tpl->source->timestamp));
+    }
     /**
     * test getTemplateSource
     */
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals('hello world', $tpl->getTemplateSource());
-    } 
+        $this->assertEquals('hello world', $tpl->source->content);
+    }
     /**
     * test usesCompiler
     */
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue($tpl->resource_object->usesCompiler);
-    } 
+        $this->assertFalse($tpl->source->uncompiled);
+    }
     /**
     * test isEvaluated
     */
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertFalse($tpl->resource_object->isEvaluated);
-    } 
+        $this->assertFalse($tpl->source->recompiled);
+    }
     /**
     * test getCompiledFilepath
     */
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-	$expected = './templates_c/'.sha1($this->smarty->template_dir[0].'helloworld.tpl').'.file.helloworld.tpl.php';
-        $this->assertEquals(realpath($expected), realpath($tpl->getCompiledFilepath()));
-    } 
+        $expected = './templates_c/'.sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl').'.file.helloworld.tpl.php';
+        $this->assertEquals($expected, $this->relative($tpl->compiled->filepath));
+    }
     /**
     * test getCompiledTimestamp
     */
+    public function testGetCompiledTimestampPrepare()
+    {
+        $tpl = $this->smarty->createTemplate('helloworld.tpl');
+        // create dummy compiled file
+        file_put_contents($tpl->compiled->filepath, '<?php ?>');
+        touch($tpl->compiled->filepath, $tpl->source->timestamp);
+    }
     public function testGetCompiledTimestamp()
     {
-        $tpl = $this->smarty->createTemplate('helloworld.tpl'); 
-        // create dummy compiled file
-        file_put_contents($tpl->getCompiledFilepath(), 'test');
-        touch($tpl->getCompiledFilepath(), $tpl->getTemplateTimestamp());
-        $this->assertTrue(is_integer($tpl->getCompiledTimestamp()));
-        $this->assertEquals(10, strlen($tpl->getCompiledTimestamp()));
-        $this->assertEquals($tpl->getCompiledTimestamp(), $tpl->getTemplateTimestamp());
-    } 
+        $tpl = $this->smarty->createTemplate('helloworld.tpl');
+        $this->assertTrue(is_integer($tpl->compiled->timestamp));
+        $this->assertEquals(10, strlen($tpl->compiled->timestamp));
+        $this->assertEquals($tpl->compiled->timestamp, $tpl->source->timestamp);
+    }
     /**
     * test mustCompile if compiled template exists
     */
@@ -127,7 +140,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertFalse($tpl->mustCompile());
-    } 
+    }
     /**
     * test mustCompile if force compile = true
     */
@@ -136,7 +149,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $this->smarty->force_compile = true;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertTrue($tpl->mustCompile());
-    } 
+    }
     /**
     * test mustCompile on touched source file
     */
@@ -144,37 +157,37 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty->force_compile = false;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        touch($tpl->getTemplateFilepath());
-        $this->assertTrue($tpl->mustCompile()); 
+        touch($tpl->source->filepath);
+        // reset cache for this test to work
+        unset($tpl->source->timestamp);
+        $this->assertTrue($tpl->mustCompile());
         // clean up for next tests
         $this->smarty->clearCompiledTemplate();
-    } 
+    }
     /**
-    * test getCompiledTemplate
+    * test compile template file
     */
-    public function testGetCompiledTemplate()
+    public function testCompileTemplateFile()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $result = $tpl->getCompiledTemplate();
-        $this->assertContains('hello world', $result);
-        $this->assertContains('<?php /* Smarty version ', $result);
-    } 
+        $tpl->compileTemplateSource();
+    }
     /**
     * test that compiled template file exists
     */
     public function testCompiledTemplateFileExits()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(file_exists($tpl->getCompiledFilepath()));
-    } 
+        $this->assertTrue(file_exists($tpl->compiled->filepath));
+    }
     /**
     * test getCachedFilepath if caching disabled
     */
     public function testGetCachedFilepathCachingDisabled()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertFalse($tpl->getCachedFilepath());
-    } 
+        $this->assertFalse($tpl->cached->filepath);
+    }
     /**
     * test getCachedFilepath
     */
@@ -183,19 +196,19 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-	$expected = './cache/'.sha1($this->smarty->template_dir[0].'helloworld.tpl').'.helloworld.tpl.php';
-        $this->assertEquals(realpath($expected), realpath($tpl->getCachedFilepath()));
-    } 
+        $expected = './cache/'.sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl').'.helloworld.tpl.php';
+        $this->assertEquals($expected, $this->relative($tpl->cached->filepath));
+    }
     /**
     * test getCachedTimestamp caching disabled
     */
     public function testGetCachedTimestampCachingDisabled()
     {
         // create dummy cache file for the following test
-        file_put_contents('./cache/'.sha1($this->smarty->template_dir[0].'helloworld.tpl').'.helloworld.tpl.php', 'test');
+        file_put_contents('./cache/'.sha1($this->smarty->getTemplateDir(0) . 'helloworld.tpl').'.helloworld.tpl.php', '<?php ?>');
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertFalse($tpl->getCachedTimestamp());
-    } 
+        $this->assertFalse($tpl->cached->timestamp);
+    }
     /**
     * test getCachedTimestamp caching enabled
     */
@@ -204,27 +217,9 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->getCachedTimestamp()));
-        $this->assertEquals(10, strlen($tpl->getCachedTimestamp()));
-    } 
-    /**
-    * test getCachedContent caching disabled
-    */
-    public function testGetCachedContentCachingDisabled()
-    {
-        $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertFalse($tpl->getCachedContent());
-    } 
-    /**
-    * test getCachedContent 
-    */
-    public function testGetCachedContent()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals('test', $tpl->getCachedContent());
-    } 
+        $this->assertTrue(is_integer($tpl->cached->timestamp));
+        $this->assertEquals(10, strlen($tpl->cached->timestamp));
+    }
     /**
     * test prepare files for isCached test
     */
@@ -235,10 +230,10 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         // clean up for next tests
         $this->smarty->clearCompiledTemplate();
-	  $this->smarty->clearAllCache();
+        $this->smarty->clearAllCache();
         // compile and cache
-	  $this->smarty->fetch($tpl);
-    } 
+        $this->smarty->fetch($tpl);
+    }
     /**
     * test isCached
     */
@@ -248,20 +243,34 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertTrue($tpl->isCached());
-        $this->assertEquals(null, $tpl->rendered_content);
-    } 
+    }
+    /**
+    * test force_cache
+    */
+    public function testForceCache()
+    {
+        $this->smarty->caching = true;
+        $this->smarty->force_cache = true;
+        $this->smarty->cache_lifetime = 1000;
+        $tpl = $this->smarty->createTemplate('helloworld.tpl');
+        $this->assertFalse($tpl->isCached());
+    }
     /**
     * test isCached on touched source
     */
+    public function testIsCachedTouchedSourcePrepare()
+    {
+        $tpl = $this->smarty->createTemplate('helloworld.tpl');
+        sleep(1);
+        touch ($tpl->source->filepath);
+    }
     public function testIsCachedTouchedSource()
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        sleep(1);
-        touch ($tpl->getTemplateFilepath ());
         $this->assertFalse($tpl->isCached());
-    } 
+    }
     /**
     * test isCached caching disabled
     */
@@ -269,7 +278,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertFalse($tpl->isCached());
-    } 
+    }
     /**
     * test isCached force compile
     */
@@ -280,7 +289,7 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $this->smarty->force_compile = true;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertFalse($tpl->isCached());
-    } 
+    }
     /**
     * test is cache file is written
     */
@@ -288,19 +297,19 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-	  $this->smarty->clearAllCache();
+        $this->smarty->clearAllCache();
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->smarty->fetch($tpl);
-        $this->assertTrue(file_exists($tpl->getCachedFilepath()));
-    } 
+        $this->assertTrue(file_exists($tpl->cached->filepath));
+    }
     /**
     * test getRenderedTemplate
     */
     public function testGetRenderedTemplate()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals('hello world', $tpl->getRenderedTemplate());
-    } 
+        $this->assertEquals('hello world', $tpl->fetch());
+    }
     /**
     * test $smarty->is_cached
     */
@@ -311,18 +320,17 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $this->smarty->cache_lifetime = 1000;
         // clean up for next tests
         $this->smarty->clearCompiledTemplate();
-	  $this->smarty->clearAllCache();
+        $this->smarty->clearAllCache();
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->smarty->fetch($tpl);
-    } 
+    }
     public function testSmartyIsCached()
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertTrue($this->smarty->isCached($tpl));
-        $this->assertEquals(null, $tpl->rendered_content);
-    } 
+    }
     /**
     * test $smarty->is_cached  caching disabled
     */
@@ -330,15 +338,77 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertFalse($this->smarty->isCached($tpl));
-    } 
+    }
+
+    public function testRelativeDot()
+    {
+        try {
+            $this->smarty->fetch('./helloworld.tpl');
+        }
+        catch (Exception $e) {
+            $this->assertContains("may not start with ../ or ./", $e->getMessage());
+            return;
+        }
+        $this->fail('Exception for relative filepath has not been raised.');
+    }
+
+    public function testRelativeDotDot()
+    {
+        try {
+            $this->smarty->fetch('../helloworld.tpl');
+        }
+        catch (Exception $e) {
+            $this->assertContains("may not start with ../ or ./", $e->getMessage());
+            return;
+        }
+        $this->fail('Exception for relative filepath has not been raised.');
+    }
+
+    public function testRelativeInclude()
+    {
+        $result = $this->smarty->fetch('relative.tpl');
+        $this->assertContains('hello world', $result);
+    }
+
+    public function testRelativeIncludeSub()
+    {
+        $result = $this->smarty->fetch('sub/relative.tpl');
+        $this->assertContains('hello world', $result);
+    }
+
+    public function testRelativeIncludeFail()
+    {
+        try {
+            $this->smarty->fetch('relative_sub.tpl');
+        }
+        catch (Exception $e) {
+            $this->assertContains("Unable to load template", $e->getMessage());
+            return;
+        }
+        $this->fail('Exception for unknown relative filepath has not been raised.');
+    }
+
+    public function testRelativeIncludeFailOtherDir()
+    {
+        $this->smarty->addTemplateDir('./templates_2');
+        try {
+            $this->smarty->fetch('relative_notexist.tpl');
+        }
+        catch (Exception $e) {
+            $this->assertContains("Unable to load template", $e->getMessage());
+            return;
+        }
+        $this->fail('Exception for unknown relative filepath has not been raised.');
+    }
+
     /**
     * final cleanup
     */
     public function testFinalCleanup()
     {
         $this->smarty->clearCompiledTemplate();
-	  $this->smarty->clearAllCache();
-    } 
-} 
+        $this->smarty->clearAllCache();
+    }
+}
 
 ?>

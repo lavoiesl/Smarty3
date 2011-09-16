@@ -10,12 +10,18 @@
 		<body>
 						<h1 align="center">README</h1>
 <pre>
-Smarty 3.0
+Smarty 3.x
 
 Author: Monte Ohrt &lt;monte at ohrt dot com &gt;
 Author: Uwe Tews
 
 AN INTRODUCTION TO SMARTY 3
+
+NOTICE for 3.0.5 release:
+
+Smarty now follows the PHP error_reporting level by default. If PHP does not mask E_NOTICE and you try to access an unset template variable, you will now get an E_NOTICE warning. To revert to the old behavior:
+
+$smarty-&gt;error_reporting = E_ALL &amp; ~E_NOTICE;
 
 NOTICE for 3.0 release:
 
@@ -577,7 +583,7 @@ Monte and Uwe
 
 </pre>
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 13 Nov 2010 00:58:11 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
+		Documentation generated on Sun, 11 Sep 2011 11:02:26 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
 	</p>
 	</body>
 </html>

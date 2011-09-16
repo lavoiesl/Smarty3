@@ -1,9 +1,9 @@
 <?php
 /**
 * Smarty PHPunit tests compilation of the {include} tag
-* 
+*
 * @package PHPunit
-* @author Uwe Tews 
+* @author Uwe Tews
 */
 
 
@@ -16,12 +16,12 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
         $this->smarty->force_compile = true;
-    } 
+    }
 
     public static function isRunnable()
     {
         return true;
-    } 
+    }
 
     /**
     * test standard output
@@ -31,7 +31,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
         $tpl = $this->smarty->createTemplate('eval:{include file="helloworld.tpl"}');
         $content = $this->smarty->fetch($tpl);
         $this->assertEquals("hello world", $content);
-    } 
+    }
     /**
     * Test that assign attribute does not create standard output
     */
@@ -39,7 +39,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('eval:{include file="helloworld.tpl" assign=foo}');
         $this->assertEquals("", $this->smarty->fetch($tpl));
-    } 
+    }
     /**
     * Test that assign attribute does load variable
     */
@@ -47,7 +47,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=bar}{include file="helloworld.tpl" assign=foo}{$foo}');
         $this->assertEquals("hello world", $this->smarty->fetch($tpl));
-    } 
+    }
     /**
     * Test passing local vars
     */
@@ -55,7 +55,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
     {
         $tpl = $this->smarty->createTemplate("eval:{include file='eval:{\$myvar1}{\$myvar2}' myvar1=1 myvar2=2}");
         $this->assertEquals("12", $this->smarty->fetch($tpl));
-    } 
+    }
     /**
     * Test local scope
     */
@@ -67,7 +67,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
         $this->assertContains('befor include 1', $content);
         $this->assertContains('in include 2', $content);
         $this->assertContains('after include 1', $content);
-    } 
+    }
     /**
     * Test  parent scope
     */
@@ -81,7 +81,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
         $this->assertContains('in include 2', $content);
         $this->assertContains('after include 2', $content);
         $this->assertContains('root value 1', $content2);
-    } 
+    }
     /**
     * Test  root scope
     */
@@ -96,7 +96,7 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
         $this->assertContains('in include 2', $content);
         $this->assertContains('after include 2', $content);
         $this->assertContains('smarty value 1', $content2);
-    } 
+    }
     /**
     * Test  root scope
     */
@@ -108,9 +108,26 @@ class CompileIncludeTests extends PHPUnit_Framework_TestCase {
         $content2 = $this->smarty->fetch('eval: smarty value {$foo}' );
         $this->assertContains('befor include 1', $content);
         $this->assertContains('in include 2', $content);
-        $this->assertContains('after include 2', $content);
+        $this->assertContains('after include 1', $content);
         $this->assertContains('smarty value 2', $content2);
-    } 
-} 
+    }
+    /**
+    * Test  recursive includes
+    */
+    public function testRecursiveIncludes1()
+    {
+        $this->smarty->assign('foo',1);
+        $this->smarty->assign('bar','bar');
+        $content = $this->smarty->fetch('test_recursive_includes.tpl');
+        $this->assertContains("before 1 bar<br>\nbefore 2 bar<br>\nbefore 3 bar<br>\nafter 3 bar<br>\nafter 2 bar<br>\nafter 1 bar<br>", $content);
+    }
+    public function testRecursiveIncludes2()
+    {
+        $this->smarty->assign('foo',1);
+        $this->smarty->assign('bar','bar');
+        $content = $this->smarty->fetch('test_recursive_includes2.tpl');
+        $this->assertContains("before 1 bar<br>\nbefore 3 bar<br>\nbefore 5 bar<br>\nafter 5 bar<br>\nafter 3 bar<br>\nafter 1 bar<br>", $content);
+    }
+}
 
 ?>

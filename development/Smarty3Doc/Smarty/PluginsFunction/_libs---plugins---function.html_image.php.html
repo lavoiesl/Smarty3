@@ -38,7 +38,7 @@
 		</div>
 		<div class="info-box-body">	
 			<a name="functionsmarty_function_html_image" id="functionsmarty_function_html_image"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<span class="method-title">smarty_function_html_image</span> (line <span class="line-number">37</span>)
@@ -46,12 +46,16 @@
 
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Smarty {html_image} function plugin</p>
-<p class="description"><p>Type:     function<br />  Name:     html_image<br />  Date:     Feb 24, 2003<br />  Purpose:  format HTML tags for the image<br />  Examples: {html_image file=&quot;/images/masthead.gif&quot;}  Output:   &lt;img src=&quot;/images/masthead.gif&quot; width=400 height=23&gt;</p></p>
+<p class="description"><p>Type:     function<br />  Name:     html_image<br />  Date:     Feb 24, 2003<br />  Purpose:  format HTML tags for the image<br />  Examples: {html_image file=&quot;/images/masthead.gif&quot;}<br />  Output:   &lt;img src=&quot;/images/masthead.gif&quot; width=400 height=23&gt;<br />  Params:  <pre> - file        - (required) - file (and path) of image
+ - height      - (optional) - image height (default actual height)
+ - width       - (optional) - image width (default actual width)
+ - basedir     - (optional) - base directory for absolute paths, default is environment variable DOCUMENT_ROOT
+ - path_prefix - prefix for path output (optional, default empty)</pre></p></p>
 	<ul class="tags">
 				<li><span class="field">author:</span> credits to Duda &lt;<a href="mailto:duda@big.hu">duda@big.hu</a>&gt;</li>
 				<li><span class="field">author:</span> Monte Ohrt &lt;<a href="mailto:monte">at ohrt dot com monte at ohrt dot com</a>&gt;</li>
 				<li><span class="field">version:</span> 1.0</li>
-				<li><span class="field">link:</span> <a href="http://smarty.php.net/manual/en/language.function.html.image.php">http://smarty.php.net/manual/en/language.function.html.image.php {html_image}
+				<li><span class="field">link:</span> <a href="http://www.smarty.net/manual/en/language.function.html.image.php">http://www.smarty.net/manual/en/language.function.html.image.php {html_image}
       (Smarty online manual)</a></li>
 				<li><span class="field">uses:</span> <a href="../../Smarty/PluginsShared/_libs---plugins---shared.escape_special_chars.php.html#functionsmarty_function_escape_special_chars">smarty_function_escape_special_chars()</a></li>
 			</ul>
@@ -61,19 +65,15 @@
 		<span class="method-name">
 			smarty_function_html_image
 		</span>
-					(<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, <span class="var-type">object</span>&nbsp;<span class="var-name">$template</span>, <span class="var-type">object</span>&nbsp;<span class="var-name">$smarty</span>)
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, <span class="var-type"><a href="../../Smarty/Template/Smarty_Internal_Template.html">Smarty_Internal_Template</a></span>&nbsp;<span class="var-name">$template</span>)
 			</div>
 
 			<ul class="parameters">
 					<li>
 				<span class="var-type">array</span>
-				<span class="var-name">$params</span><span class="var-description">: parameters  Input:<br /> <ul><li>file = file (and path) of image (required)</li><li>height = image height (optional, default actual height)</li><li>width = image width (optional, default actual width)</li><li>basedir = base directory for absolute paths, default
-                      is environment variable DOCUMENT_ROOT</li><li>path_prefix = prefix for path output (optional, default empty)</li></ul></span>			</li>
+				<span class="var-name">$params</span><span class="var-description">: parameters</span>			</li>
 					<li>
-				<span class="var-type">object</span>
-				<span class="var-name">$smarty</span><span class="var-description">: Smarty object</span>			</li>
-					<li>
-				<span class="var-type">object</span>
+				<span class="var-type"><a href="../../Smarty/Template/Smarty_Internal_Template.html">Smarty_Internal_Template</a></span>
 				<span class="var-name">$template</span><span class="var-description">: template object</span>			</li>
 				</ul>
 		
@@ -83,7 +83,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 13 Nov 2010 00:58:16 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
+		Documentation generated on Sun, 11 Sep 2011 11:02:39 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
 	</p>
 	</div></body>
 </html>

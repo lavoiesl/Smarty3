@@ -74,16 +74,16 @@ class RegisterCompilerFunctionTests extends PHPUnit_Framework_TestCase {
         $this->assertTrue(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testcompilerfunction']));
     } 
 } 
-function mycompilerfunction($params, &$smarty)
+function mycompilerfunction($params, $smarty)
 {
     return "<?php echo 'hello world {$params['var']}'?>";
 } 
 class mycompilerfunctionclass {
-    static function execute($params, &$smarty)
+    static function execute($params, $smarty)
     {
         return "<?php echo 'hello world {$params['var1']}'?>";
     } 
-    function compile($params, &$smarty)
+    function compile($params, $smarty)
     {
         return "<?php echo 'hello world {$params['var2']}'?>";
     } 

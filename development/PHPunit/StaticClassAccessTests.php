@@ -53,6 +53,7 @@ class StaticClassAccessTests extends PHPUnit_Framework_TestCase {
     */
     public function testRegisteredStaticClassConstant()
     {
+        $this->smarty->registerClass('registeredclass','mystaticclass');
         $tpl = $this->smarty->createTemplate('eval:{registeredclass::STATIC_CONSTANT_VALUE}');
         $this->assertEquals('3', $this->smarty->fetch($tpl));
     } 
@@ -69,6 +70,7 @@ class StaticClassAccessTests extends PHPUnit_Framework_TestCase {
     */
     public function testRegisteredStaticClassMethode()
     {
+        $this->smarty->registerClass('registeredclass','mystaticclass');
         $tpl = $this->smarty->createTemplate('eval:{registeredclass::square(5)}');
         $this->assertEquals('25', $this->smarty->fetch($tpl));
     } 
@@ -85,6 +87,7 @@ class StaticClassAccessTests extends PHPUnit_Framework_TestCase {
     */
     public function testRegisteredStaticClassVariableMethode()
     {
+        $this->smarty->registerClass('registeredclass','mystaticclass');
         $tpl = $this->smarty->createTemplate('eval:{$foo=\'square\'}{registeredclass::$foo(5)}');
         $this->assertEquals('25', $this->smarty->fetch($tpl));
     } 
@@ -102,6 +105,7 @@ class StaticClassAccessTests extends PHPUnit_Framework_TestCase {
     */
     public function testRegisteredStaticClassVariableMethode2()
     {
+        $this->smarty->registerClass('registeredclass','mystaticclass');
         $tpl = $this->smarty->createTemplate('eval:{registeredclass::$foo(5)}');
         $tpl->assign('foo','square');
         $this->assertEquals('25', $this->smarty->fetch($tpl));
