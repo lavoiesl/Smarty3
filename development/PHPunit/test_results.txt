@@ -14,7 +14,7 @@ Test Suite
  ..................
 
  FileResourceTests
- ..................................
+ .........................................
 
  DoubleQuotedStringTests
  ..................
@@ -42,6 +42,15 @@ Test Suite
 
  AssignTests
  ..
+
+ AutoEscapeTests
+ .
+
+ CacheResourceCustomMysqlTests
+ .................
+
+ CacheResourceCustomRegisteredTests
+ .................
 
  CacheResourceFileTests
  ....................
@@ -102,7 +111,7 @@ Test Suite
  ...
 
  CompileIncludeTests
- ........
+ ..........
 
  CompileInsertTests
  .............
@@ -111,7 +120,7 @@ Test Suite
  ...
 
  CompilePhpTests
- ..................
+ ................
 
  CompileRegisteredObjectFunctionTests
  .....
@@ -121,6 +130,9 @@ Test Suite
 
  CompileSectionTests
  ......
+
+ CompileSetfilterTests
+ .
 
  CompileStripTests
  .
@@ -134,6 +146,12 @@ Test Suite
  ConstantsTests
  .
 
+ DefaultConfigHandlerTests
+ ......
+
+ DefaultPluginHandlerTests
+ ....
+
  DefaultTemplateHandlerTests
  ....
 
@@ -144,16 +162,25 @@ Test Suite
  ...................
 
  ExtendsResourceTests
- .........
+ ..........
 
  FilterTests
- ..........
+ ...........
 
  FunctionTests
  .
 
  GetTemplateVarsTests
  ......
+
+ GetterSetterTests
+ ....
+
+ HttpModifiedSinceTests
+ ...
+
+ IndexedFileResourceTests
+ .............
 
  LoadFilterTests
  .
@@ -164,8 +191,68 @@ Test Suite
  ObjectVariableTests
  ...
 
+ OutputFilterTrimWhitespaceTests
+ .
+
  PhpResourceTests
- .........................
+ ........................
+
+ PluginBlockTextformatTests
+ ..............
+
+ PluginChainedLoadTests
+ .
+
+ PluginFunctionHtmlSelectDateTests
+ .......................
+
+ PluginFunctionHtmlSelectTimeTests
+ ...............
+
+ PluginFunctionMailtoTests
+ ..................
+
+ PluginModifierCapitalizeTests
+ ..............
+
+ PluginModifierCharsetTests
+ ........
+
+ PluginModifierCountCharactersTests
+ ........
+
+ PluginModifierCountSentencesTests
+ ...
+
+ PluginModifierCountWordsTests
+ ......
+
+ PluginModifierEscapeTests
+ ........................
+
+ PluginModifierLowerTests
+ ....
+
+ PluginModifierRegexReplaceTests
+ ...
+
+ PluginModifierSpacifyTests
+ ..
+
+ PluginModifierStripTests
+ .F.
+
+ PluginModifierTruncateTests
+ ..............
+
+ PluginModifierUnescapeTests
+ ....
+
+ PluginModifierUpperTests
+ ....
+
+ PluginModifierWordwrapTests
+ .................
 
  PrintNocacheTests
  ....
@@ -177,7 +264,7 @@ Test Suite
  ......
 
  RegisteredResourceTests
- ..
+ ...
 
  RegisterFilterTests
  .............
@@ -189,13 +276,19 @@ Test Suite
  ......
 
  ResourcePluginTests
- ..
+ .............
 
  SecurityTests
- ......................
+ ...........................
+
+ SharedFunctionsTests
+ .
 
  SingleQuotedStringTests
  ......
+
+ SmartyBcTests
+ .
 
  SpacingTests
  ............
@@ -204,7 +297,7 @@ Test Suite
  ..........
 
  StreamResourceTests
- ......................
+ ....................
 
  StreamVariableTests
  .
@@ -224,6 +317,16 @@ Test Suite
  XmlTests
  ......
 
-Time: 56 seconds
+Time: 02:31
 
-OK (763 tests, 1064 assertions)
+There was 1 failure:
+
+1) testUnicodeSpaces(PluginModifierStripTests)
+Failed asserting that two strings are equal.
+expected string < hello spaced words >
+difference      <xxxxxxxxxxxxxxxxxxxx????????????????>
+got string      < hello spaced       words >
+C:\wamp\www\smarty3.1.0\development\PHPunit\PluginModifierStripTests.php:36
+
+FAILURES!
+Tests: 1040, Assertions: 1556, Failures: 1.

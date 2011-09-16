@@ -68,9 +68,6 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
         error_reporting(E_ALL | E_STRICT);
         self::_init(SmartyTests::$smarty);
         self::_init(SmartyTests::$smartyBC);
-        Smarty_Resource::$sources = array();
-        Smarty_Resource::$compileds = array();
-//        Smarty_Resource::$resources = array();
         SmartyTests::$smartyBC->registerPlugin('block','php','smarty_php_tag');
     }
     /**
