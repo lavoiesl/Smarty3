@@ -7,7 +7,7 @@
 	  is <literal>file</literal>, meaning that
       <literal>$smarty->display('index.tpl')</literal> and
 	  <literal>$smarty->display('file:index.tpl')</literal> are identical in
-      meaning. See the <link linkend="template.resources">resource</link>
+      meaning. See the <link linkend="resources">resource</link>
       chapter for more details.
       </para>
 </sect1>

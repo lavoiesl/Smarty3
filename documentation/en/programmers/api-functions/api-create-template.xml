@@ -39,7 +39,7 @@
      <listitem>
       <para>
        <parameter>template</parameter> must be a valid 
-       <link linkend="template.resources">template resource</link> type and path. 
+       <link linkend="resources">template resource</link> type and path. 
       </para>
      </listitem>
      &parameter.cacheid;

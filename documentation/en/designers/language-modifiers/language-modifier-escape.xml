@@ -54,6 +54,14 @@
       <entry><literal>UTF-8</literal></entry>
       <entry>The character set encoding passed to htmlentities() et. al.</entry>
      </row>
+     <row>
+      <entry>3</entry>
+      <entry>boolean</entry>
+      <entry>No</entry>
+      <entry>&false;</entry>
+      <entry>&true;</entry>
+      <entry>Double encode entites from &amp;amp; to &amp;amp;amp; (applys to <literal>html</literal> and <literal>htmlall</literal> only)</entry>
+     </row>
     </tbody>
    </tgroup>
   </informaltable>

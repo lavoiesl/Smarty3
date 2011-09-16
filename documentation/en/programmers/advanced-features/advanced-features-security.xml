@@ -91,10 +91,36 @@ These are the possible settings:
   </listitem>
   <listitem>
     <para>
-      <parameter>$allow_constants</parameter> is a boolean flag which controls if constants can
-      be accessed by the template. The default is "true".
+     <parameter>$allowed_modifiers</parameter> is an array of (registered / autoloaded) 
+     modifiers that should be accessible to the template. If this array is non-empty,
+     only the herein listed modifiers may be used. This is a whitelist.
     </para>
-  </listitem>
+   </listitem>
+   <listitem>
+    <para>
+     <parameter>$disabled_modifiers</parameter> is an array of (registered / autoloaded) 
+     modifiers that may not be accessible to the template.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <parameter>$allowed_tags</parameter> is a boolean flag which controls if constants can
+     function-, block and filter plugins that should be accessible to the template. If this 
+     array is non-empty, only the herein listed modifiers may be used. This is a whitelist.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <parameter>$disabled_tags</parameter> is an array of (registered / autoloaded) 
+     function-, block and filter plugins that may not be accessible to the template.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <parameter>$allow_constants</parameter> is a boolean flag which controls if constants can
+     be accessed by the template. The default is "true".
+    </para>
+   </listitem>
   <listitem>
     <para>
       <parameter>$allow_super_globals</parameter> is a boolean flag which controls if the PHP

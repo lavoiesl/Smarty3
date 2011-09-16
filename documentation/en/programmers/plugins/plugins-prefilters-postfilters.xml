@@ -11,7 +11,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_prefilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$source</parameter></paramdef>
-      <paramdef>object <parameter>$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$template</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -25,7 +25,7 @@
      <funcprototype>
       <funcdef>string <function>smarty_postfilter_<replaceable>name</replaceable></function></funcdef>
       <paramdef>string <parameter>$compiled</parameter></paramdef>
-      <paramdef>object <parameter>$smarty</parameter></paramdef>
+      <paramdef>object <parameter>$template</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
@@ -50,7 +50,7 @@
  * Purpose:  Convert html tags to be lowercase.
  * -------------------------------------------------------------
  */
- function smarty_prefilter_pre01($source, $smarty)
+ function smarty_prefilter_pre01($source, Smarty_Internal_Template $template)
  {
      return preg_replace('!<(\w+)[^>]+>!e', 'strtolower("$1")', $source);
  }
@@ -73,9 +73,9 @@
  * Purpose:  Output code that lists all current template vars.
  * -------------------------------------------------------------
  */
- function smarty_postfilter_post01($compiled, $smarty)
+ function smarty_postfilter_post01($compiled, Smarty_Internal_Template $template)
  {
-     $compiled = "<pre>\n<?php print_r(\$this->getTemplateVars()); ?>\n</pre>" . $compiled;
+     $compiled = "<pre>\n<?php print_r(\$template->getTemplateVars()); ?>\n</pre>" . $compiled;
      return $compiled;
  }
 ?>

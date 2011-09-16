@@ -27,6 +27,7 @@
 &programmers.caching.caching-multiple-caches;
 &programmers.caching.caching-groups;
 &programmers.caching.caching-cacheable;
+&programmers.caching.caching-custom;
 </chapter>
 <!-- Keep this comment at the end of the file
 Local variables:

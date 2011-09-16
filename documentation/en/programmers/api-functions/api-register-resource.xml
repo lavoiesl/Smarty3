@@ -10,15 +10,14 @@
   <methodsynopsis>
    <type>void</type><methodname>registerResource</methodname>
    <methodparam><type>string</type><parameter>name</parameter></methodparam>
-   <methodparam><type>array</type><parameter>resource_callbacks</parameter></methodparam>
+   <methodparam><type>Smarty_resource</type><parameter>resource_handler</parameter></methodparam>
   </methodsynopsis>
   <para>
    Use this to dynamically register a
-   <link linkend="template.resources">resource plugin</link>
+   <link linkend="resources">Resource plugin</link>
    with Smarty.
-   Pass in the <parameter>name</parameter> of the resource and the array of
-   PHP functions implementing it. See
-   <link linkend="template.resources">template resources</link>
+   Pass in the <parameter>name</parameter> of the Resource  and the object extending Smarty_Resource. See
+   <link linkend="resources">template resources</link>
    for more information on how to setup a function for fetching templates.
      <note>
    <title>Technical Note</title>
@@ -28,74 +27,32 @@
     path, such as <literal>$smarty->display('c:/path/to/index.tpl');</literal>
    </para>
   </note>
-
    </para>
 
-  <itemizedlist>
-  <listitem><para>
-   The array <parameter>resource_callabcks</parameter>
-   must have 4 elements for the respective <literal>source</literal>,
-   <literal>timestamp</literal>, <literal>secure</literal> and
-   <literal>trusted</literal> callback of the resource.
-   </para></listitem>
-   <listitem><para>
-    Each element defines the PHP callback. it can be either:
-    <itemizedlist>
-     <listitem><para>
-      A string containing the function <parameter>name</parameter>
-     </para></listitem>
-     <listitem><para>
-      An array of the form <literal>array($object, $method)</literal> with
-      <literal>&amp;$object</literal> being a reference to an
-      object and <literal>$method</literal> being a string
-      containing the method-name
-     </para></listitem>
-     <listitem><para>
-      An array of the form
-      <literal>array($class, $method)</literal> with
-      <literal>$class</literal> being the class name and
-      <literal>$method</literal> being a method of the class.
-     </para></listitem>
-    </itemizedlist>
-   </para></listitem>
-  </itemizedlist>
+  <note>
+   <para>
+	Prior to Smarty 3.1 <varname>registerResource()</varname> accepted an array of callback functions. 
+	While this is still possible for backward compatibility reasons, it is strongly discouraged as callback 
+	functions have been deprecated as of Smarty 3.1.
+   </para>
+  </note>
+
   <example>
    <title>registerResource()</title>
    <programlisting role="php">
 <![CDATA[
 <?php
-$smarty->registerResource('db', array(
-                                'db_get_template',
-                                'db_get_timestamp',
-                                'db_get_secure',
-                                'db_get_trusted')
-                                );
+$smarty->registerResource('mysql', new Smarty_Resource_Mysql());
 ?>
 ]]>
    </programlisting>
   </example>
-  <example>
-   <title>registerResource() using object methods</title>
-   <programlisting role="php">
-<![CDATA[
-<?php
-$smarty->registerResource('db', array(
-                                array($obj,'db_get_template'),
-                                array($obj,'db_get_timestamp'),
-                                array($obj,'db_get_secure'),
-                                array($obj,'db_get_trusted')
-                                )
-                          );
-?>
-]]>
-   </programlisting>
-  </example>
-  
+
 <para>
   See also
   <link linkend="api.unregister.resource"><varname>unregisterResource()</varname></link>
   and the
-  <link linkend="template.resources">template resources</link> section.
+  <link linkend="resources">template resources</link> section.
 </para>
 
  </refsect1>

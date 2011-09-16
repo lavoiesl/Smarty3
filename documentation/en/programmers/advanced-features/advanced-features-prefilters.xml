@@ -30,7 +30,7 @@
 <![CDATA[
 <?php
 // put this in your application
-function remove_dw_comments($tpl_source, $smarty)
+function remove_dw_comments($tpl_source, Smarty_Internal_Template $template)
 {
     return preg_replace("/<!--#.*-->/U",'',$tpl_source);
 }

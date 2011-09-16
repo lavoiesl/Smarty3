@@ -149,9 +149,9 @@ to create arrays of config file variables.
   See also the <link linkend="config.files">config files</link> page,
   <link linkend="language.config.variables">config variables</link> page,
   <link linkend="variable.config.dir"><parameter>$config_dir</parameter></link>,
-  <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>
+  <link linkend="api.get.config.vars"><varname>getConfigVars()</varname></link>
   and
-  <link linkend="api.config.load"><varname>config_load()</varname></link>.
+  <link linkend="api.config.load"><varname>configLoad()</varname></link>.
  </para>
 </sect1>
 

@@ -66,10 +66,14 @@
      <entry>append</entry>
      <entry>The <varname>{block}</varname> content will be be appended to the content of the parent template <varname>{block}</varname></entry>
     </row>    
-    <row>
-     <entry>prepend</entry>
-     <entry>The <varname>{block}</varname> content will be prepended to the content of the parent template <varname>{block}</varname></entry>
-    </row>    
+     <row>
+       <entry>prepend</entry>
+       <entry>The <varname>{block}</varname> content will be prepended to the content of the parent template <varname>{block}</varname></entry>
+     </row>    
+     <row>
+       <entry>hide</entry>
+       <entry>Ignore the block content if no child block of same name is existing.</entry>
+     </row>    
      <row>
        <entry>nocache</entry>
        <entry>Disables caching of the <varname>{block}</varname> content</entry>
@@ -114,7 +118,7 @@ Page Title
  </example>
  
  <example>
-  <title>Append <varname>{block}</varname> example</title>
+  <title>Prepend <varname>{block}</varname> example</title>
   <para>parent.tpl</para>
   <programlisting>
 <![CDATA[
@@ -129,7 +133,7 @@ Page Title
   <programlisting>
 <![CDATA[
 {extends file="parent.tpl"} 
-{block name="title" append}
+{block name="title" prepend}
 Page Title
 {/block}
 ]]>
@@ -147,7 +151,7 @@ Page Title
  </example>
 
  <example>
-  <title>Prepend <varname>{block}</varname> example</title>
+  <title>Append <varname>{block}</varname> example</title>
   <para>parent.tpl</para>
   <programlisting>
 <![CDATA[
@@ -162,7 +166,7 @@ Page Title
   <programlisting>
 <![CDATA[
 {extends file="parent.tpl"} 
-{block name="title" prepend}
+{block name="title" append}
 Page Title
 {/block}
 ]]>

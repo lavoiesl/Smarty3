@@ -45,7 +45,7 @@
 
   <listitem><para>
   Use the syntax for <link
-  linkend="template.resources">template resources</link> to
+  linkend="resources">template resources</link> to
   <varname>{include}</varname> files outside of the
   <link linkend="variable.template.dir"><parameter>$template_dir</parameter></link>  directory.
   </para></listitem>
@@ -309,7 +309,7 @@
   <link linkend="language.function.include.php"><varname>{include_php}</varname></link>,
   <link linkend="language.function.insert"><varname>{insert}</varname></link>,
   <link linkend="language.function.php"><varname>{php}</varname></link>,
-  <link linkend="template.resources">template resources</link> and
+  <link linkend="resources">template resources</link> and
   <link linkend="tips.componentized.templates">componentized templates</link>.
  </para>
 </sect1>

@@ -2,33 +2,6 @@
 <!-- $Revision$ -->
 <sect1 id="advanced.features.streams">
  <title>Streams</title>
- <para>
-  Streams allow you to use PHP streams as a template resource or a variable resource.
-  The syntax is much the same a traditional template resource names.
- </para>
- <para>
-   Smarty will first look for a registered template resource. If nothing is found, it will check if a PHP stream is available.
-   If a stream is available, Smarty will use it to fetch the template.
-   <note><para>You can further define allowed streams with security enabled.</para></note>
- </para>
- <example>
-  <title>Stream from PHP</title>
-  <para>Using a PHP stream for a template resource from the display() function.</para>
-  <programlisting>
-<![CDATA[
-$smarty->display('foo:bar.tpl');
-]]>
-  </programlisting>
-</example>
-<example>
-  <title>Stream from Template</title>
-   <para>Using a PHP stream for a template resource from within a template.</para>
-   <programlisting>
-<![CDATA[
-{include file="foo:bar.tpl"}
-]]>
-  </programlisting>
-</example>
 <para>
 You can also use streams to call variables. <emphasis>{$foo:bar}</emphasis> will use the <emphasis>foo://bar</emphasis> stream to get the template variable.
 </para>
@@ -43,7 +16,7 @@ You can also use streams to call variables. <emphasis>{$foo:bar}</emphasis> will
 </example>
  <para>
   See also
-  <link linkend="template.resources"><varname>Template Resources</varname></link>
+  <link linkend="resources"><varname>Template Resources</varname></link>
  </para> 
 </sect1>
 

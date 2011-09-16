@@ -72,7 +72,7 @@ function print_current_date($params, $smarty)
 <![CDATA[
 <?php
 // function declaration
-function do_translation ($params, $content, $template, &$repeat)
+function do_translation ($params, $content, $smarty, &$repeat, $template)
 {
   if (isset($content)) {
     $lang = $params["lang"];

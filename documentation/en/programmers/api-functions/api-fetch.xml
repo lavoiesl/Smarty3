@@ -18,7 +18,7 @@
    This returns the template output instead of
    <link linkend="api.display">displaying</link> it.
    Supply a valid <link
-   linkend="template.resources">template resource</link>
+   linkend="resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
    <parameter>$cache id</parameter>, see the <link linkend="caching">caching
    section</link> for more information.

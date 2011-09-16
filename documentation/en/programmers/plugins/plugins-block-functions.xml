@@ -22,12 +22,16 @@
     </para>
 
     <itemizedlist>
-    <listitem><para>
-     By default your function implementation is called twice by
-     Smarty: once for the opening tag, and once for the closing tag.
-     (See <literal>$repeat</literal> below on how to change this.)
-    </para></listitem>
-    <listitem><para>
+     <listitem><para>
+      By default your function implementation is called twice by
+      Smarty: once for the opening tag, and once for the closing tag.
+      (See <literal>$repeat</literal> below on how to change this.)
+     </para></listitem>
+     <listitem><para>
+      Starting with Smarty 3.1 the returned value of the opening tag call is 
+      displayed as well.
+     </para></listitem>
+     <listitem><para>
      Only the opening tag of the block function may have
      <link linkend="language.syntax.attributes">attributes</link>. All
      attributes passed to template functions from the template are contained
@@ -83,7 +87,7 @@
  * Purpose:  translate a block of text
  * -------------------------------------------------------------
  */
-function smarty_block_translate($params, $content, $template, &$repeat)
+function smarty_block_translate($params, $content, Smarty_Internal_Template $template, &$repeat)
 {
     // only output on the closing tag
     if(!$repeat){

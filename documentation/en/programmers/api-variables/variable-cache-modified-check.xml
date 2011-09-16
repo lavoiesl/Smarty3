@@ -13,12 +13,11 @@
 </para>
 
   <para>
-  See also
-  <link linkend="variable.caching"><parameter>$caching</parameter></link>,
+   See also
+   <link linkend="variable.caching"><parameter>$caching</parameter></link>,
    <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>,
-  <link linkend="variable.cache.handler.func"><parameter>$cache_handler_func</parameter></link>,
-  and the
-  <link linkend="caching">caching section</link>.
+   and the
+   <link linkend="caching">caching section</link>.
   </para>
 
 </sect1>

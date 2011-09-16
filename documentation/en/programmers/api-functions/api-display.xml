@@ -18,7 +18,7 @@
    This displays the contents of a template. To return the contents of a template into
    a variable, use <link linkend="api.fetch"><varname>fetch()</varname></link>.
    Supply a valid <link
-   linkend="template.resources">template resource</link>
+   linkend="resources">template resource</link>
    type and path. As an optional second parameter, you can pass a
    <parameter>$cache_id</parameter>, see the
    <link linkend="caching">caching section</link> for more information.
@@ -61,7 +61,7 @@ $smarty->display('index.tpl');
    <title>Other display() template resource examples</title>
      <para>
    Use the syntax for <link
-   linkend="template.resources">template resources</link> to
+   linkend="resources">template resources</link> to
    display files outside of the
    <link linkend="variable.template.dir">
    <parameter>$template_dir</parameter></link> directory.

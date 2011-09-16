@@ -53,7 +53,6 @@
   See also
   <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link>,
   <link linkend="variable.cache.lifetime"><parameter>$cache_lifetime</parameter></link>,
-  <link linkend="variable.cache.handler.func"><parameter>$cache_handler_func</parameter></link>,
   <link linkend="variable.cache.modified.check"><parameter>$cache_modified_check</parameter></link>,
   <link linkend="api.is.cached"><varname>is_cached()</varname></link>
 and the

@@ -6,7 +6,8 @@
      This formats a date and time into the given
      <ulink url="&url.php-manual;strftime"><varname>strftime()</varname></ulink> format.
      Dates can be passed to Smarty as unix
-     <ulink url="&url.php-manual;function.time">timestamps</ulink>, mysql timestamps
+     <ulink url="&url.php-manual;function.time">timestamps</ulink>, 
+     <ulink url="&url.php-manual;class.DateTime">DateTime objects</ulink>, mysql timestamps
      or any string made up of month day year, parsable by php's
      <ulink url="&url.php-manual;strtotime"><varname>strtotime()</varname></ulink>.
      Designers can then use <varname>date_format</varname> to have complete control of the

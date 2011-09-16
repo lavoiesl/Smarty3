@@ -7,120 +7,132 @@
      databases, LDAP, shared memory, sockets, and so on.
     </para>
 
-    <para>
-     There are a total of four functions that need to be registered for each
-     type of resource. Every function will receive the requested resource as
-     the first parameter and the Smarty object as the last parameter. The
-     rest of parameters depend on the function.
-    </para>
-
-    <funcsynopsis>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_source</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>string <parameter>&amp;$source</parameter></paramdef>
-      <paramdef>object <parameter>$smarty</parameter></paramdef>
-     </funcprototype>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_timestamp</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>int <parameter>&amp;$timestamp</parameter></paramdef>
-      <paramdef>object <parameter>$smarty</parameter></paramdef>
-     </funcprototype>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_secure</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>$smarty</parameter></paramdef>
-     </funcprototype>
-     <funcprototype>
-      <funcdef>bool <function>smarty_resource_<replaceable>name</replaceable>_trusted</function></funcdef>
-      <paramdef>string <parameter>$rsrc_name</parameter></paramdef>
-      <paramdef>object <parameter>$smarty</parameter></paramdef>
-     </funcprototype>
-    </funcsynopsis>
-
-	<itemizedlist>
-	<listitem><para>
-     The first function, <literal>source()</literal> is supposed to retrieve
-     the resource. Its second parameter <parameter>$source</parameter> is a
-     variable passed by reference where the result should be
-     stored. The function is supposed to return &true; if
-     it was able to successfully retrieve the resource and &false; otherwise.
-    </para></listitem>
-
-    <listitem><para>
-     The second function, <literal>timestamp()</literal> is supposed to
-     retrieve the last modification time of the requested resource, as a UNIX
-     timestamp. The second parameter <parameter>$timestamp</parameter>
-     is a variable passed by reference where the timestamp should be stored.
-     The function is supposed to return &true; if the timestamp could be
-     succesfully determined, or &false; otherwise.
-    </para></listitem>
-
-    <listitem><para>
-     The third function, <literal>secure()</literal>is supposed to return
-     &true; or &false;, depending on whether the requested resource is secure
-     or not. This function is used only for template resources but
-     should still be defined.
-    </para></listitem>
-
-    <listitem><para>
-     The fourth function, <literal>trusted()</literal> is supposed to return
-     &true; or &false;, depending on whether the requested resource
-     is trusted or not. This function is used for only for PHP script
-     components requested by <link linkend="language.function.include.php">
-     <varname>{include_php}</varname></link> tag or
-     <link linkend="language.function.insert"><varname>{insert}</varname></link>
-     tag with the <parameter>src</parameter> attribute. However, it should still
-     be defined even for template resources.
-    </para></listitem>
-    </itemizedlist>
-
-
+	<para>
+	  Custom Resources may be put in a file <literal>resource.foobarxyz.php</literal> within your 
+	  <link linkend="variable.plugins.dir"><varname>$plugins_dir</varname></link>, or registered on runtime
+	  with <link linkend="api.register.resource"><varname>registerResource()</varname></link>. 
+	  In either case you will be able to access that resource by prepending its name to the template you're addressing: 
+	  <literal>foobarxyz:yourtemplate.tpl</literal>.
+	</para>
+	
+	<para>
+		If a Resource's templates should not be run through the Smarty compiler, the Custom Resource may extend 
+		<literal>Smarty_Resource_Uncompiled</literal>. The Resource Handler must then implement the function 
+		<literal>renderUncompiled(Smarty_Internal_Template $_template)</literal>. 
+		<varname>$_template</varname> is a reference to the current template and contains all assigned variables 
+		which the implementor can access via <literal>$_template->smarty->getTemplateVars()</literal>. 
+		
+		These Resources simply echo their rendered content to the output stream. The rendered output will be 
+		output-cached if the Smarty instance was configured accordingly. 
+		
+		See <literal>libs/sysplugins/smarty_internal_resource_php.php</literal> for an example.
+	</para>
+	
+	<para>
+		If the Resource's compiled templates should not be cached on disk, the Custom Resource may extend 
+		<literal>Smarty_Resource_Recompiled</literal>. These Resources are compiled every time they are accessed. 
+		This may be an expensive overhead. 
+		
+		See <literal>libs/sysplugins/smarty_internal_resource_eval.php</literal> for an example.
+	</para>
+	
     <example>
-     <title>resource plugin</title>
+     <title>Using custom resources</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-/*
- * Smarty plugin
- * -------------------------------------------------------------
- * File:     resource.db.php
- * Type:     resource
- * Name:     db
- * Purpose:  Fetches templates from a database
- * -------------------------------------------------------------
+
+/**
+ * MySQL Resource
+ *
+ * Resource Implementation based on the Custom API to use
+ * MySQL as the storage resource for Smarty's templates and configs.
+ *
+ * Table definition:
+ * <pre>CREATE TABLE IF NOT EXISTS `templates` (
+ *   `name` varchar(100) NOT NULL,
+ *   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ *   `source` text,
+ *   PRIMARY KEY (`name`)
+ * ) ENGINE=InnoDB DEFAULT CHARSET=utf8;</pre>
+ *
+ * Demo data:
+ * <pre>INSERT INTO `templates` (`name`, `modified`, `source`) VALUES ('test.tpl', "2010-12-25 22:00:00", '{$x="hello world"}{$x}');</pre>
+ *
+ * @package Resource-examples
+ * @author Rodney Rehm
  */
-function smarty_resource_db_source($tpl_name, &$tpl_source, $smarty)
-{
-    // do database call here to fetch your template,
-    // populating $tpl_source with actual template contents
-    $tpl_source = "This is the template text";
-    // return true on success, false to generate failure notification
-    return true;
+class Smarty_Resource_Mysql extends Smarty_Resource_Custom {
+    // PDO instance
+    protected $db;
+    // prepared fetch() statement
+    protected $fetch;
+    // prepared fetchTimestamp() statement
+    protected $mtime;
+
+    public function __construct() {
+        try {
+            $this->db = new PDO("mysql:dbname=test;host=127.0.0.1", "smarty", "smarty");
+        } catch (PDOException $e) {
+            throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
+        }
+        $this->fetch = $this->db->prepare('SELECT modified, source FROM templates WHERE name = :name');
+        $this->mtime = $this->db->prepare('SELECT modified FROM templates WHERE name = :name');
+    }
+    
+    /**
+     * Fetch a template and its modification time from database
+     *
+     * @param string $name template name
+     * @param string $source template source
+     * @param integer $mtime template modification timestamp (epoch)
+     * @return void
+     */
+    protected function fetch($name, &$source, &$mtime)
+    {
+        $this->fetch->execute(array('name' => $name));
+        $row = $this->fetch->fetch();
+        $this->fetch->closeCursor();
+        if ($row) {
+            $source = $row['source'];
+            $mtime = strtotime($row['modified']);
+        } else {
+            $source = null;
+            $mtime = null;
+        }
+    }
+    
+    /**
+     * Fetch a template's modification time from database
+     *
+     * @note implementing this method is optional. Only implement it if modification times can be accessed faster than loading the comple template source.
+     * @param string $name template name
+     * @return integer timestamp (epoch) the template was modified
+     */
+    protected function fetchTimestamp($name) {
+        $this->mtime->execute(array('name' => $name));
+        $mtime = $this->mtime->fetchColumn();
+        $this->mtime->closeCursor();
+        return strtotime($mtime);
+    }
 }
 
-function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, $smarty)
-{
-    // do database call here to populate $tpl_timestamp
-    // with unix epoch time value of last template modification.
-    // This is used to determine if recompile is necessary.
-    $tpl_timestamp = time(); // this example will always recompile!
-    // return true on success, false to generate failure notification
-    return true;
-}
 
-function smarty_resource_db_secure($tpl_name, $smarty)
-{
-    // assume all templates are secure
-    return true;
-}
+require_once 'libs/Smarty.class.php';
+$smarty = new Smarty();
+$smarty->registerResource('mysql', new Smarty_Resource_Mysql());
 
-function smarty_resource_db_trusted($tpl_name, $smarty)
-{
-    // not used for templates
-}
+// using resource from php script
+$smarty->display("mysql:index.tpl");
 ?>
+]]>
+     </programlisting>
+     <para>
+      And from within Smarty template:
+     </para>
+     <programlisting>
+<![CDATA[
+{include file='mysql:extras/navigation.tpl'}
 ]]>
      </programlisting>
     </example>

@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
     <sect1 id="variable.config.dir">
-      <title>$config_dir</title>
-      <para>
-       This is the directory used to store
-       <link linkend="config.files">config files</link>
-       used in the
-       templates. Default is
-       <filename class="directory">./configs</filename>, meaning that
-       Smarty will look for the <filename class="directory">configs/</filename>
-        directory in the same directory as the executing php script.
-      </para>
+     <title>$config_dir</title>
+     <para>
+      This is the directory used to store
+      <link linkend="config.files">config files</link>
+      used in the
+      templates. Default is
+      <filename class="directory">./configs</filename>, meaning that
+      Smarty will look for the <filename class="directory">configs/</filename>
+      directory in the same directory as the executing php script.
+     </para>
 	 <note>
-	 <title>Technical Note</title>
-	 <para>
+	  <title>Technical Note</title>
+	  <para>
        It is not recommended to put this directory under
        the web server document root.
       </para>
 	 </note>
+	 <note>
+      <title>Note</title>
+      <para>
+       As of Smarty 3.1 the attribute $config_dir is no longer accessible directly. Use 
+       <link linkend="api.get.config.dir"><varname>getConfigDir()</varname></link>, 
+       <link linkend="api.set.config.dir"><varname>setConfigDir()</varname></link> and
+       <link linkend="api.add.config.dir"><varname>addConfigDir()</varname></link> instead.
+      </para>
+     </note>
+     <para>
+      See also 
+      <link linkend="api.get.config.dir"><varname>getConfigDir()</varname></link>, 
+      <link linkend="api.set.config.dir"><varname>setConfigDir()</varname></link> and
+      <link linkend="api.add.config.dir"><varname>addConfigDir()</varname></link>.
+     </para>
 </sect1>
 <!-- Keep this comment at the end of the file
 Local variables:

@@ -65,6 +65,12 @@
    <link linkend="caching">caching</link>   enabled, the
    output will be cached with the rest of the template.
   </para></listitem>
+  <listitem><para>
+   If the content to evaluate doesn't change often, or is used repeatedly,
+   consider using <literal>{include file="string:{$template_code}"}</literal> instead.
+   This may cache the compiled state and thus doesn't have to run the (comparably slow) 
+   compiler on every invocation.
+  </para></listitem>
   </itemizedlist>
   </para>
  </note>

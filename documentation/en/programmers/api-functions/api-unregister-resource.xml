@@ -32,7 +32,7 @@ $smarty->unregisterResource('db');
  <link linkend="api.register.resource">
  <varname>registerResource()</varname></link>
  and
- <link linkend="template.resources">template resources</link>
+ <link linkend="resources">template resources</link>
 </para>
 
  </refsect1>

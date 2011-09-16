@@ -46,9 +46,9 @@ rowColors = #0000FF
     <para>
     See also
     <link linkend="language.function.config.load"><varname>{config_load}</varname></link>,
-    <link linkend="api.get.config.vars"><varname>get_config_vars()</varname></link>,
-    <link linkend="api.clear.config"><varname>clear_config()</varname></link>,
-    <link linkend="api.config.load"><varname>config_load()</varname></link>
+    <link linkend="api.get.config.vars"><varname>getConfigVars()</varname></link>,
+    <link linkend="api.clear.config"><varname>clearConfig()</varname></link>,
+    <link linkend="api.config.load"><varname>configLoad()</varname></link>
     and the <link linkend="config.files">config files section</link>.
   </para>
 

@@ -16,6 +16,12 @@
   will not be escaped, regardless of the <link
   linkend="variable.php.handling"><parameter>$php_handling</parameter></link> setting.
  </para>
+ 
+ <note>
+  <para>
+   As of Smarty 3.1 the <varname>{php}</varname> tags are only available from <link linkend="bc">SmartyBC</link>.
+  </para>
+ </note>
 
  <example>
   <title>php code within {php} tags</title>

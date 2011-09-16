@@ -41,10 +41,19 @@
     </row>
     <row>
      <entry>time</entry>
-     <entry>timestamp</entry>
+     <entry>
+      <ulink url="&url.php-manual;function.time">timestamp</ulink>, 
+      <ulink url="&url.php-manual;class.DateTime">DateTime</ulink>, 
+      mysql timestamp or any string parsable by 
+      <ulink url="&url.php-manual;strtotime"><varname>strtotime()</varname></ulink>, 
+      arrays as produced by this function if field_array is set.
+     </entry>
      <entry>No</entry>
-     <entry>current time</entry>
-     <entry>What date/time to use</entry>
+     <entry>current <ulink url="&url.php-manual;function.time">timestamp</ulink></entry>
+     <entry>
+      What date/time to pre-select. If an array is given, the attributes field_array and prefix 
+      are used to identify the array elements to extract hour, minute, second and meridian from.
+     </entry>
     </row>
     <row>
      <entry>display_hours</entry>
@@ -95,6 +104,48 @@
      <entry>1</entry>
      <entry>Number interval in second dropdown</entry>
     </row>
+	<row>
+     <entry>hour_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%02d</entry>
+     <entry>What format the hour label should be in (sprintf)</entry>
+    </row>
+    <row>
+     <entry>hour_value_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%20d</entry>
+     <entry>What format the hour value should be in (sprintf)</entry>
+    </row>
+	<row>
+     <entry>minute_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%02d</entry>
+     <entry>What format the minute label should be in (sprintf)</entry>
+    </row>
+    <row>
+     <entry>minute_value_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%20d</entry>
+     <entry>What format the minute value should be in (sprintf)</entry>
+    </row>
+	<row>
+     <entry>second_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%02d</entry>
+     <entry>What format the second label should be in (sprintf)</entry>
+    </row>
+    <row>
+     <entry>second_value_format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>%20d</entry>
+     <entry>What format the second value should be in (sprintf)</entry>
+    </row>
     <row>
      <entry>field_array</entry>
      <entry>string</entry>
@@ -140,6 +191,100 @@
      <entry>null</entry>
      <entry>Adds extra attributes to select/input tags if
       given</entry>
+    </row>
+	<row>
+     <entry>field_separator</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>\n</entry>
+     <entry>String printed between different fields</entry>
+    </row>
+	<row>
+     <entry>option_separator</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>\n</entry>
+     <entry>String printed between different options of a field</entry>
+    </row>
+	<row>
+     <entry>all_id</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>Adds id-attribute to all select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>hour_id</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>Adds id-attribute to select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>minute_id</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>Adds id-attribute to select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>second_id</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>Adds id-attribute to select/input tags if given</entry>
+    </row>
+    <row>
+     <entry>meridian_id</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>Adds id-attribute to select/input tags if given</entry>
+    </row>
+	<row>
+     <entry>all_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of any select-box has this
+     value as it's label and <quote></quote> as it's value. This is useful to make the
+     select-boxes read <quote>Please select</quote> for example.</entry>
+    </row>
+    <row>
+     <entry>hour_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of the hour's select-box has this
+     value as it's label and <quote></quote> as it's value. This is useful to make the
+     select-box read <quote>Please select an hour</quote> for example.</entry>
+    </row>
+    <row>
+     <entry>minute_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of the minute's select-box has this
+     value as it's label and <quote></quote> as it's value. This is useful to make the
+     select-box read <quote>Please select an minute</quote> for example.</entry>
+    </row>
+    <row>
+     <entry>second_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of the second's select-box has this
+     value as it's label and <quote></quote> as it's value. This is useful to make the
+     select-box read <quote>Please select an second</quote> for example.</entry>
+    </row>
+    <row>
+     <entry>meridian_empty</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry>null</entry>
+     <entry>If supplied then the first element of the meridian's select-box has this
+     value as it's label and <quote></quote> as it's value. This is useful to make the
+     select-box read <quote>Please select an meridian</quote> for example.</entry>
     </row>
    </tbody>
   </tgroup>

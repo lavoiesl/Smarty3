@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision$ -->
-     <sect1 id="variable.cache.handler.func">
-      <title>$cache_handler_func</title>
-      <para>
-       You can supply a custom function to handle cache files instead
-       of using the built-in method using the
-       <link linkend="variable.cache.dir"><parameter>$cache_dir</parameter></link>.
-       See the custom  <link linkend="section.template.cache.handler.func">cache
-       handler function section</link> for more details.
-      </para>
-     </sect1>
+<!-- $Revision: 3840 $ -->
+   <sect1 id="variable.locking.timeout">
+    <title>$locking_timeout</title>
+    <para>
+     This is maximum time in seconds a cache lock is valid to avoid dead locks. The deafult value is 10 seconds.
+    </para>
+    <para>
+     See also
+     <link linkend="variable.cache.locking"><varname>$cache_locking</varname></link>
+    </para>
+    
+   </sect1>
 
 <!-- Keep this comment at the end of the file
 Local variables:

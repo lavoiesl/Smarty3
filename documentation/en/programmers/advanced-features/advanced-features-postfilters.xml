@@ -21,7 +21,7 @@
 <![CDATA[
 <?php
 // put this in your application
-function add_header_comment($tpl_source, $smarty)
+function add_header_comment($tpl_source, Smarty_Internal_Template $template)
 {
     return "<?php echo \"<!-- Created by Smarty! -->\n\"; ?>\n".$tpl_source;
 }

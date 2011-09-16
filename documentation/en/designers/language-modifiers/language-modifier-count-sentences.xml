@@ -3,7 +3,8 @@
  <sect1 id="language.modifier.count.sentences">
   <title>count_sentences</title>
   <para>
-   This is used to count the number of sentences in a variable.
+   This is used to count the number of sentences in a variable. 
+   A sentence being delimited by a dot, question- or exclamation-mark (.?!).
   </para>
   <example>
    <title>count_sentences</title>

@@ -31,7 +31,8 @@
    values in the <parameter>array</parameter> variable.
    </para></listitem>
     
-  <listitem><para>
+  <listitem>
+   <para>
     <varname>{foreach}</varname> properties are
     <link linkend="foreach.property.index"><parameter>@index</parameter></link>,
     <link linkend="foreach.property.iteration"><parameter>@iteration</parameter></link>,
@@ -39,8 +40,15 @@
     <link linkend="foreach.property.last"><parameter>@last</parameter></link>,
     <link linkend="foreach.property.show"><parameter>@show</parameter></link>,
     <link linkend="foreach.property.total"><parameter>@total</parameter></link>.
-  </para>
-    
+   </para>
+  </listitem>
+  
+  <listitem>
+   <para>
+    <varname>{foreach}</varname> constructs are
+    <link linkend="foreach.construct.break"><varname>{break}</varname></link>,
+    <link linkend="foreach.construct.continue"><varname>{continue}</varname></link>.
+   </para>
   </listitem>
         
     <listitem><para>
@@ -447,6 +455,56 @@ $smarty->assign('myPeople', $people);
    <link linkend="language.function.while"><varname>{while}</varname></link>
   </para>
 
+ </sect2>
+ 
+ <sect2 id="foreach.construct.break">
+  <title>{break}</title>
+  <para>
+   <varname>{break}</varname> aborts the iteration of the array
+  </para>
+  <example>
+   <title><varname>{break}</varname> example</title>
+   <programlisting>
+ <![CDATA[
+  {$data = [1,2,3,4,5]}
+  {foreach $data as $value}
+    {if $value == 3}
+      {* abort iterating the array *}
+      {break}
+    {/if}
+    {$value}
+  {/foreach}
+  {*
+    prints: 1 2
+  *}
+ ]]>
+   </programlisting>
+  </example>
+ </sect2>
+ 
+ <sect2 id="foreach.construct.continue">
+  <title>{continue}</title>
+  <para>
+   <varname>{continue}</varname> leaves the current iteration and begins with the next iteration.
+  </para>
+  <example>
+   <title><varname>{continue}</varname> example</title>
+   <programlisting>
+ <![CDATA[
+  {$data = [1,2,3,4,5]}
+  {foreach $data as $value}
+    {if $value == 3}
+      {* skip this iteration *}
+      {continue}
+    {/if}
+    {$value}
+  {/foreach}
+  {*
+    prints: 1 2 4 5
+  *}
+ ]]>
+   </programlisting>
+  </example>
  </sect2>
  
 </sect1>

@@ -116,6 +116,7 @@
  &designers.language-modifiers.language-modifier-date-format;
  &designers.language-modifiers.language-modifier-default;
  &designers.language-modifiers.language-modifier-escape;
+ &designers.language-modifiers.language-modifier-from-charset;
  &designers.language-modifiers.language-modifier-indent;
  &designers.language-modifiers.language-modifier-lower;
  &designers.language-modifiers.language-modifier-nl2br;
@@ -125,7 +126,9 @@
  &designers.language-modifiers.language-modifier-string-format;
  &designers.language-modifiers.language-modifier-strip;
  &designers.language-modifiers.language-modifier-strip-tags;
+ &designers.language-modifiers.language-modifier-to-charset;
  &designers.language-modifiers.language-modifier-truncate;
+ &designers.language-modifiers.language-modifier-unescape;
  &designers.language-modifiers.language-modifier-upper;
  &designers.language-modifiers.language-modifier-wordwrap;
 

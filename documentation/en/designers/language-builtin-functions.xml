@@ -4,7 +4,7 @@
  <title>Built-in Functions</title>
  <para>
   Smarty comes with several built-in functions. These built-in functions
-  are the integral part of the smarty template engine. They are compiled 
+  are the integral part of the smarty template engine. They are compiled
   into corresponding inline PHP code for maximum performance.
   </para>
   <para>
@@ -43,6 +43,7 @@
  &designers.language-builtin-functions.language-function-nocache;
  &designers.language-builtin-functions.language-function-php;
  &designers.language-builtin-functions.language-function-section;
+ &designers.language-builtin-functions.language-function-setfilter;
  &designers.language-builtin-functions.language-function-strip;
  &designers.language-builtin-functions.language-function-while;
 
