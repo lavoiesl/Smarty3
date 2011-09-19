@@ -276,6 +276,18 @@
 ]]>
    </programlisting>
  </example>
+ 
+ <example>
+    <title>{include} with relative paths</title>
+    <para>This example includes another template relative to the directory of the current template.</para>
+    <programlisting>
+<![CDATA[
+   {include 'template-in-a-template_dir-directory.tpl'}
+   {include './template-in-same-directory.tpl'}
+   {include '../template-in-parent-directory.tpl'}
+]]>
+    </programlisting>
+  </example>
 
  <example>
   <title>Various {include} resource examples</title>
