@@ -22,17 +22,7 @@ class CacheResourceCustomApcTests extends CacheResourceCustomMemcacheTests {
 
     public static function isRunnable()
     {
-        if (!function_exists('apc_cache_info')) {
-            return false;
-        }
-        
-        apc_store(array('foo' => 'bar'));
-        $t = apc_fetch(array('foo'));
-        if (!$t || $t['foo'] != 'bar') {
-            return false;
-        }
-        
-        return true;
+        return function_exists('apc_cache_info') && ini_get('apc.enable_cli');
     } 
 } 
 
