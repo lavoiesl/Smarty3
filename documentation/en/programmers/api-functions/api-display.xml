@@ -24,16 +24,6 @@
    <link linkend="caching">caching section</link> for more information.
   </para>
   &parameter.compileid;
-  <note>
-   <title>Technical Note</title>
-   <para>
-    As of Smarty 3.1 <literal>$smarty->display("../foo.tpl");</literal> and <literal>$smarty->display("./foo.tpl");</literal> 
-    will fail with an Exception. Templates can now use paths relative to the current template in 
-    <link linkend="language.function.include"><varname>{include}</varname></link> and 
-    <link linkend="language.function.extends"><varname>{extends}</varname></link>. As
-    fetch() and display() cannot be relative to a template, this behavior has been disabled.
-   </para>
-  </note>
   <example>
    <title>display()</title>
    <programlisting role="php">

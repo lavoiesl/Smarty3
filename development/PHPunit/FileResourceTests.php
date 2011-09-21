@@ -340,30 +340,6 @@ class FileResourceTests extends PHPUnit_Framework_TestCase {
         $this->assertFalse($this->smarty->isCached($tpl));
     }
 
-    public function testRelativeDot()
-    {
-        try {
-            $this->smarty->fetch('./helloworld.tpl');
-        }
-        catch (Exception $e) {
-            $this->assertContains("may not start with ../ or ./", $e->getMessage());
-            return;
-        }
-        $this->fail('Exception for relative filepath has not been raised.');
-    }
-
-    public function testRelativeDotDot()
-    {
-        try {
-            $this->smarty->fetch('../helloworld.tpl');
-        }
-        catch (Exception $e) {
-            $this->assertContains("may not start with ../ or ./", $e->getMessage());
-            return;
-        }
-        $this->fail('Exception for relative filepath has not been raised.');
-    }
-
     public function testRelativeInclude()
     {
         $result = $this->smarty->fetch('relative.tpl');

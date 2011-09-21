@@ -100,18 +100,6 @@ class IndexedFileResourceTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $this->relative($tpl->cached->filepath));
     }
 
-    public function testRelativeFail()
-    {
-        try {
-            $this->smarty->fetch('[foo]./dirname.tpl');
-        }
-        catch (Exception $e) {
-            $this->assertContains("may not start with ../ or ./", $e->getMessage());
-            return;
-        }
-        $this->fail('Exception for relative filepath has not been raised.');
-    }
-
     public function testFinalCleanup()
     {
         $this->smarty->clearCompiledTemplate();
