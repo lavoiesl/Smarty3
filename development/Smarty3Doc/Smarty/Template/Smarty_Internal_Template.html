@@ -51,13 +51,13 @@
 								</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																																																																																																																								<div class="var-title">
-					<span class="var-type">array</span>
-					<a href="#$block_data" title="details" class="var-name">$block_data</a>
+																																																																																																																																<div class="var-title">
+					<span class="var-type">bool</span>
+					<a href="#$allow_relative_path" title="details" class="var-name">$allow_relative_path</a>
 				</div>
 																<div class="var-title">
-					<span class="var-type">string</span>
-					<a href="#$cacher_class" title="details" class="var-name">$cacher_class</a>
+					<span class="var-type">array</span>
+					<a href="#$block_data" title="details" class="var-name">$block_data</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">string</span>
@@ -70,10 +70,6 @@
 																<div class="var-title">
 					<span class="var-type">boolean</span>
 					<a href="#$caching" title="details" class="var-name">$caching</a>
-				</div>
-																<div class="var-title">
-					<span class="var-type">string</span>
-					<a href="#$caching_type" title="details" class="var-name">$caching_type</a>
 				</div>
 																<div class="var-title">
 					<span class="var-type">string</span>
@@ -220,19 +216,19 @@
 							
 					</div>
 		<div class="info-box-body">
-			<a name="var$block_data" id="$block_data"><!-- --></A>
+			<a name="var$allow_relative_path" id="$allow_relative_path"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">array</span>
-			<span class="var-name">$block_data</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">93</span>)
+			<span class="var-type">bool</span>
+			<span class="var-name">$allow_relative_path</span>
+			 = <span class="var-default"> false</span>			(line <span class="line-number">95</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">blocks for template inheritance</p>
+<p class="short-description">internal flag to allow relative path in child template blocks</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -242,19 +238,19 @@
 		
 
 </div>
-<a name="var$cacher_class" id="$cacher_class"><!-- --></A>
+<a name="var$block_data" id="$block_data"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">string</span>
-			<span class="var-name">$cacher_class</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">48</span>)
+			<span class="var-type">array</span>
+			<span class="var-name">$block_data</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number">80</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Class name</p>
+<p class="short-description">blocks for template inheritance</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -330,31 +326,8 @@
 		
 
 </div>
-<a name="var$caching_type" id="$caching_type"><!-- --></A>
-<div class="evenrow">
-
-	<div class="var-header">
-		<span class="var-title">
-			<span class="var-type">string</span>
-			<span class="var-name">$caching_type</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">56</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">caching type</p>
-<p class="description"><p>Must be an element of $cache_resource_types.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	
-		
-		
-
-</div>
 <a name="var$compile_id" id="$compile_id"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -376,13 +349,13 @@
 
 </div>
 <a name="var$has_nocache_code" id="$has_nocache_code"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">bool</span>
 			<span class="var-name">$has_nocache_code</span>
-			 = <span class="var-default"> false</span>			(line <span class="line-number">71</span>)
+			 = <span class="var-default"> false</span>			(line <span class="line-number">58</span>)
 		</span>
 	</div>
 
@@ -398,13 +371,13 @@
 
 </div>
 <a name="var$mustCompile" id="$mustCompile"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">bool</span>
 			<span class="var-name">$mustCompile</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">66</span>)
+			 = <span class="var-default"> null</span>			(line <span class="line-number">53</span>)
 		</span>
 	</div>
 
@@ -420,13 +393,13 @@
 
 </div>
 <a name="var$properties" id="$properties"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">array</span>
 			<span class="var-name">$properties</span>
-			 = <span class="var-default">array('file_dependency' =&gt; array(),'nocache_hash'=&gt;'','function'=&gt;array())</span>			(line <span class="line-number">76</span>)
+			 = <span class="var-default">array('file_dependency' =&gt; array(),'nocache_hash'=&gt;'','function'=&gt;array())</span>			(line <span class="line-number">63</span>)
 		</span>
 	</div>
 
@@ -442,13 +415,13 @@
 
 </div>
 <a name="var$required_plugins" id="$required_plugins"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">array</span>
 			<span class="var-name">$required_plugins</span>
-			 = <span class="var-default">array('compiled' =&gt; array(),'nocache'=&gt;array())</span>			(line <span class="line-number">83</span>)
+			 = <span class="var-default">array('compiled' =&gt; array(),'nocache'=&gt;array())</span>			(line <span class="line-number">70</span>)
 		</span>
 	</div>
 
@@ -464,13 +437,13 @@
 
 </div>
 <a name="var$smarty" id="$smarty"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>
 			<span class="var-name">$smarty</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">88</span>)
+			 = <span class="var-default"> null</span>			(line <span class="line-number">75</span>)
 		</span>
 	</div>
 
@@ -486,13 +459,13 @@
 
 </div>
 <a name="var$template_resource" id="$template_resource"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">string</span>
 			<span class="var-name">$template_resource</span>
-			 = <span class="var-default"> null</span>			(line <span class="line-number">61</span>)
+			 = <span class="var-default"> null</span>			(line <span class="line-number">48</span>)
 		</span>
 	</div>
 
@@ -508,13 +481,13 @@
 
 </div>
 <a name="var$used_tags" id="$used_tags"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">array</span>
 			<span class="var-name">$used_tags</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">103</span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number">90</span>)
 		</span>
 	</div>
 
@@ -530,13 +503,13 @@
 
 </div>
 <a name="var$variable_filters" id="$variable_filters"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">array</span>
 			<span class="var-name">$variable_filters</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">98</span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number">85</span>)
 		</span>
 	</div>
 
@@ -585,10 +558,10 @@
 			<A NAME='method_detail'></A>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">119</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">111</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -633,10 +606,10 @@
 			
 	</div>
 <a name="method__destruct" id="__destruct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">629</span>)
+		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">623</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -657,10 +630,10 @@
 			
 	</div>
 <a name="methodcompileTemplateSource" id="compileTemplateSource"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">compileTemplateSource</span> (line <span class="line-number">162</span>)
+		<span class="method-title">compileTemplateSource</span> (line <span class="line-number">159</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -682,10 +655,10 @@
 			
 	</div>
 <a name="methodcreateLocalArrayVariable" id="createLocalArrayVariable"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">createLocalArrayVariable</span> (line <span class="line-number">461</span>)
+		<span class="method-title">createLocalArrayVariable</span> (line <span class="line-number">458</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -717,10 +690,10 @@
 			
 	</div>
 <a name="methodcreateTemplateCodeFrame" id="createTemplateCodeFrame"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">createTemplateCodeFrame</span> (line <span class="line-number">325</span>)
+		<span class="method-title">createTemplateCodeFrame</span> (line <span class="line-number">322</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -749,10 +722,10 @@
 			
 	</div>
 <a name="methoddecodeProperties" id="decodeProperties"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">decodeProperties</span> (line <span class="line-number">400</span>)
+		<span class="method-title">decodeProperties</span> (line <span class="line-number">397</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -783,10 +756,10 @@
 			
 	</div>
 <a name="methodgetScope" id="getScope"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getScope</span> (line <span class="line-number">482</span>)
+		<span class="method-title">getScope</span> (line <span class="line-number">479</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -813,10 +786,10 @@
 			
 	</div>
 <a name="methodgetScopePointer" id="getScopePointer"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getScopePointer</span> (line <span class="line-number">505</span>)
+		<span class="method-title">getScopePointer</span> (line <span class="line-number">502</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -843,10 +816,10 @@
 			
 	</div>
 <a name="methodgetSubTemplate" id="getSubTemplate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getSubTemplate</span> (line <span class="line-number">243</span>)
+		<span class="method-title">getSubTemplate</span> (line <span class="line-number">240</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -894,10 +867,10 @@
 			
 	</div>
 <a name="methodmustCompile" id="mustCompile"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">mustCompile</span> (line <span class="line-number">145</span>)
+		<span class="method-title">mustCompile</span> (line <span class="line-number">137</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -920,10 +893,10 @@
 			
 	</div>
 <a name="methodsetupInlineSubTemplate" id="setupInlineSubTemplate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setupInlineSubTemplate</span> (line <span class="line-number">291</span>)
+		<span class="method-title">setupInlineSubTemplate</span> (line <span class="line-number">288</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -974,10 +947,10 @@
 			
 	</div>
 <a name="methodwriteCachedContent" id="writeCachedContent"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">writeCachedContent</span> (line <span class="line-number">215</span>)
+		<span class="method-title">writeCachedContent</span> (line <span class="line-number">212</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1003,10 +976,10 @@
 			
 	</div>
 <a name="method_count" id="_count"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">_count</span> (line <span class="line-number">525</span>)
+		<span class="method-title">_count</span> (line <span class="line-number">522</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1033,10 +1006,10 @@
 			
 	</div>
 <a name="method__get" id="__get"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">__get</span> (line <span class="line-number">584</span>)
+		<span class="method-title">__get</span> (line <span class="line-number">578</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1062,10 +1035,10 @@
 			
 	</div>
 <a name="method__set" id="__set"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">__set</span> (line <span class="line-number">558</span>)
+		<span class="method-title">__set</span> (line <span class="line-number">552</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1145,7 +1118,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Sun, 11 Sep 2011 11:03:31 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
+		Documentation generated on Sat, 24 Sep 2011 20:23:59 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
 	</p>
 	</div></body>
 </html>

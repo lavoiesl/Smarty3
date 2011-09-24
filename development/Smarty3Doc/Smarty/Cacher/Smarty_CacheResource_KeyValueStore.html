@@ -124,11 +124,6 @@
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">&$content</span>)
 									</div>
 																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#buildCachedFilepath" title="details" class="method-name">buildCachedFilepath</a>
-											(<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>&nbsp;<span class="var-name">$smarty</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span>)
-									</div>
-																<div class="method-definition">
 											<span class="method-result">integer</span>
 										<a href="#clear" title="details" class="method-name">clear</a>
 											(<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>&nbsp;<span class="var-name">$smarty</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span>, <span class="var-type">integer</span>&nbsp;<span class="var-name">$exp_time</span>)
@@ -146,17 +141,22 @@
 																<div class="method-definition">
 											<span class="method-result">boolean</span>
 										<a href="#fetch" title="details" class="method-name">fetch</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">&$content</span> = <span class="var-default">null</span>], [<span class="var-type">integer</span>&nbsp;<span class="var-name">&$timestamp</span> = <span class="var-default">null</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$content</span>)
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">&$content</span> = <span class="var-default">null</span>], [<span class="var-type">integer</span>&nbsp;<span class="var-name">&$timestamp</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$content</span>)
 									</div>
 																<div class="method-definition">
 											<span class="method-result">float</span>
 										<a href="#getLatestInvalidationTimestamp" title="details" class="method-name">getLatestInvalidationTimestamp</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>])
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result">float</span>
 										<a href="#getMetaTimestamp" title="details" class="method-name">getMetaTimestamp</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">&$content</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getTemplateUid" title="details" class="method-name">getTemplateUid</a>
+											(<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>&nbsp;<span class="var-name">$smarty</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span>)
 									</div>
 																<div class="method-definition">
 											<span class="method-result">booelan</span>
@@ -166,12 +166,12 @@
 																<div class="method-definition">
 											<span class="method-result">void</span>
 										<a href="#invalidate" title="details" class="method-name">invalidate</a>
-											([<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>])
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result">array</span>
 										<a href="#listInvalidationKeys" title="details" class="method-name">listInvalidationKeys</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>])
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
@@ -312,7 +312,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">acquireLock</span> (line <span class="line-number">393</span>)
+		<span class="method-title">acquireLock</span> (line <span class="line-number">397</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -375,49 +375,8 @@
 		
 			
 	</div>
-<a name="methodbuildCachedFilepath" id="buildCachedFilepath"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">buildCachedFilepath</span> (line <span class="line-number">172</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get system filepath to cached file.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> filepath of cache file</li>
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../Smarty/Cacher/Smarty_CacheResource_KeyValueStore.html#methodclear">Smarty_CacheResource_KeyValueStore::clear()</a> - to generate the CacheID</li>
-				<li><span class="field">uses:</span> <a href="../../Smarty/Cacher/Smarty_CacheResource_KeyValueStore.html#methodsanitize">Smarty_CacheResource_KeyValueStore::sanitize()</a> - on $resource_name and $compile_id to avoid bad segments</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			buildCachedFilepath
-		</span>
-					(<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>&nbsp;<span class="var-name">$smarty</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>
-				<span class="var-name">$smarty</span><span class="var-description">: Smarty object</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$resource_name</span><span class="var-description">: template name</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$cache_id</span><span class="var-description">: cache id</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$compile_id</span><span class="var-description">: compile id</span>			</li>
-				</ul>
-		
-			
-	</div>
 <a name="methodclear" id="clear"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<span class="method-title">clear</span> (line <span class="line-number">154</span>)
@@ -431,7 +390,7 @@
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../Smarty/Cacher/Smarty_CacheResource_KeyValueStore.html#methodinvalidate">Smarty_CacheResource_KeyValueStore::invalidate()</a> - to mark CacheIDs parent chain as outdated</li>
 				<li><span class="field">uses:</span> <a href="../../Smarty/Cacher/Smarty_CacheResource_KeyValueStore.html#methoddelete">Smarty_CacheResource_KeyValueStore::delete()</a> - to remove CacheID from cache</li>
-				<li><span class="field">uses:</span> <a href="../../Smarty/Cacher/Smarty_CacheResource_KeyValueStore.html#methodbuildCachedFilepath">Smarty_CacheResource_KeyValueStore::buildCachedFilepath()</a> - to generate the CacheID</li>
+				<li><span class="field">uses:</span> buildCachedFilepath() - to generate the CacheID</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -469,7 +428,7 @@
 			
 	</div>
 <a name="methodclearAll" id="clearAll"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">clearAll</span> (line <span class="line-number">131</span>)
@@ -511,10 +470,10 @@
 			
 	</div>
 <a name="methoddelete" id="delete"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">delete</span> (line <span class="line-number">436</span>)
+		<span class="method-title">delete</span> (line <span class="line-number">440</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -555,7 +514,7 @@
 				</ul>
 	</div>
 <a name="methodfetch" id="fetch"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">fetch</span> (line <span class="line-number">213</span>)
@@ -573,7 +532,7 @@
 		<span class="method-name">
 			fetch
 		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">&$content</span> = <span class="var-default">null</span>], [<span class="var-type">integer</span>&nbsp;<span class="var-name">&$timestamp</span> = <span class="var-default">null</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$content</span>)
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">&$content</span> = <span class="var-default">null</span>], [<span class="var-type">integer</span>&nbsp;<span class="var-name">&$timestamp</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$content</span>)
 			</div>
 	
 			<ul class="parameters">
@@ -596,6 +555,9 @@
 				<span class="var-type">integer</span>
 				<span class="var-name">&$timestamp</span><span class="var-description">: cached timestamp (epoch)</span>			</li>
 					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$resource_uid</span><span class="var-description">: resource's uid</span>			</li>
+					<li>
 				<span class="var-type"></span>
 				<span class="var-name">&$content</span>			</li>
 				</ul>
@@ -603,10 +565,10 @@
 			
 	</div>
 <a name="methodgetLatestInvalidationTimestamp" id="getLatestInvalidationTimestamp"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getLatestInvalidationTimestamp</span> (line <span class="line-number">303</span>)
+		<span class="method-title">getLatestInvalidationTimestamp</span> (line <span class="line-number">305</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -621,7 +583,7 @@
 		<span class="method-name">
 			getLatestInvalidationTimestamp
 		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>])
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -637,12 +599,15 @@
 					<li>
 				<span class="var-type">string</span>
 				<span class="var-name">$compile_id</span><span class="var-description">: compile id</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$resource_uid</span><span class="var-description">: source's filepath</span>			</li>
 				</ul>
 		
 			
 	</div>
 <a name="methodgetMetaTimestamp" id="getMetaTimestamp"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<span class="method-title">getMetaTimestamp</span> (line <span class="line-number">250</span>)
@@ -671,11 +636,50 @@
 		
 			
 	</div>
+<a name="methodgetTemplateUid" id="getTemplateUid"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTemplateUid</span> (line <span class="line-number">171</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get template's unique ID</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> filepath of cache file</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getTemplateUid
+		</span>
+					(<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>&nbsp;<span class="var-name">$smarty</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Smarty/Template/Smarty.html">Smarty</a></span>
+				<span class="var-name">$smarty</span><span class="var-description">: Smarty object</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$resource_name</span><span class="var-description">: template name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$cache_id</span><span class="var-description">: cache id</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$compile_id</span><span class="var-description">: compile id</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodhasLock" id="hasLock"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">hasLock</span> (line <span class="line-number">380</span>)
+		<span class="method-title">hasLock</span> (line <span class="line-number">384</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -713,7 +717,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">invalidate</span> (line <span class="line-number">267</span>)
+		<span class="method-title">invalidate</span> (line <span class="line-number">268</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -729,7 +733,7 @@
 		<span class="method-name">
 			invalidate
 		</span>
-					([<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>])
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -745,6 +749,9 @@
 					<li>
 				<span class="var-type">string</span>
 				<span class="var-name">$compile_id</span><span class="var-description">: compile id</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$resource_uid</span><span class="var-description">: source's uid</span>			</li>
 				</ul>
 		
 			
@@ -753,7 +760,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">listInvalidationKeys</span> (line <span class="line-number">334</span>)
+		<span class="method-title">listInvalidationKeys</span> (line <span class="line-number">338</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -770,7 +777,7 @@
 		<span class="method-name">
 			listInvalidationKeys
 		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>])
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$cid</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_name</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$cache_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$compile_id</span> = <span class="var-default">null</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$resource_uid</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -786,6 +793,9 @@
 					<li>
 				<span class="var-type">string</span>
 				<span class="var-name">$compile_id</span><span class="var-description">: compile id</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$resource_uid</span><span class="var-description">: source's filepath</span>			</li>
 				</ul>
 		
 			
@@ -906,7 +916,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">purge</span> (line <span class="line-number">443</span>)
+		<span class="method-title">purge</span> (line <span class="line-number">447</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -944,7 +954,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">read</span> (line <span class="line-number">419</span>)
+		<span class="method-title">read</span> (line <span class="line-number">423</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -987,7 +997,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">releaseLock</span> (line <span class="line-number">406</span>)
+		<span class="method-title">releaseLock</span> (line <span class="line-number">410</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1024,7 +1034,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">sanitize</span> (line <span class="line-number">192</span>)
+		<span class="method-title">sanitize</span> (line <span class="line-number">191</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1032,7 +1042,6 @@
 	<ul class="tags">
 				<li><span class="field">return:</span> sanitized CacheID component</li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../Smarty/Cacher/Smarty_CacheResource_KeyValueStore.html#methodbuildCachedFilepath">Smarty_CacheResource_KeyValueStore::buildCachedFilepath()</a> - on $resource_name and $compile_id to avoid bad segments</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1055,7 +1064,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">write</span> (line <span class="line-number">428</span>)
+		<span class="method-title">write</span> (line <span class="line-number">432</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1161,7 +1170,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Sun, 11 Sep 2011 11:03:03 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
+		Documentation generated on Sat, 24 Sep 2011 20:23:34 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.1</a>
 	</p>
 	</div></body>
 </html>
