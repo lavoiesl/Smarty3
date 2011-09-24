@@ -9,6 +9,13 @@
   and <link linkend="api.fetch"><varname>fetch()</varname></link>.
  </para>
  <para>
+  Smarty 3.1.2 introduced the <link linkend="api.mute.expected.errors"><varname>muteExpectedErrors()</varname></link> function.
+  Calling <literal>Smarty::muteExpectedErrors();</literal> after setting up custom error handling will ensure that 
+  warnings and notices (deliberately) produced by Smarty will not be passed to other custom error handlers. If your error logs 
+  are filling up with warnings regarding <literal>filemtime()</literal> or <literal>unlink()</literal> calls, please enable
+  Smarty's error muting.
+ </para>
+ <para>
   See also
   <link linkend="chapter.debugging.console">debugging</link>
   and

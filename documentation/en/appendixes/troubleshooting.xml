@@ -169,7 +169,23 @@ Fatal error: Smarty error: unable to write to $cache_dir '/...
     </para>
  </listitem>
  </itemizedlist>
- </example>
+   <screen>
+<![CDATA[
+Warning: filemtime(): stat failed for /path/to/smarty/cache/3ab50a623e65185c49bf17c63c90cc56070ea85c.one.tpl.php 
+in /path/to/smarty/libs/sysplugins/smarty_resource.php
+]]>
+   </screen>
+   <itemizedlist>
+    <listitem>
+     <para>
+      This means that your application registered a custom error hander (using <ulink url="&url.php-manual;set_error_handler">set_error_handler()</ulink>) 
+      which is not respecting the given <literal>$errno</literal> as it should. If, for whatever reason, this is the desired behaviour of your custom
+      error handler, please call <link linkend="api.mute.expected.errors"><varname>muteExpectedErrors()</varname></link> after you've registered your 
+      custom error handler.
+     </para>
+     </listitem>
+    </itemizedlist>
+   </example>
 
    <para>
    See also

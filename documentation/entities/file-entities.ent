@@ -38,6 +38,7 @@
 <!ENTITY programmers.advanced-features            SYSTEM '../current_lang/programmers/advanced-features.xml'>
 <!ENTITY programmers.smarty-constants             SYSTEM '../current_lang/programmers/smarty-constants.xml'>
 <!ENTITY programmers.api-functions                SYSTEM '../current_lang/programmers/api-functions.xml'>
+<!ENTITY programmers.api-functions.api-mute-expected-errors SYSTEM '../current_lang/programmers/api-functions/api-mute-expected-errors.xml'>
 <!ENTITY programmers.api-functions.api-create-data SYSTEM '../current_lang/programmers/api-functions/api-create-data.xml'>
 <!ENTITY programmers.api-functions.api-create-template SYSTEM '../current_lang/programmers/api-functions/api-create-template.xml'>
 <!ENTITY programmers.api-functions.api-get-config-vars SYSTEM '../current_lang/programmers/api-functions/api-get-config-vars.xml'>

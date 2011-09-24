@@ -39,6 +39,7 @@
 &programmers.api-functions.api-get-template-vars;
 &programmers.api-functions.api-is-cached;
 &programmers.api-functions.api-load-filter;
+&programmers.api-functions.api-mute-expected-errors;
 &programmers.api-functions.api-register-cacheresource;
 &programmers.api-functions.api-register-class;
 &programmers.api-functions.api-register-default-plugin-handler;
