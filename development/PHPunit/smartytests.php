@@ -26,11 +26,11 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
 
     protected static function _init($smarty)
     {
-        $smarty->template_dir = array('.' . DS . 'templates' . DS);
-        $smarty->compile_dir = '.' . DS . 'templates_c' . DS;
-        $smarty->plugins_dir = array(SMARTY_PLUGINS_DIR);
-        $smarty->cache_dir = '.' . DS . 'cache' . DS;
-        $smarty->config_dir = array('.' . DS . 'configs' . DS);
+        $smarty->setTemplateDir('.' . DS . 'templates' . DS);
+        $smarty->setCompileDir('.' . DS . 'templates_c' . DS);
+        $smarty->setPluginsDir(SMARTY_PLUGINS_DIR);
+        $smarty->setCacheDir('.' . DS . 'cache' . DS);
+        $smarty->setConfigDir('.' . DS . 'configs' . DS);
         $smarty->template_objects = array();
         $smarty->config_vars = array();
         Smarty::$global_tpl_vars = array();
@@ -60,7 +60,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
         $smarty->error_reporting = null;
         $smarty->error_unassigned = true;
         $smarty->caching_type = 'file';
-        $smarty->cache_locking = true;
+        $smarty->cache_locking = false;
     }
 
     public static function init()
