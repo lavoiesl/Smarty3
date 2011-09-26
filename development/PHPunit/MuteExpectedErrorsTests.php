@@ -21,13 +21,13 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase {
     {
         return true;
     }
-    
+
     protected $_errors = array();
     public function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
     {
         $this->_errors[] = $errfile .' line ' . $errline;
     }
-    
+
     public function testMuted()
     {
         $this->_errors = array();
@@ -37,17 +37,17 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase {
         $this->smarty->clearCache('default.tpl');
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
-        
+
         $this->assertEquals($this->_errors, array());
-        
+
         @filemtime('ckxladanwijicajscaslyxck');
         $error = array( __FILE__ . ' line ' . (__LINE__ -1));
         $this->assertEquals($this->_errors, $error);
-        
+
         Smarty::unmuteExpectedErrors();
         restore_error_handler();
     }
-    
+
     public function testUnmuted()
     {
         $this->_errors = array();
@@ -56,16 +56,16 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase {
         $this->smarty->clearCache('default.tpl');
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
-        
-        $this->assertEquals(count($this->_errors), 5);
-        
+
+        $this->assertEquals(5, count($this->_errors));
+
         @filemtime('ckxladanwijicajscaslyxck');
         $error = array( __FILE__ . ' line ' . (__LINE__ -1));
-        $this->assertEquals(count($this->_errors), 6);
-        
+        $this->assertEquals(6, count($this->_errors));
+
         restore_error_handler();
     }
-    
+
     public function testMutedCaching()
     {
         $this->_errors = array();
@@ -76,17 +76,17 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase {
         $this->smarty->clearCache('default.tpl');
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
-        
+
         $this->assertEquals($this->_errors, array());
-        
+
         @filemtime('ckxladanwijicajscaslyxck');
         $error = array( __FILE__ . ' line ' . (__LINE__ -1));
-        $this->assertEquals($this->_errors, $error);
-        
+        $this->assertEquals($error,$this->_errors);
+
         Smarty::unmuteExpectedErrors();
         restore_error_handler();
     }
-    
+
     public function testUnmutedCaching()
     {
         $this->_errors = array();
@@ -96,13 +96,13 @@ class MuteExpectedErrorsTests extends PHPUnit_Framework_TestCase {
         $this->smarty->clearCache('default.tpl');
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
-        
-        $this->assertEquals(count($this->_errors), 7);
-        
+
+        $this->assertEquals(7,count($this->_errors));
+
         @filemtime('ckxladanwijicajscaslyxck');
         $error = array( __FILE__ . ' line ' . (__LINE__ -1));
-        $this->assertEquals(count($this->_errors), 8);
-        
+        $this->assertEquals(8,count($this->_errors));
+
         restore_error_handler();
     }
 }
