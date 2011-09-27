@@ -925,7 +925,7 @@ objectelement(res)::= PTR DOLLAR varvar(v) arrayindex(a). {
     if ($this->security) {
         $this->compiler->trigger_template_error (self::Err2);
     }
-    res = '->{'.$this->compileVariable("'".v."'").a.'}';
+    res = '->{'.$this->compileVariable(v).a.'}';
 }
 
 objectelement(res)::= PTR LDEL expr(e) RDEL arrayindex(a). {
