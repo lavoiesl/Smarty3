@@ -41,7 +41,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase {
         $this->smarty->disableSecurity();
         $tpl = $this->smarty->createTemplate('string:{$p=\'hello\'}{$object->$p}');
         $tpl->assign('object', $object);
-        $this->assertEquals('hello world', $this->smarty->fetch($tpl));
+        $this->assertEquals('hello_world', $this->smarty->fetch($tpl));
     }
     /**
     * test simple object variable with method
@@ -51,7 +51,7 @@ class ObjectVariableTests extends PHPUnit_Framework_TestCase {
         $object = new VariableObject;
         $tpl = $this->smarty->createTemplate('string:{$object->myhello()}');
         $tpl->assign('object', $object);
-        $this->assertEquals('hello_world', $this->smarty->fetch($tpl));
+        $this->assertEquals('hello world', $this->smarty->fetch($tpl));
     }
     /**
     * test simple object variable with method
