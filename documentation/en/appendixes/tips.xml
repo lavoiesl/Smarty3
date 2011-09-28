@@ -13,8 +13,8 @@
     html table backgrounds work properly. Many would use an
     <link linkend="language.function.if"><varname>{if}</varname></link>
     statement to  handle this, but there is a shorthand way with Smarty, using
-    the <link linkend="language.modifier.default"><varname>default</varname>
-    </link> variable modifier.
+    the <link linkend="language.modifier.default"><varname>default</varname></link>
+     variable modifier.
     <note>
     <para><quote>Undefined variable</quote> errors will show an E_NOTICE if not disabled
      in PHP's <ulink url="&url.php-manual;error_reporting"><varname>error_reporting()</varname></ulink> level or Smarty's <link linkend="variable.error.reporting"><parameter>$error_reporting</parameter></link> property

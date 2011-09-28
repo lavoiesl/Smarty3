@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Revision$ -->
    <chapter id="api.functions">
-     <title>Smarty Class Methods()</title>
+     <title>Smarty Class Methods</title>
  <note><para>
     See <link linkend="advanced.features.template.settings"><varname>Changing settings by template</varname></link> section 
     for how to use the functions for individual templates.

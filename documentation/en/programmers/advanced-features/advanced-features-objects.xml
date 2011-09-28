@@ -21,11 +21,12 @@
  the template, then use access them via syntax similar to
  <link linkend="language.custom.functions">custom functions</link>.
  </para></listitem>
- <listitem><para>
- The other way is to <link linkend="api.assign"><varname>assign()</varname>
- </link> objects to the templates and access them much like any other
-	 assigned variable.
- </para></listitem>
+ <listitem>
+  <para>
+   The other way is to <link linkend="api.assign"><varname>assign()</varname></link> 
+   objects to the templates and access them much like any other assigned variable.
+  </para>
+ </listitem>
  </itemizedlist>
 
  <para>
