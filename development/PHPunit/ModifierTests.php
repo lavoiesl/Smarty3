@@ -160,6 +160,17 @@ class ModifierTests extends PHPUnit_Framework_TestCase {
         } 
         $this->fail('Exception for unknown modifier has not been raised.');
     } 
+    /**
+    * test default modifier
+    */
+    public function testDefaultModifier()
+    {
+        $this->smarty->default_modifiers = array('escape');
+        $tpl = $this->smarty->createTemplate('eval:{$foo}{$foo nofilter}');
+        $tpl->assign('foo','<bar>');
+        $this->assertEquals('&lt;bar&gt;<bar>', $this->smarty->fetch($tpl));
+    } 
+
 } 
 function testmodifier($value)
 {
