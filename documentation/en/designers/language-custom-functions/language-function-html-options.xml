@@ -129,9 +129,9 @@ $smarty->assign('mySelect', 9904);
   <screen>
 <![CDATA[
 <select name="foo">
-<option label="Joe Schmoe" value="1800">Joe Schmoe</option>
-<option label="Jack Smith" value="9904" selected="selected">Jack Smith</option>
-<option label="Charlie Brown" value="2003">Charlie Brown</option>
+<option value="1800">Joe Schmoe</option>
+<option value="9904" selected="selected">Jack Smith</option>
+<option value="2003">Charlie Brown</option>
 </select>
 ]]>
 </screen>
