@@ -171,9 +171,9 @@ $smarty->assign('customer_id', 92);
   <screen>
 <![CDATA[
 <select name="customer_id" size="3">
-    <option label="Joe Schmoe" value="56">Joe Schmoe</option>
-    <option label="Jack Smith" value="92" selected="selected">Jane Johnson</option>
-    <option label="Charlie Brown" value="13">Charlie Brown</option>
+    <option value="56">Joe Schmoe</option>
+    <option value="92" selected="selected">Jane Johnson</option>
+    <option value="13">Charlie Brown</option>
 </select>
 
 ]]>
@@ -237,13 +237,13 @@ $smarty->assign('fav', 7);
 <![CDATA[
 <select name="foo">
 <optgroup label="Sport">
-<option label="Golf" value="6">Golf</option>
-<option label="Cricket" value="9">Cricket</option>
-<option label="Swim" value="7" selected="selected">Swim</option>
+<option value="6">Golf</option>
+<option value="9">Cricket</option>
+<option value="7" selected="selected">Swim</option>
 </optgroup>
 <optgroup label="Rest">
-<option label="Sauna" value="3">Sauna</option>
-<option label="Massage" value="1">Massage</option>
+<option value="3">Sauna</option>
+<option value="1">Massage</option>
 </optgroup>
 </select>
 ]]>
