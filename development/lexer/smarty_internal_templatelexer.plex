@@ -89,6 +89,7 @@ class Smarty_Internal_Templatelexer
         $this->rdel = preg_quote($this->smarty->right_delimiter,'/');
         $this->smarty_token_names['LDEL'] =	$this->smarty->left_delimiter;
         $this->smarty_token_names['RDEL'] =	$this->smarty->right_delimiter;
+        $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
      }
 
 /*!lex2php
