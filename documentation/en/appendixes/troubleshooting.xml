@@ -33,20 +33,6 @@ Fatal error: Smarty: [in index.tpl line 28]: syntax error: missing section name
     close tags. These types of errors usually end up in PHP compile-time
     parsing errors.
    </para>
-   
-   <example>
-    <title>PHP configuration errors</title>
-     <screen>
-<![CDATA[
-mbstring.func_overload is active which breaks Smarty's compiler.
-]]>
-     </screen>
-    </example>
-    <para>
-     <ulink url="&url.php-manual;mbstring">Multibyte String</ulink>'s <ulink url="&url.php-manual;mbstring.overload">function overloading feature</ulink> is active.
-     This breaks the compiler, as it expects to be able to work with the template input on a byte level (rather than a character level).
-     You need to turn off function overloading in order to use Smarty.
-    </para>
 
    <example>
     <title>PHP parsing errors</title>

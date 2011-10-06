@@ -56,7 +56,7 @@
 
  <listitem><para>
   Modifiers can be applied to any type of variables, including arrays and objects.
-  
+
     <note><para>The default behavior was changed with Smarty 3. In Smarty 2.x, you had to
     use an "<literal>@</literal>" symbol to apply a modifier to an array, such as
     <literal>{$articleTitle|@count}</literal>. With Smarty 3, the "<literal>@</literal>"
@@ -67,6 +67,16 @@
       either need to loop the array in the template, or provide for this functionality
       inside your modifier function.
     </para></note>
+    <note>
+      <para>
+        Second, in Smarty 2.x, modifiers were applied to the result of math expressions
+        like <literal>{8+2}</literal>, meaning that <literal>{8+2|count_characters}</literal>
+        would give <literal>2</literal>, as 8+2=10 and 10 is two characters long.
+        With Smarty 3, modifiers are applied to the variables or atomic expressions before
+        executing the calculations, so since 2 is one character long, <literal>{8+2|count_characters}</literal>
+        gives 9. To get the old result use parentheses like <literal>{(8+2)|count_characters}</literal>.
+      </para>
+    </note>
   </para>
  </listitem>
 
