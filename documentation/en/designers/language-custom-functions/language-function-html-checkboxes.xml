@@ -83,6 +83,13 @@
      <entry><emphasis>&true;</emphasis></entry>
      <entry>Add &lt;label&gt;-tags to the output</entry>
     </row>
+    <row>
+     <entry>label_ids</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>&false;</emphasis></entry>
+     <entry>Add id-attributes to &lt;label&gt; and &lt;input&gt; to the output</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>

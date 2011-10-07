@@ -76,6 +76,20 @@
      <entry><emphasis>empty</emphasis></entry>
      <entry>Assign radio tags to an array instead of output</entry>
     </row>
+    <row>
+     <entry>labels</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>&true;</emphasis></entry>
+     <entry>Add &lt;label&gt;-tags to the output</entry>
+    </row>
+    <row>
+     <entry>label_ids</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>&false;</emphasis></entry>
+     <entry>Add id-attributes to &lt;label&gt; and &lt;input&gt; to the output</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
@@ -155,11 +169,10 @@ $smarty->assign('customer_id', 1001);
   </para>
   <screen>
 <![CDATA[
-<label for="id_1000">
-<input type="radio" name="id" value="1000" id="id_1000" />Joe Schmoe</label><br />
-<label for="id_1001"><input type="radio" name="id" value="1001" id="id_1001" checked="checked" />Jack Smith</label><br />
-<label for="id_1002"><input type="radio" name="id" value="1002" id="id_1002" />Jane Johnson</label><br />
-<label for="id_1003"><input type="radio" name="id" value="1003" id="id_1003" />Charlie Brown</label><br />
+<label><input type="radio" name="id" value="1000" />Joe Schmoe</label><br />
+<label><input type="radio" name="id" value="1001" checked="checked" />Jack Smith</label><br />
+<label><input type="radio" name="id" value="1002" />Jane Johnson</label><br />
+<label><input type="radio" name="id" value="1003" />Charlie Brown</label><br />
 ]]>
   </screen>
  </example>

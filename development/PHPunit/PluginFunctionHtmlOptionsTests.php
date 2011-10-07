@@ -6,6 +6,8 @@
 * @author Rodney Rehm 
 */
 
+require_once(dirname(__FILE__) . '/helpers/_object_tostring.php');
+
 /**
 * class for modifier tests
 */
@@ -337,7 +339,7 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
             . $n . '</select>' . $n;
 
         $tpl = $this->smarty->createTemplate('eval:{html_options name="foo" options=$myOptions selected=$mySelect}');
-        $tpl->assign('mySelect', new PluginFunctionHtmlOptionsTests_toString(9904));
+        $tpl->assign('mySelect', new _object_toString(9904));
         $tpl->assign('myOptions', array(
             1800 => 'Joe Schmoe',
             9904 => 'Jack Smith',
@@ -357,11 +359,11 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
             . $n . '</select>' . $n;
 
         $tpl = $this->smarty->createTemplate('eval:{html_options name="foo" options=$myOptions selected=$mySelect}');
-        $tpl->assign('mySelect', new PluginFunctionHtmlOptionsTests_toString(9904));
+        $tpl->assign('mySelect', new _object_toString(9904));
         $tpl->assign('myOptions', array(
-            1800 => new PluginFunctionHtmlOptionsTests_toString('Joe Schmoe'),
-            9904 => new PluginFunctionHtmlOptionsTests_toString('Jack Smith'),
-            2003 => new PluginFunctionHtmlOptionsTests_toString('Charlie Brown'),
+            1800 => new _object_toString('Joe Schmoe'),
+            9904 => new _object_toString('Jack Smith'),
+            2003 => new _object_toString('Charlie Brown'),
         ));
         
         $this->assertEquals($expected, $tpl->fetch());
@@ -385,7 +387,7 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
             . $n . '</select>' . $n;
 
         $tpl = $this->smarty->createTemplate('eval:{html_options name="foo" options=$myOptions selected=$mySelect}');
-        $tpl->assign('mySelect', new PluginFunctionHtmlOptionsTests_noString(9904));
+        $tpl->assign('mySelect', new _object_noString(9904));
         $tpl->assign('myOptions', array(
             1800 => 'Joe Schmoe',
             9904 => 'Jack Smith',
@@ -411,11 +413,11 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
             . $n . '</select>' . $n;
 
         $tpl = $this->smarty->createTemplate('eval:{html_options name="foo" options=$myOptions selected=$mySelect}');
-        $tpl->assign('mySelect', new PluginFunctionHtmlOptionsTests_toString(9904));
+        $tpl->assign('mySelect', new _object_toString(9904));
         $tpl->assign('myOptions', array(
-            1800 => new PluginFunctionHtmlOptionsTests_toString('Joe Schmoe'),
-            9904 => new PluginFunctionHtmlOptionsTests_noString('Jack Smith'),
-            2003 => new PluginFunctionHtmlOptionsTests_toString('Charlie Brown'),
+            1800 => new _object_toString('Joe Schmoe'),
+            9904 => new _object_noString('Jack Smith'),
+            2003 => new _object_toString('Charlie Brown'),
         ));
         
         $tpl->fetch();
@@ -425,28 +427,5 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
         restore_error_handler();
     }
 } 
-
-class PluginFunctionHtmlOptionsTests_toString 
-{
-    protected $string = null;
-    public function __construct($string)
-    {
-        $this->string = $string;
-    }
-    
-    public function __toString()
-    {
-        return $this->string;
-    }
-}
-
-class PluginFunctionHtmlOptionsTests_noString 
-{
-    protected $string = null;
-    public function __construct($string)
-    {
-        $this->string = $string;
-    }
-}
 
 ?>
