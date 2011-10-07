@@ -367,11 +367,16 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $tpl->fetch());
     }
     
-    /**
-     * @expectedException PHPUnit_Framework_Error_Notice
-     */
+    protected $_errors = array();
+    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
+    {
+        $this->_errors[] = $errstr;
+    }
+    
     public function testObjectNoString()
     {
+        $this->_errors = array();
+        set_error_handler(array($this, 'error_handler'));
         $n = "\n";
         $expected = '<select name="foo">'
             . $n . '<option value="1800">Joe Schmoe</option>'
@@ -386,19 +391,22 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
             9904 => 'Jack Smith',
             2003 => 'Charlie Brown',
         ));
+
+        $tpl->fetch();
+        $this->assertEquals(1, count($this->_errors));
+        $this->assertStringEndsWith("without __toString() method", $this->_errors[0]);
         
-        $this->assertEquals($expected, $tpl->fetch());
+        restore_error_handler();
     }
-    
-    /**
-     * @expectedException PHPUnit_Framework_Error_Notice
-     */
+
     public function testObjectListNoString()
     {
+        $this->_errors = array();
+        set_error_handler(array($this, 'error_handler'));
         $n = "\n";
         $expected = '<select name="foo">'
             . $n . '<option value="1800">Joe Schmoe</option>'
-            . $n . '<option value="9904" selected="selected">Jack Smith</option>'
+            . $n . '<option value="9904">Jack Smith</option>'
             . $n . '<option value="2003">Charlie Brown</option>'
             . $n . '</select>' . $n;
 
@@ -410,7 +418,11 @@ class PluginFunctionHtmlOptionsTests extends PHPUnit_Framework_TestCase {
             2003 => new PluginFunctionHtmlOptionsTests_toString('Charlie Brown'),
         ));
         
-        $this->assertEquals($expected, $tpl->fetch());
+        $tpl->fetch();
+        $this->assertEquals(1, count($this->_errors));
+        $this->assertStringEndsWith("without __toString() method", $this->_errors[0]);
+        
+        restore_error_handler();
     }
 } 
 
