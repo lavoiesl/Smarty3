@@ -134,9 +134,7 @@
 
 {mailto address="me@example.com" encode="javascript_charcode"}
 <script type="text/javascript" language="javascript">
-    <!--
     {document.write(String.fromCharCode(60,97, ... snipped ....60,47,97,62))}
-    //-->
 </script>
 ]]>
 </programlisting>
