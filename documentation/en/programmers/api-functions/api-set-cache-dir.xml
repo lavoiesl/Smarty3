@@ -2,7 +2,7 @@
 <!-- $Revision: 3827 $ -->
 <refentry id="api.set.cache.dir">
  <refnamediv>
-  <refname>setCompileDir()</refname>
+  <refname>setCacheDir()</refname>
   <refpurpose>set the directory where the rendered template's output is stored</refpurpose>
  </refnamediv>
  <refsect1>
