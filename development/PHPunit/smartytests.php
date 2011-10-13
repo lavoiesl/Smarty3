@@ -95,7 +95,8 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
             require_once $class . '.php';
             $suite->addTestSuite($class);
         }
-
+        
+        $_classes = array();
         foreach (new DirectoryIterator(dirname(__FILE__)) as $file) {
             if (!$file->isDot() && !$file->isDir() && (string) $file !== 'smartytests.php' && (string) $file !== 'smartytestssingle.php' && (string) $file !== 'smartytestsfile.php' && substr((string) $file, -4) === '.php') {
                 $class = basename($file, '.php');
@@ -105,11 +106,16 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
                     // that returns true only if all the conditions are met to run it successfully, for example
                     // it can check that an external library is present
                     if (!method_exists($class, 'isRunnable') || call_user_func(array($class, 'isRunnable'))) {
-                        $suite->addTestSuite($class);
+                        $_classes[] = $class;
                     }
                 }
             }
         }
+        sort($_classes);
+        foreach ($_classes as $class) {
+            $suite->addTestSuite($class);
+        }
+        
         return $suite;
     }
 }
