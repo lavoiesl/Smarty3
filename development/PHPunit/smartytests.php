@@ -62,6 +62,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
         $smarty->error_unassigned = true;
         $smarty->caching_type = 'file';
         $smarty->cache_locking = false;
+        $smarty->default_resource_type = 'file';
     }
 
     public static function init()
@@ -95,7 +96,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
             require_once $class . '.php';
             $suite->addTestSuite($class);
         }
-        
+
         $_classes = array();
         foreach (new DirectoryIterator(dirname(__FILE__)) as $file) {
             if (!$file->isDot() && !$file->isDir() && (string) $file !== 'smartytests.php' && (string) $file !== 'smartytestssingle.php' && (string) $file !== 'smartytestsfile.php' && substr((string) $file, -4) === '.php') {
@@ -115,7 +116,7 @@ class SmartyTests extends PHPUnit_Framework_TestSuite {
         foreach ($_classes as $class) {
             $suite->addTestSuite($class);
         }
-        
+
         return $suite;
     }
 }
