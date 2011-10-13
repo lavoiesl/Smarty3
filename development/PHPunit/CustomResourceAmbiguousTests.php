@@ -23,7 +23,11 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
         
         // load and register custom resource handler
         require_once dirname(__FILE__) . '/PHPunitplugins/resource.ambiguous.php';
-        $this->_resource = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        if (isset(Smarty_Resource::$resources['ambiguous'])) {
+            $this->_resource = Smarty_Resource::$resources['ambiguous'];
+        } else {
+            $this->_resource = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        }
         $this->smarty->registerResource('ambiguous', $this->_resource);
         $this->smarty->default_resource_type = 'ambiguous';
     }

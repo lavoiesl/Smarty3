@@ -5,7 +5,6 @@
  * @package PHPunit
  * @author Uwe Tews
  */
-require_once 'PHPUnit/Framework.php';
 
 define ('SMARTY_DIR', '../../distribution/libs/');
 
