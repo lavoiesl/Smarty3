@@ -1,9 +1,9 @@
-STYLESHEETS_DIR = /usr/share/xml/docbook/stylesheet/docbook-xsl
-PHP = /usr/bin/php
+STYLESHEETS_DIR = /opt/local/share/xsl/docbook-xsl/
+PHP = /opt/local/bin/php
 ZIP = /usr/bin/zip
-FOP = /usr/bin/fop
-XMLTO = /usr/bin/xmlto
-XSLTPROC = /usr/bin/xsltproc
+FOP = /opt/local/bin/fop
+XMLTO = /opt/local/bin/xmlto
+XSLTPROC = /opt/local/bin/xsltproc
 WINE = /usr/bin/wine
 LANG = en
 LANGS_AVAIL = de en es fr it ja pt_BR ru
