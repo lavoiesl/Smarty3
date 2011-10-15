@@ -14,6 +14,8 @@ class CacheResourceFileTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty = SmartyTests::$smarty;
         $this->smartyBC = SmartyTests::$smartyBC;
+        // reset cache for unit test
+        Smarty_CacheResource::$resources = array();
         SmartyTests::init();
     }
 
@@ -411,6 +413,30 @@ class CacheResourceFileTests extends PHPUnit_Framework_TestCase {
         $this->assertFalse(file_exists($tpl3->cached->filepath));
         $this->assertTrue(file_exists($tpl4->cached->filepath));
     }
+    
+    public function testSharing()
+    {
+        $smarty = new Smarty();
+        $smarty->caching = true;
+        $_smarty = clone $smarty;
+        $smarty->fetch('string:foo');
+        $_smarty->fetch('string:foo');
+        
+        $this->assertTrue($smarty->_cacheresource_handlers['file'] === $_smarty->_cacheresource_handlers['file']);
+    }
+    
+    public function testExplicit()
+    {
+        $smarty = new Smarty();
+        $smarty->caching = true;
+        $_smarty = clone $smarty;
+        $smarty->fetch('string:foo');
+        $_smarty->registerCacheResource('file', new Smarty_Internal_CacheResource_File());
+        $_smarty->fetch('string:foo');
+
+        $this->assertFalse($smarty->_cacheresource_handlers['file'] === $_smarty->_cacheresource_handlers['file']);
+    }
+    
     /**
     * final cleanup
     */

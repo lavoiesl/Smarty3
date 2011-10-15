@@ -6,6 +6,7 @@
 * @author Uwe Tews
 */
 
+require_once dirname(__FILE__) . '/PHPunitplugins/resource.ambiguous.php';
 
 /**
 * class for file resource tests
@@ -21,15 +22,9 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
         // empty the template dir
         $this->smarty->setTemplateDir(array());
         
-        // load and register custom resource handler
-        require_once dirname(__FILE__) . '/PHPunitplugins/resource.ambiguous.php';
-        if (isset(Smarty_Resource::$resources['ambiguous'])) {
-            $this->_resource = Smarty_Resource::$resources['ambiguous'];
-        } else {
-            $this->_resource = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
-        }
-        $this->smarty->registerResource('ambiguous', $this->_resource);
-        $this->smarty->default_resource_type = 'ambiguous';
+        // kill cache for unit test
+        Smarty_Resource::$resources = array();
+        $this->smarty->_resource_handlers = array();
     }
 
     public static function isRunnable()
@@ -48,13 +43,22 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
 
     public function testNone()
     {
+        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $this->smarty->registerResource('ambiguous', $resource_handler);
+        $this->smarty->default_resource_type = 'ambiguous';
+        
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertFalse($tpl->source->exists);
     }
     
     public function testCase1()
     {
-        $this->_resource->setSegment('case1');
+        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $this->smarty->registerResource('ambiguous', $resource_handler);
+        $this->smarty->default_resource_type = 'ambiguous';
+        
+        $resource_handler->setSegment('case1');
+        
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
         $this->assertEquals('case1', $tpl->source->content);
@@ -62,7 +66,12 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
     
     public function testCase2()
     {
-        $this->_resource->setSegment('case2');
+        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $this->smarty->registerResource('ambiguous', $resource_handler);
+        $this->smarty->default_resource_type = 'ambiguous';
+        
+        $resource_handler->setSegment('case2');
+        
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
         $this->assertEquals('case2', $tpl->source->content);
@@ -70,12 +79,16 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
     
     public function testCaseSwitching()
     {
-        $this->_resource->setSegment('case1');
+        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $this->smarty->registerResource('ambiguous', $resource_handler);
+        $this->smarty->default_resource_type = 'ambiguous';
+        
+        $resource_handler->setSegment('case1');
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
         $this->assertEquals('case1', $tpl->source->content);
         
-        $this->_resource->setSegment('case2');
+        $resource_handler->setSegment('case2');
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
         $this->assertEquals('case2', $tpl->source->content);

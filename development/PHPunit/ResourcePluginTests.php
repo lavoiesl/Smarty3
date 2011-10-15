@@ -13,6 +13,8 @@ class ResourcePluginTests extends PHPUnit_Framework_TestCase {
     public function setUp()
     {
         $this->smarty = SmartyTests::$smarty;
+        // reset cache for unit test
+        Smarty_Resource::$resources = array();
         SmartyTests::init();
     } 
 
@@ -160,6 +162,29 @@ class ResourcePluginTests extends PHPUnit_Framework_TestCase {
         
         $expected = "templates\ntemplates";
         $this->assertEquals($expected, $this->smarty->fetch('extendsall:extendsall2.tpl'));
+    }
+    
+    public function testSharing()
+    {
+        $smarty = new Smarty();
+        $smarty->_resource_handlers = array();
+        $_smarty = clone $smarty;
+        $smarty->fetch('eval:foo');
+        $_smarty->fetch('eval:foo');
+        
+        $this->assertTrue($smarty->_resource_handlers['eval'] === $_smarty->_resource_handlers['eval']);
+    }
+    
+    public function testExplicit()
+    {
+        $smarty = new Smarty();
+        $smarty->_resource_handlers = array();
+        $_smarty = clone $smarty;
+        $smarty->fetch('eval:foo');
+        $_smarty->registerResource('eval', new Smarty_Internal_Resource_Eval());
+        $_smarty->fetch('eval:foo');
+        
+        $this->assertFalse($smarty->_resource_handlers['eval'] === $_smarty->_resource_handlers['eval']);
     }
 } 
 
