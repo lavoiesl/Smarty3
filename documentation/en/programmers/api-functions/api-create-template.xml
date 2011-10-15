@@ -8,24 +8,24 @@
  <refsect1>
   <title>Description</title>
   <methodsynopsis>
-   <type>string</type><methodname>createTemplate</methodname>
+   <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
    <methodparam><type>string</type><parameter>template</parameter></methodparam>
    <methodparam choice="opt"><type>object</type><parameter>parent</parameter></methodparam>
   </methodsynopsis>
   <methodsynopsis>
-    <type>string</type><methodname>createTemplate</methodname>
+    <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
     <methodparam><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>array</type><parameter>data</parameter></methodparam>
    </methodsynopsis>
    <methodsynopsis>
-    <type>string</type><methodname>createTemplate</methodname>
+    <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
     <methodparam><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
     <methodparam choice="opt"><type>object</type><parameter>parent</parameter></methodparam>
    </methodsynopsis>
    <methodsynopsis>
-    <type>string</type><methodname>createTemplate</methodname>
+    <type>Smarty_Internal_Template</type><methodname>createTemplate</methodname>
     <methodparam><type>string</type><parameter>template</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>cache_id</parameter></methodparam>
     <methodparam choice="opt"><type>string</type><parameter>compile_id</parameter></methodparam>
