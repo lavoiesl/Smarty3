@@ -2,7 +2,22 @@
 <!-- $Revision$ -->
 <sect1 id="language.function.insert">
  <title>{insert}</title>
+ 
+ <note>
+  <title>IMPORTANT NOTICE</title>
   <para>
+   <varname>{insert}</varname> tags are deprecated from Smarty, and should not be used. Put your
+   PHP logic in PHP scripts or plugin functions instead.
+  </para>
+ </note> 
+ 
+ <note>
+  <para>
+   As of Smarty 3.1 the <varname>{insert}</varname> tags are only available from <link linkend="bc">SmartyBC</link>.
+  </para>
+ </note>
+ 
+ <para>
    <varname>{insert}</varname> tags work much like <link
    linkend="language.function.include"><varname>{include}</varname></link> tags,
    except that <varname>{insert}</varname> tags are NOT cached when
