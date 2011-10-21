@@ -46,6 +46,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
         $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
+        $this->smarty->allow_ambiguous_resources = true;
         
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertFalse($tpl->source->exists);
@@ -56,6 +57,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
         $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
+        $this->smarty->allow_ambiguous_resources = true;
         
         $resource_handler->setSegment('case1');
         
@@ -69,6 +71,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
         $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
+        $this->smarty->allow_ambiguous_resources = true;
         
         $resource_handler->setSegment('case2');
         
@@ -82,6 +85,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
         $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->default_resource_type = 'ambiguous';
+        $this->smarty->allow_ambiguous_resources = true;
         
         $resource_handler->setSegment('case1');
         $tpl = $this->smarty->createTemplate('foobar.tpl');
@@ -101,6 +105,7 @@ class CustomResourceAmbiguousTests extends PHPUnit_Framework_TestCase {
     {
         $this->smarty->clearCompiledTemplate();
         $this->smarty->clearAllCache();
+        $this->smarty->allow_ambiguous_resources = false;
     }
 }
 
