@@ -37,14 +37,14 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         if (!$directory) {
             return;
         }
-        
+
         $di = new RecursiveDirectoryIterator($directory);
         // $it = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST | FilesystemIterator::SKIP_DOTS);
         $it = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($it as $file) {
-            $_file = $file->__toString();
+           $_file = $file->__toString();
 
-            if (preg_match("#[\\/]\.#", $_file)) {
+            if (preg_match("#[\\\\/]\.#", $_file)) {
                 continue;
             }
 
@@ -84,10 +84,10 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
                 $this->_files[$template . '#' . $compile_id] = substr($tpl->compiled->filepath, $directory_length - 1);
             }
         }
-        
+
         Smarty_Resource::$sources = array();
         $this->smarty->template_objects = array();
-        
+
         return $this->_files;
     }
     /**
@@ -144,7 +144,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         foreach ($it as $file) {
             $_file = $file->__toString();
             // skip anything with a /. in it.
-            if (preg_match("#[\\/]\.#", $_file) || !$file->isFile()) {
+            if (preg_match("#[\\\\/]\.#", $_file) || !$file->isFile()) {
                 continue;
             }
 
@@ -153,7 +153,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         sort($files);
         return $files;
     }
-    
+
 
     // Smarty::clearCompiledTemplate(null, null, null)
     public function testClearAll()
@@ -169,14 +169,14 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->smarty->use_sub_dirs = $use_sub_dirs;
         $this->clearFiles();
         $this->makeFiles();
-        
+
         $expected = array();
         $this->assertEquals(12, $this->smarty->clearCompiledTemplate());
 
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
     // Smarty::clearCompiledTemplate($template, null, null)
     public function testClearTemplate()
     {
@@ -199,9 +199,9 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->smarty->use_sub_dirs = $use_sub_dirs;
         $this->clearFiles();
         $this->makeFiles();
-        
+
         $expected = array(
-            'helloworld2.tpl#', 'helloworld2.tpl#compile1', 'helloworld2.tpl#compile2', 
+            'helloworld2.tpl#', 'helloworld2.tpl#compile1', 'helloworld2.tpl#compile2',
             'ambiguous/case1/foobar.tpl#', 'ambiguous/case1/foobar.tpl#compile1', 'ambiguous/case1/foobar.tpl#compile2',
             '[1]ambiguous/case1/foobar.tpl#', '[1]ambiguous/case1/foobar.tpl#compile1', '[1]ambiguous/case1/foobar.tpl#compile2',
         );
@@ -215,14 +215,14 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->smarty->use_sub_dirs = $use_sub_dirs;
         $this->clearFiles();
         $this->makeFiles();
-        
+
         $expected = array_keys($this->_files);
         $this->assertEquals(0, $this->smarty->clearCompiledTemplate('foobar.tpl'));
-        
+
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
     // Smarty::clearCompiledTemplate(null, $cache_id, null)
     public function testClearCompileid()
     {
@@ -245,7 +245,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->smarty->use_sub_dirs = $use_sub_dirs;
         $this->clearFiles();
         $this->makeFiles();
-        
+
         $expected = array(
             'helloworld.tpl#', 'helloworld.tpl#compile2',
             'helloworld2.tpl#', 'helloworld2.tpl#compile2',
@@ -256,21 +256,21 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
-        
+
     }
     public function runClearOtherCompileid($use_sub_dirs)
     {
         $this->smarty->use_sub_dirs = $use_sub_dirs;
         $this->clearFiles();
         $this->makeFiles();
-        
+
         $expected = array_keys($this->_files);
         $this->assertEquals(0, $this->smarty->clearCompiledTemplate(null, 'other'));
-        
+
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
     // Smarty::clearCompiledTemplate(null, null, $expired)
     public function testClearExpired()
     {
@@ -285,7 +285,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->smarty->use_sub_dirs = $use_sub_dirs;
         $this->clearFiles();
         $this->makeFiles();
-        
+
         $expected = array('helloworld.tpl#', 'helloworld2.tpl#');
         $this->touchFiles(array_diff(array_keys($this->_files), $expected), -1000);
         $this->assertEquals(10, $this->smarty->clearCompiledTemplate(null, null, 500));
@@ -310,7 +310,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->makeFiles();
 
         $expected = array(
-            'helloworld.tpl#', 'helloworld.tpl#compile2', 
+            'helloworld.tpl#', 'helloworld.tpl#compile2',
             'helloworld2.tpl#', 'helloworld2.tpl#compile1', 'helloworld2.tpl#compile2',
             'ambiguous/case1/foobar.tpl#', 'ambiguous/case1/foobar.tpl#compile1', 'ambiguous/case1/foobar.tpl#compile2',
             '[1]ambiguous/case1/foobar.tpl#', '[1]ambiguous/case1/foobar.tpl#compile1', '[1]ambiguous/case1/foobar.tpl#compile2',
@@ -321,7 +321,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
     // Smarty::clearCompiledTemplate($template, $cache_id, $expired)
     public function testClearTemplateCacheidExpired()
     {
@@ -338,7 +338,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->makeFiles();
 
         $expected = array(
-            'helloworld.tpl#', 'helloworld.tpl#compile2', 
+            'helloworld.tpl#', 'helloworld.tpl#compile2',
             'helloworld2.tpl#', 'helloworld2.tpl#compile1', 'helloworld2.tpl#compile2',
             'ambiguous/case1/foobar.tpl#', 'ambiguous/case1/foobar.tpl#compile1', 'ambiguous/case1/foobar.tpl#compile2',
             '[1]ambiguous/case1/foobar.tpl#', '[1]ambiguous/case1/foobar.tpl#compile1', '[1]ambiguous/case1/foobar.tpl#compile2',
@@ -349,7 +349,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
     // Smarty::clearCompiledTemplate(null, $cache_id, $expired)
     public function testClearCacheidExpired()
     {
@@ -366,7 +366,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->makeFiles();
 
         $expected = array(
-            'helloworld.tpl#', 'helloworld.tpl#compile2', 
+            'helloworld.tpl#', 'helloworld.tpl#compile2',
             'helloworld2.tpl#', 'helloworld2.tpl#compile1', 'helloworld2.tpl#compile2',
             'ambiguous/case1/foobar.tpl#', 'ambiguous/case1/foobar.tpl#compile1', 'ambiguous/case1/foobar.tpl#compile2',
             '[1]ambiguous/case1/foobar.tpl#', '[1]ambiguous/case1/foobar.tpl#compile1', '[1]ambiguous/case1/foobar.tpl#compile2',
@@ -377,7 +377,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
     // Smarty::clearCompiledTemplate($template, $cache_id, null)
     public function testClearTemplateCacheid()
     {
@@ -394,7 +394,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->makeFiles();
 
         $expected = array(
-            'helloworld.tpl#', 'helloworld.tpl#compile2', 
+            'helloworld.tpl#', 'helloworld.tpl#compile2',
             'helloworld2.tpl#', 'helloworld2.tpl#compile1', 'helloworld2.tpl#compile2',
             'ambiguous/case1/foobar.tpl#', 'ambiguous/case1/foobar.tpl#compile1', 'ambiguous/case1/foobar.tpl#compile2',
             '[1]ambiguous/case1/foobar.tpl#', '[1]ambiguous/case1/foobar.tpl#compile1', '[1]ambiguous/case1/foobar.tpl#compile2',
@@ -404,7 +404,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
     public function testClearAmbiguousTemplate()
     {
         $this->runClearAmbiguousTemplate(false);
@@ -418,12 +418,12 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->smarty->use_sub_dirs = $use_sub_dirs;
         $this->clearFiles();
         $this->makeFiles();
-        
+
         // TODO: uwe.tews - shouldn't clearCompiledTemplate("foo.tpl") remove "{$template_dir[0]}/foo.tpl" AND "{$template_dir[1]}/foo.tpl"?
         // currently it kills only the first one found (through regular template file identification methods)
 
         $expected = array(
-            'helloworld.tpl#', 'helloworld.tpl#compile1', 'helloworld.tpl#compile2', 
+            'helloworld.tpl#', 'helloworld.tpl#compile1', 'helloworld.tpl#compile2',
             'helloworld2.tpl#', 'helloworld2.tpl#compile1', 'helloworld2.tpl#compile2',
             '[1]ambiguous/case1/foobar.tpl#', '[1]ambiguous/case1/foobar.tpl#compile1', '[1]ambiguous/case1/foobar.tpl#compile2',
         );
@@ -432,7 +432,7 @@ class ClearCompiledTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->expectFiles($expected), $this->getFiles());
         $this->clearFiles();
     }
-    
+
 }
 
 ?>
