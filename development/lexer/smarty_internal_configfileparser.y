@@ -69,8 +69,7 @@
     }
 
     private static function parse_tripple_double_quoted_string($qstr) {
-        $inner_str = substr($qstr, 3, strlen($qstr)-6);
-        return stripcslashes($inner_str);
+        return stripcslashes($qstr);
     }
 
     private function set_var(Array $var, Array &$target_array) {
@@ -199,12 +198,23 @@ value(res) ::= DOUBLE_QUOTED_STRING(i). {
     res = self::parse_double_quoted_string(i);
 }
 
-value(res) ::= TRIPPLE_DOUBLE_QUOTED_STRING(i). {
-    res = self::parse_tripple_double_quoted_string(i);
+value(res) ::= TRIPPLE_QUOTES(i) tripple_content(c) TRIPPLE_QUOTES_END(ii). {
+    res = self::parse_tripple_double_quoted_string(c);
 }
 
 value(res) ::= NAKED_STRING(i). {
     res = i;
+}
+
+// content of tripple quoted strings
+tripple_content(res) ::= tripple_content(c1) TRIPPLE_CONTENT(c2). {
+    res = c1 . c2;
+}
+tripple_content(res) ::= TRIPPLE_CONTENT(c1). {
+    res = c1;
+}
+tripple_content(res) ::= . {
+    res = '';
 }
 
 
