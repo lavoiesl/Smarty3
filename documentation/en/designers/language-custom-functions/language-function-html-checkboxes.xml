@@ -90,6 +90,13 @@
      <entry><emphasis>&false;</emphasis></entry>
      <entry>Add id-attributes to &lt;label&gt; and &lt;input&gt; to the output</entry>
     </row>
+    <row>
+     <entry>escape</entry>
+     <entry>boolean</entry>
+     <entry>No</entry>
+     <entry><emphasis>&true;</emphasis></entry>
+     <entry>Escape the output / content (values are always escaped)</entry>
+    </row>
    </tbody>
   </tgroup>
  </informaltable>
