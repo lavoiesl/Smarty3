@@ -11,14 +11,13 @@
     <funcsynopsis>
      <funcprototype>
       <funcdef>mixed <function>smarty_compiler_<replaceable>name</replaceable></function></funcdef>
-      <paramdef>string <parameter>$tag_arg</parameter></paramdef>
-      <paramdef>object <parameter>$template</parameter></paramdef>
+      <paramdef>array <parameter>$params</parameter></paramdef>
+      <paramdef>object <parameter>$smarty</parameter></paramdef>
      </funcprototype>
     </funcsynopsis>
     <para>
-     The compiler function is passed three parameters: the tag argument
-     string - basically, everything from the function name until the ending
-     delimiter, the Smarty and template object. It's supposed to return the code
+     The compiler function is passed two parameters: the params array which contains precompiled
+     strings for the attribute values and the Smarty object. It's supposed to return the code
      to be injected into the compiled template including the surrounding PHP tags.
     </para>
 
@@ -37,7 +36,7 @@
  *           the time it was compiled.
  * -------------------------------------------------------------
  */
-function smarty_compiler_tplheader($tag_arg, Smarty_Internal_Template $template)
+function smarty_compiler_tplheader($params, Smarty $smarty)
 {
     return "<?php\necho '" . $smarty->_current_file . " compiled at " . date('Y-m-d H:M'). "';\n?>";
 }
