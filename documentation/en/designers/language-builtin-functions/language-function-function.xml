@@ -27,8 +27,9 @@
    <listitem><para>
   Default values for variables can be passed to the template function as
   <link linkend="language.syntax.attributes">attributes</link>.
+ Like in PHP function declarations you can only use scalar values as default.
  The default values can be overwritten when the template function is being
- called..
+ called.
  </para></listitem>
 
  <listitem><para>
@@ -75,6 +76,12 @@
   </tgroup>
  </informaltable>
 
+ <note><para>
+  You can pass any number of paramter to the template function when it is called. The parameter variables
+  must not be declared in the <literal>{funcname ...}</literal> tag unless you what to use default values.
+  Default values must be scalar and can not be variable. Variables must be passed when the template is called.
+ </para></note>
+ 
  <example>
   <title>Recursive menu {function} example</title>
   <programlisting>
