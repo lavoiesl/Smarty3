@@ -77,7 +77,7 @@
  </informaltable>
 
  <note><para>
-  You can pass any number of paramter to the template function when it is called. The parameter variables
+  You can pass any number of parameter to the template function when it is called. The parameter variables
   must not be declared in the <literal>{funcname ...}</literal> tag unless you what to use default values.
   Default values must be scalar and can not be variable. Variables must be passed when the template is called.
  </para></note>
