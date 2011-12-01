@@ -84,13 +84,6 @@ class IndexedFileResourceTests extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function testGetCachedFilepathCachingDisabled()
-    {
-        $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertFalse($tpl->cached->filepath);
-    }
-
-
     public function testGetCachedFilepath()
     {
         $this->smarty->caching = true;

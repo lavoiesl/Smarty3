@@ -110,14 +110,6 @@ class StringResourceTests extends PHPUnit_Framework_TestCase {
         $this->assertFalse($tpl->compiled->timestamp);
     }
     /**
-    * test getCachedFilepath
-    */
-    public function testGetCachedFilepath()
-    {
-        $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertFalse($tpl->cached->filepath);
-    }
-    /**
     * test getCachedTimestamp
     */
     public function testGetCachedTimestamp()

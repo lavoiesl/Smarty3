@@ -96,15 +96,6 @@ class PhpResourceTests extends PHPUnit_Framework_TestCase {
         $this->assertFalse($tpl->mustCompile());
     }
     /**
-    * test getCachedFilepath if caching disabled
-    */
-    public function testGetCachedFilepathCachingDisabled()
-    {
-        $this->smarty->allow_php_templates = true;
-        $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $this->assertFalse($tpl->cached->filepath);
-    }
-    /**
     * test getCachedFilepath
     */
     public function testGetCachedFilepath()
@@ -127,15 +118,6 @@ class PhpResourceTests extends PHPUnit_Framework_TestCase {
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
         $this->assertContains('php hello world', $this->smarty->fetch($tpl));
-    }
-    /**
-    * test getCachedTimestamp caching disabled
-    */
-    public function testGetCachedTimestampCachingDisabled()
-    {
-        $this->smarty->caching = false;
-        $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $this->assertFalse($tpl->cached->timestamp);
     }
     /**
     * test getCachedTimestamp caching enabled
