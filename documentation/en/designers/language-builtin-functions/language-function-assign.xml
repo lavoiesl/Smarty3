@@ -167,7 +167,7 @@ The value of $name is Bob.
  
  <example>
   <title>{assign} a global variable</title>
-  <para>A glkobal variable is seen by all templates.</para>
+  <para>A global variable is seen by all templates.</para>
   <programlisting>
 <![CDATA[
 {assign var=foo value="bar" scope="global"}
