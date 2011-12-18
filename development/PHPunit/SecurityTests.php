@@ -322,7 +322,35 @@ class SecurityTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals("templates_3", $this->smarty->fetch('eval:{include file="templates_3/dirname.tpl"}'));
     }
 
+    public function testTrustedUri()
+    {
+        $this->smarty->security_policy->trusted_uri = array(
+            '#^http://.+smarty\.net$#i'
+        );
+
+        try {
+            $this->smarty->fetch('eval:{fetch file="http://www.smarty.net/foo.bar"}');
+        } catch (SmartyException $e) {
+            $this->assertNotContains("not allowed by security setting", $e->getMessage());
+        }
+
+        try {
+            $this->smarty->fetch('eval:{fetch file="https://www.smarty.net/foo.bar"}');
+            $this->fail("Exception for unknown resource not thrown (protocol)");
+        } catch (SmartyException $e) {
+            $this->assertContains("not allowed by security setting", $e->getMessage());
+        }
+        
+        try {
+            $this->smarty->fetch('eval:{fetch file="http://www.smarty.com/foo.bar"}');
+            $this->fail("Exception for unknown resource not thrown (domain)");
+        } catch (SmartyException $e) {
+            $this->assertContains("not allowed by security setting", $e->getMessage());
+        }
+    }
+    
 }
+
 class mysecuritystaticclass {
     const STATIC_CONSTANT_VALUE = 3;
     public static $static_var = 5;
