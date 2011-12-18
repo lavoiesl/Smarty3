@@ -198,23 +198,22 @@ value(res) ::= DOUBLE_QUOTED_STRING(i). {
     res = self::parse_double_quoted_string(i);
 }
 
-value(res) ::= TRIPPLE_QUOTES(i) tripple_content(c) TRIPPLE_QUOTES_END(ii). {
+value(res) ::= TRIPPLE_QUOTES(i) TRIPPLE_TEXT(c) TRIPPLE_QUOTES_END(ii). {
     res = self::parse_tripple_double_quoted_string(c);
+}
+
+value(res) ::= TRIPPLE_QUOTES(i) TRIPPLE_QUOTES_END(ii). {
+    res = '';
 }
 
 value(res) ::= NAKED_STRING(i). {
     res = i;
 }
 
-// content of tripple quoted strings
-tripple_content(res) ::= tripple_content(c1) TRIPPLE_CONTENT(c2). {
-    res = c1 . c2;
-}
-tripple_content(res) ::= TRIPPLE_CONTENT(c1). {
-    res = c1;
-}
-tripple_content(res) ::= . {
-    res = '';
+// NOTE: this is not a valid rule
+// It is added hier to produce a usefull error message on a missing '=';
+value(res) ::= OTHER(i). {
+    res = i;
 }
 
 
