@@ -30,11 +30,11 @@ class PluginModifierCountCharactersTests extends PHPUnit_Framework_TestCase {
     
     public function testDefaultWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $result = "29";
         $tpl = $this->smarty->createTemplate('eval:{"Cold Wave Linked to Temperatures."|count_characters}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
 
@@ -47,11 +47,11 @@ class PluginModifierCountCharactersTests extends PHPUnit_Framework_TestCase {
     
     public function testSpacesWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $result = "33";
         $tpl = $this->smarty->createTemplate('eval:{"Cold Wave Linked to Temperatures."|count_characters:true}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
 
 
@@ -64,11 +64,11 @@ class PluginModifierCountCharactersTests extends PHPUnit_Framework_TestCase {
     
     public function testUmlautsWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $result = "29";
         $tpl = $this->smarty->createTemplate('eval:{"Cold Wäve Linked tö Temperatures."|count_characters}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
 
 	
@@ -81,11 +81,11 @@ class PluginModifierCountCharactersTests extends PHPUnit_Framework_TestCase {
     
     public function testUmlautsSpacesWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $result = "33";
         $tpl = $this->smarty->createTemplate('eval:{"Cold Wäve Linked tö Temperatures."|count_characters:true}');
         $this->assertNotEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
 } 
 

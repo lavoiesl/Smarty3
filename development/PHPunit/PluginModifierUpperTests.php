@@ -30,11 +30,11 @@ class PluginModifierUpperTests extends PHPUnit_Framework_TestCase {
     
     public function testDefaultWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $result = "IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.";
         $tpl = $this->smarty->createTemplate('eval:{"If Strike isn\'t Settled Quickly it may Last a While."|upper}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
 
@@ -47,11 +47,11 @@ class PluginModifierUpperTests extends PHPUnit_Framework_TestCase {
     
     public function testUmlautsWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $result = "IF STRIKE ISN'T SÄTTLED ÜQUICKLY IT MAY LAST A WHILE.";
         $tpl = $this->smarty->createTemplate('eval:{"If Strike isn\'t Sättled ÜQuickly it may Last a While."|upper}');
         $this->assertNotEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
 
 } 

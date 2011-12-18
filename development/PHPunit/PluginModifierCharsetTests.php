@@ -19,80 +19,80 @@ class PluginModifierCharsetTests extends PHPUnit_Framework_TestCase {
     public static function isRunnable()
     {
         return true;
-    } 
+    }
 
     public function testToLatin1()
     {
-        $encoded = "hällö wörld";
+        $encoded = "hällö wörld 1";
         $result = utf8_decode($encoded);
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|to_charset}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
+        $this->assertEquals($result, $tpl->fetch());
     }
     
     public function testToLatin1WithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
-        $encoded = "hällö wörld";
+        Smarty::$_MBSTRING = false;
+        $encoded = "hällö wörld 2";
         $result = utf8_decode($encoded);
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|to_charset}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        $this->assertEquals($encoded, $tpl->fetch());
+        Smarty::$_MBSTRING = true;
     }
     
     public function testFromLatin1()
     {
-        $result = "hällö wörld";
+        $result = "hällö wörld 3";
         $encoded = utf8_decode($result);
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|from_charset}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
+        $this->assertEquals($result, $tpl->fetch());
     }
     
     public function testFromLatin1WithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
-        $result = "hällö wörld";
+        Smarty::$_MBSTRING = false;
+        $result = "hällö wörld 4";
         $encoded = utf8_decode($result);
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|from_charset}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        $this->assertEquals($encoded, $tpl->fetch());
+        Smarty::$_MBSTRING = true;
     }
     
     
     public function testFromUtf32le()
     {
-        $result = "hällö wörld";
+        $result = "hällö wörld 5";
         $encoded = mb_convert_encoding($result, "UTF-32LE", "UTF-8");
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|from_charset:"UTF-32LE"}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
+        $this->assertEquals($result, $tpl->fetch());
     }
     
     public function testFromUtf32leWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
-        $result = "hällö wörld";
+        Smarty::$_MBSTRING = false;
+        $result = "hällö wörld 6";
         $encoded = mb_convert_encoding($result, "UTF-32LE", "UTF-8");
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|from_charset:"UTF-32LE"}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        $this->assertEquals($encoded, $tpl->fetch());
+        Smarty::$_MBSTRING = true;
     }
     
     
     public function testToUtf32le()
     {
-        $encoded = "hällö wörld";
+        $encoded = "hällö wörld 7";
         $result = mb_convert_encoding($encoded, "UTF-32LE", "UTF-8");
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|to_charset:"UTF-32LE"}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
+        $this->assertEquals($result, $tpl->fetch());
     }
     
     public function testToUtf32leWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
-        $encoded = "hällö wörld";
+        Smarty::$_MBSTRING = false;
+        $encoded = "hällö wörld 8";
         $result = mb_convert_encoding($encoded, "UTF-32LE", "UTF-8");
         $tpl = $this->smarty->createTemplate('eval:{"' . $encoded . '"|to_charset:"UTF-32LE"}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        $this->assertEquals($encoded, $tpl->fetch());
+        Smarty::$_MBSTRING = true;
     }
 } 
 

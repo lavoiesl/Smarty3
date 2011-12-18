@@ -33,14 +33,14 @@ class PluginModifierCountSentencesTests extends PHPUnit_Framework_TestCase {
     
     public function testDefaultWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"hello world."|count_sentences}');
         $this->assertEquals("1", $this->smarty->fetch($tpl));
         $tpl = $this->smarty->createTemplate('eval:{"hello world. I\'m another? Sentence!"|count_sentences}');
         $this->assertEquals("3", $this->smarty->fetch($tpl));
         $tpl = $this->smarty->createTemplate('eval:{"hello world.wrong"|count_sentences}');
         $this->assertEquals("0", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     public function testUmlauts()

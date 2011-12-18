@@ -29,10 +29,10 @@ class PluginModifierWordwrapTests extends PHPUnit_Framework_TestCase {
     
     public function testDefaultWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"Blind woman gets new kidney from dad she hasn\'t seen in years."|wordwrap}');
         $this->assertEquals("Blind woman gets new kidney from dad she hasn't seen in years.", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     public function testDefaultUmlauts()
@@ -49,10 +49,10 @@ class PluginModifierWordwrapTests extends PHPUnit_Framework_TestCase {
     
     public function testLengthWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"Blind woman gets new kidney from dad she hasn\'t seen in years."|wordwrap:30}');
         $this->assertEquals("Blind woman gets new kidney\nfrom dad she hasn't seen in\nyears.", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     public function testBreak()
@@ -63,10 +63,10 @@ class PluginModifierWordwrapTests extends PHPUnit_Framework_TestCase {
     
     public function testBreakWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"Blind woman gets new kidney from dad she hasn\'t seen in years."|wordwrap:30:"<br />\n"}');
         $this->assertEquals("Blind woman gets new kidney<br />\nfrom dad she hasn't seen in<br />\nyears.", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     public function testLong()
@@ -77,10 +77,10 @@ class PluginModifierWordwrapTests extends PHPUnit_Framework_TestCase {
     
     public function testLongWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"Blind woman withaverylongandunpronoucablenameorso gets new kidney from dad she hasn\'t seen in years."|wordwrap:26:"\n"}');
         $this->assertEquals("Blind woman\nwithaverylongandunpronoucablenameorso\ngets new kidney from dad\nshe hasn't seen in years.", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     public function testLongUmlauts()
@@ -97,10 +97,10 @@ class PluginModifierWordwrapTests extends PHPUnit_Framework_TestCase {
     
     public function testLongCutWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"Blind woman withaverylongandunpronoucablenameorso gets new kidney from dad she hasn\'t seen in years."|wordwrap:26:"\n":true}');
         $this->assertEquals("Blind woman\nwithaverylongandunpronouca\nblenameorso gets new\nkidney from dad she hasn't\nseen in years.", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     public function testLongCutUmlauts()
@@ -117,10 +117,10 @@ class PluginModifierWordwrapTests extends PHPUnit_Framework_TestCase {
     
     public function testLinebreaksWithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"Blind woman\ngets new kidney from dad she hasn\'t seen in years."|wordwrap:30}');
         $this->assertEquals("Blind woman\ngets new kidney from dad she\nhasn't seen in years.", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     public function testLinebreaks2()
@@ -135,14 +135,14 @@ class PluginModifierWordwrapTests extends PHPUnit_Framework_TestCase {
     
     public function testLinebreaks2WithoutMbstring()
     {
-        $_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'] = true;
+        Smarty::$_MBSTRING = false;
         $tpl = $this->smarty->createTemplate('eval:{"Blind woman
             gets 
             new kidney from dad she hasn\'t seen in years."|wordwrap:30}');
         $this->assertEquals("Blind woman
             gets 
             new kidney from\ndad she hasn't seen in years.", $this->smarty->fetch($tpl));
-        unset($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING']);
+        Smarty::$_MBSTRING = true;
     }
     
     
