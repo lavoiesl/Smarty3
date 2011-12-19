@@ -59,6 +59,33 @@ These are the possible settings:
     </para>
   </listitem>
   <listitem>
+      <para>
+        <parameter>$trusted_uri</parameter> is an array of regular expressions matching URIs that are considered trusted.
+        This security directive used by <link linkend="language.function.fetch"><varname>{fetch}</varname></link> and
+        <link linkend="language.function.html.image"><varname>{html_image}</varname></link>. URIs passed to these functions
+        are reduced to <literal>{$PROTOCOL}://{$HOSTNAME}</literal> to allow simple regular expressions 
+        (without having to deal with edge cases like authentication-tokens).
+      </para>
+      <para>
+        The expression <literal>'#https?://.*smarty.net$#i'</literal> would allow accessing the follwing URIs:
+        <itemizedlist>
+          <listitem><para><literal>http://smarty.net/foo</literal></para></listitem>
+          <listitem><para><literal>http://smarty.net/foo</literal></para></listitem>
+          <listitem><para><literal>http://www.smarty.net/foo</literal></para></listitem>
+          <listitem><para><literal>http://smarty.net/foo</literal></para></listitem>
+          <listitem><para><literal>https://foo.bar.www.smarty.net/foo/bla?blubb=1</literal></para></listitem>
+        </itemizedlist>
+
+        but deny access to these URIs:
+
+        <itemizedlist>
+            <listitem><para><literal>http://smarty.com/foo</literal> (not matching top-level domain "com")</para></listitem>
+            <listitem><para><literal>ftp://www.smarty.net/foo</literal> (not matching protocol "ftp")</para></listitem>
+            <listitem><para><literal>http://www.smarty.net.otherdomain.com/foo</literal> (not matching end of domain "smarty.net")</para></listitem>
+          </itemizedlist>
+      </para>
+    </listitem>
+  <listitem>
     <para>
       <parameter>$static_classes</parameter> is an array of classes that are considered trusted.
       The default is an empty array which allows access to all static classes. To disable access to
