@@ -165,6 +165,14 @@ class CompileBlockExtendsTests extends PHPUnit_Framework_TestCase {
         $this->assertContains('child title with -grandchild content- here', $result);
     }
     /**
+    * test  grandchild/child/parent template chain with nested {$smarty.block.child}
+    */
+    public function testCompileBlockGrandChildNested3()
+    {
+        $result = $this->smarty->fetch('test_block_grandchild_nested3.tpl');
+        $this->assertContains('child pre -grandchild content- child post', $result);
+    }
+    /**
     * test  child/parent template chain starting in subtempates
     */
     public function testCompileBlockStartSubTemplates()
