@@ -342,7 +342,7 @@ class PHP_LexerGenerator_Parser#line 171 "Parser.php"
         $pattern .= '/' . $this->patternFlags;
         fwrite($this->out, '
         $tokenMap = ' . $tokenindex . ';
-        if (' . $this->counter . ' >= strlen(' . $this->input . ')) {
+        if (' . $this->counter . ' >= ($this->mbstring_overload ? mb_strlen(' . $this->input . ',\'latin1\'): strlen(' . $this->input . '))) {
             return false; // end of input
         }
         ');
@@ -350,9 +350,9 @@ class PHP_LexerGenerator_Parser#line 171 "Parser.php"
             $pattern . 'iS";' . "\n");
         fwrite($this->out, '
         do {
-            if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr(' . $this->input . ', ' .
+            if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr(' . $this->input . ', ' .
              $this->counter .
-                    '), $yymatches) : preg_match($yy_global_pattern,' . $this->input . ', $yymatches, null, ' .
+                    ',2000000000,\'latin1\'), $yymatches) : preg_match($yy_global_pattern,' . $this->input . ', $yymatches, null, ' .
              $this->counter .
                     ')) {
                 $yysubmatches = $yymatches;
@@ -374,7 +374,7 @@ class PHP_LexerGenerator_Parser#line 171 "Parser.php"
                 ' . $this->value . ' = current($yymatches); // token value
                 $r = $this->{\'yy_r' . $ruleindex . '_\' . ' . $this->token . '}($yysubmatches);
                 if ($r === null) {
-                    ' . $this->counter . ' += strlen(' . $this->value . ');
+                    ' . $this->counter . ' += ($this->mbstring_overload ? mb_strlen(' . $this->value . ',\'latin1\'): strlen(' . $this->value . '));
                     ' . $this->line . ' += substr_count(' . $this->value . ', "\n");
                     // accept this token
                     return true;
@@ -383,9 +383,9 @@ class PHP_LexerGenerator_Parser#line 171 "Parser.php"
                     // process this token in the new state
                     return $this->yylex();
                 } elseif ($r === false) {
-                    ' . $this->counter . ' += strlen(' . $this->value . ');
+                    ' . $this->counter . ' += ($this->mbstring_overload ? mb_strlen(' . $this->value . ',\'latin1\'): strlen(' . $this->value . '));
                     ' . $this->line . ' += substr_count(' . $this->value . ', "\n");
-                    if (' . $this->counter . ' >= strlen(' . $this->input . ')) {
+                    if (' . $this->counter . ' >= ($this->mbstring_overload ? mb_strlen(' . $this->input . ',\'latin1\'): strlen(' . $this->input . '))) {
                         return false; // end of input
                     }
                     // skip this token
@@ -432,16 +432,16 @@ class PHP_LexerGenerator_Parser#line 171 "Parser.php"
                         // process this token in the new state
                         return $this->yylex();
                     } elseif ($r === false) {
-                        ' . $this->counter . ' += strlen(' . $this->value . ');
+                        ' . $this->counter . ' += ($this->mbstring_overload ? mb_strlen(' . $this->value . ',\'latin1\'): strlen(' . $this->value . '));
                         ' . $this->line . ' += substr_count(' . $this->value . ', "\n");
-                        if (' . $this->counter . ' >= strlen(' . $this->input . ')) {
+                        if (' . $this->counter . ' >= ($this->mbstring_overload ? mb_strlen(' . $this->input . ',\'latin1\'): strlen(' . $this->input . '))) {
                             return false; // end of input
                         }
                         // skip this token
                         continue;
                     } else {
                         // accept
-                        ' . $this->counter . ' += strlen(' . $this->value . ');
+                        ' . $this->counter . ' += ($this->mbstring_overload ? mb_strlen(' . $this->value . ',\'latin1\'): strlen(' . $this->value . '));
                         ' . $this->line . ' += substr_count(' . $this->value . ', "\n");
                         return true;
                     }
