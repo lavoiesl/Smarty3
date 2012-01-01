@@ -15,7 +15,7 @@ class PluginFunctionHtmlSelectDateTests extends PHPUnit_Framework_TestCase {
         $this->smarty = SmartyTests::$smarty;
         SmartyTests::init();
         
-        $this->now = mktime( 15, 0, 0, 2, 20, 2011 );
+        $this->now = mktime( 15, 0, 0, 2, 20, 2012 );
     } 
     
     public static function isRunnable()
@@ -32,40 +32,42 @@ class PluginFunctionHtmlSelectDateTests extends PHPUnit_Framework_TestCase {
 <option value="2008">2008</option>
 <option value="2009">2009</option>
 <option value="2010">2010</option>
-<option value="2011" selected="selected">2011</option>',
-        'start_+5' => '<option value="2011" selected="selected">2011</option>
-<option value="2012">2012</option>
+<option value="2011">2011</option>
+<option value="2012" selected="selected">2012</option>',
+        'start_+5' => '<option value="2012" selected="selected">2012</option>
 <option value="2013">2013</option>
 <option value="2014">2014</option>
 <option value="2015">2015</option>
-<option value="2016">2016</option>',
-        'start_-5' => '<option value="2006">2006</option>
-<option value="2007">2007</option>
+<option value="2016">2016</option>
+<option value="2017">2017</option>',
+        'start_-5' => '<option value="2007">2007</option>
 <option value="2008">2008</option>
 <option value="2009">2009</option>
 <option value="2010">2010</option>
-<option value="2011" selected="selected">2011</option>',
+<option value="2011">2011</option>
+<option value="2012" selected="selected">2012</option>',
         'end_2005' => '<option value="2005">2005</option>
 <option value="2006">2006</option>
 <option value="2007">2007</option>
 <option value="2008">2008</option>
 <option value="2009">2009</option>
 <option value="2010">2010</option>
-<option value="2011" selected="selected">2011</option>',
-        'end_+5' => '<option value="2011" selected="selected">2011</option>
-<option value="2012">2012</option>
+<option value="2011">2011</option>
+<option value="2012" selected="selected">2012</option>',
+        'end_+5' => '<option value="2012" selected="selected">2012</option>
 <option value="2013">2013</option>
 <option value="2014">2014</option>
 <option value="2015">2015</option>
-<option value="2016">2016</option>',
-        'end_-5' => '<option value="2006">2006</option>
-<option value="2007">2007</option>
+<option value="2016">2016</option>
+<option value="2017">2017</option>',
+        'end_-5' => '<option value="2007">2007</option>
 <option value="2008">2008</option>
 <option value="2009">2009</option>
 <option value="2010">2010</option>
-<option value="2011" selected="selected">2011</option>',
-        'default' => '<option value="2011" selected="selected">2011</option>',
-        'none' => '<option value="2011">2011</option>',
+<option value="2011">2011</option>
+<option value="2012" selected="selected">2012</option>',
+        'default' => '<option value="2012" selected="selected">2012</option>',
+        'none' => '<option value="2012">2012</option>',
     );
     
     protected $months = array(
@@ -540,13 +542,13 @@ class PluginFunctionHtmlSelectDateTests extends PHPUnit_Framework_TestCase {
         $n = "\n";
         $result = '<select name="Date_Month">'.$n. $this->months['default'] .$n.'</select>'
             .$n.'<select name="Date_Day">'.$n. $this->days['default'] .$n.'</select>'
-            .$n.'<input type="text" name="Date_Year" value="2011" size="4" maxlength="4" />';
+            .$n.'<input type="text" name="Date_Year" value="2012" size="4" maxlength="4" />';
         $tpl = $this->smarty->createTemplate('eval:{html_select_date time='. $this->now .' year_as_text=true}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
         
         $result = '<select name="foo_Month">'.$n. $this->months['default'] .$n.'</select>'
             .$n.'<select name="foo_Day">'.$n. $this->days['default'] .$n.'</select>'
-            .$n.'<input type="text" name="foo_Year" value="2011" size="4" maxlength="4" />';
+            .$n.'<input type="text" name="foo_Year" value="2012" size="4" maxlength="4" />';
         $tpl = $this->smarty->createTemplate('eval:{html_select_date time='. $this->now .' year_as_text=true prefix="foo_"}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
     }
@@ -614,7 +616,7 @@ class PluginFunctionHtmlSelectDateTests extends PHPUnit_Framework_TestCase {
             'namorized' => array(
                 'foobar_Month' => '02',
                 'foobar_Day' => '20',
-                'foobar_Year' => '2011',
+                'foobar_Year' => '2012',
             ),
         );
 
